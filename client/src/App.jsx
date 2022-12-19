@@ -4,15 +4,16 @@ import Home from './components/Home.jsx'
 import spotify from './helpers/spotify'
 import { useSelector, useDispatch } from 'react-redux';
 import { setToken, setUserData, setTopTracks, setTopArtists } from './slices/userSlice'
+import { setView } from './slices/viewSlice';
 const {useState, useEffect} = React;
 
 const App = () => {
-  const [view, setView] = useState('Login');
   const params = new URLSearchParams(window.location.search);
   const access_token = params.get('access_token');
   const refresh_token = params.get('refresh_token');
 
-  const user = useSelector((state) => state.user)
+  const view = useSelector((state) => state.view);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   // run useEffect to gather initial data and store it with redux
@@ -20,7 +21,7 @@ const App = () => {
     if (access_token && refresh_token) {
       dispatch(setToken({access_token: access_token, refresh_token: refresh_token}));
 
-      setView('Home');
+      dispatch(setView('Home'));
 
       spotify.getTopTracks(access_token)
         .then((res) => {
@@ -55,7 +56,7 @@ const App = () => {
    *
    */
   const renderView = () => {
-    switch (view) {
+    switch (view.currentView) {
       case 'Login':
         return <Login />;
       case 'Home':

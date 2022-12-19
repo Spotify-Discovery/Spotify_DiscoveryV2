@@ -53,6 +53,4 @@ module.exports.searchByIds = (data, access_token) => {
           return response.data;
         })
     });
-
-
 }
