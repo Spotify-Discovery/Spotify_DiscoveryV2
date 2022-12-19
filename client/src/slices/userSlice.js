@@ -17,15 +17,15 @@ export const userSlice = createSlice({
       state.refresh_token = data.payload.refresh_token;
     },
     setUserData: (state, data) => {
-      state.username = username;
-      state.topArtists = topArtists;
-      state.topTracks = topTracks;
+      state.username = data.payload.username;
+      state.topArtists = data.payload.topArtists;
+      state.topTracks = data.payload.topTracks;
     },
     setTopTracks: (state, data) => {
       state.topTracks = data.payload.topTracks;
     },
-    setTopArtists: (state, topArtists) => {
-      state.topArtists = topArtists;
+    setTopArtists: (state, data) => {
+      state.topArtists = data.payload.topArtists;
     }
   }
 });

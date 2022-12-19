@@ -27,6 +27,20 @@ const spotify = {
     .then((res) => {
       return res.data
     })
+  },
+
+  getTopArtists: async (access_token, timeRange = 'short_term') => {
+    return axios({
+      method: 'get',
+      url: `./topArtists?token=${access_token}&time_range=${timeRange}`,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((res) => {
+      // console.log('toptracks', res.data)
+      return res.data.items
+    })
   }
 }
 export default spotify;

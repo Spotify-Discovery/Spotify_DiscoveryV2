@@ -15,25 +15,28 @@ const App = (props) => {
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch();
 
+  // run useEffect to gather initial data and store it with redux
   useEffect(() => {
     if (access_token && refresh_token) {
-      console.log(refresh_token)
-      dispatch(setToken({access_token: access_token, refresh_token: refresh_token}))
+      dispatch(setToken({access_token: access_token, refresh_token: refresh_token}));
+
       setView('Home');
-      // console.log(spotify.getTopTracks(access_token))
+
       spotify.getTopTracks(access_token)
         .then((res) => {
-          console.log('res', res)
           dispatch(setTopTracks({topTracks: res}))
-        })
-      // dispatch(setTopTracks({topTracks: }))
+        });
+
+      spotify.getTopArtists(access_token)
+        .then((res) => {
+          dispatch(setTopArtists({topArtists: res}))
+        });
 
     }
   }, []);
 
   useEffect(() => {
     console.log(user)
-
   }, [user]);
 
   /**
