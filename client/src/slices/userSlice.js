@@ -4,6 +4,10 @@ const initialState = {
   access_token: null,
   refresh_token: null,
   username: '',
+  email: '',
+  market: '',
+  user_id: '',
+  product: '',
   topArtists: [],
   topTracks: [],
 }
@@ -18,11 +22,13 @@ export const userSlice = createSlice({
     },
     setUserData: (state, data) => {
       state.username = data.payload.username;
-      state.topArtists = data.payload.topArtists;
-      state.topTracks = data.payload.topTracks;
+      state.market = data.payload.market;
+      state.product = data.payload.product;
+      state.email = data.payload.email;
+      state.user_id = data.payload.user_id;
     },
     setTopTracks: (state, data) => {
-      state.topTracks = data.payload.topTracks;
+      state.topTracks = data.payload.topTracks.tracks;
     },
     setTopArtists: (state, data) => {
       state.topArtists = data.payload.topArtists;

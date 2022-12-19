@@ -23,43 +23,36 @@ module.exports.searchById = (array, access_token) => {
     return tracks
   }))
 
-
-  // for (var i = 0; i < array.length; i++) {
-  //   promises.push(
-  //     axios.get(`${SPOTIFY_BASE}search?q=isrc:${array[i].external_ids.isrc}&type=track&limit=1`,
-  //       {
-  //         headers: {
-  //           "Authorization": `Bearer ${access_token}`
-  //         }
-  //       }).then((res) => {
-  //         res.data.tracks.items[0].index = count;
-  //         tracks.push(res.data.tracks.items[0])
-  //       })
-  //   )
-  // }
-
-  // return Promise.all(promises)
-  //   .then((res) => {
-  //     // console.log(tracks)
-  //     return tracks
-  //   })
-  // for (var i = 0; i < array.length; i++) {
-  //   if (array[i].preview_url === null) {
-  //     // console.log('null', i)
-  //     axios.get(`${SPOTIFY_BASE}search?q=isrc:${array[i].external_ids.isrc}&type=track&limit=1`,
-  //       {
-  //         headers: {
-  //           "Authorization": `Bearer ${access_token}`
-  //         }
-  //       }).then((result) => {
-  //         console.log('name:', result.data.tracks.items[0].name, 'url', result.data.tracks.items[0].preview_url, 'index', i)
-  //         // array[i].preview_url = result.data.tracks.items[0].preview_url;
-  //         // console.log('replaced with:', array[i].preview_url)
-  //       })
-  //       .catch(err => console.log(err))
-  //   }
-  // }
-
-  // return array;
 }
 
+module.exports.searchByIds = (data, access_token) => {
+  /**
+   * Spotify's search endpoint is bugged and so we actually need to search each track received from the search by its ID
+   */
+  return axios.get(`${SPOTIFY_BASE}me`, {
+    headers: {
+        "Authorization": `Bearer ${access_token}`
+    }
+  })
+    .then((response) => {
+      //console.log(response);
+      const market = response.data.country;
+
+      let ids = '';
+      data.map((track) => {
+        ids += `${track.id},`
+      });
+      ids = ids.slice(0,-1); // remove last comma
+
+      return axios.get(`${SPOTIFY_BASE}tracks?ids=${ids}&market=${market}`, {
+        headers: {
+            "Authorization": `Bearer ${access_token}`
+        }
+      })
+        .then((response) => {
+          return response.data;
+        })
+    });
+
+
+}

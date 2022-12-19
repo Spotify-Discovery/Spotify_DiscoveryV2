@@ -16,10 +16,23 @@ import axios from "axios"
 
 const spotify = {
 
+  getUserData: async (access_token) => {
+    return axios({
+      method: 'get',
+      url: `./user?token=${access_token}`,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((res) => {
+      return res.data
+    })
+  },
+
   getTopTracks: async (access_token, timeRange = 'short_term') => {
     return axios({
       method: 'get',
-      url: `./topTracks?token=${access_token}&time_range=${timeRange}`,
+      url: `./user/topTracks?token=${access_token}&time_range=${timeRange}`,
       headers: {
         'Content-Type': 'application/json'
       }
@@ -32,7 +45,7 @@ const spotify = {
   getTopArtists: async (access_token, timeRange = 'short_term') => {
     return axios({
       method: 'get',
-      url: `./topArtists?token=${access_token}&time_range=${timeRange}`,
+      url: `./user/topArtists?token=${access_token}&time_range=${timeRange}`,
       headers: {
         'Content-Type': 'application/json'
       }

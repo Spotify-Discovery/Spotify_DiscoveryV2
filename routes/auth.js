@@ -68,7 +68,7 @@ router.get('/login', (req, res) => {
       scope: scopeParam,
       redirect_uri: REDIRECT_URI,
       state: state,
-      show_dialog: true,
+      show_dialog: false,
     })
   );
 });

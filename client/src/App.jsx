@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setToken, setUserData, setTopTracks, setTopArtists } from './slices/userSlice'
 const {useState, useEffect} = React;
 
-const App = (props) => {
+const App = () => {
   const [view, setView] = useState('Login');
   const params = new URLSearchParams(window.location.search);
   const access_token = params.get('access_token');
@@ -24,13 +24,25 @@ const App = (props) => {
 
       spotify.getTopTracks(access_token)
         .then((res) => {
-          dispatch(setTopTracks({topTracks: res}))
+          dispatch(setTopTracks({topTracks: res}));
         });
 
       spotify.getTopArtists(access_token)
         .then((res) => {
           dispatch(setTopArtists({topArtists: res}))
         });
+
+      spotify.getUserData(access_token)
+        .then((res) => {
+          console.log('userdata', res)
+          dispatch(setUserData({
+            username: res.display_name,
+            email: res.email,
+            user_id: res.id,
+            market: res.country,
+            product: res.product
+          }))
+        })
 
     }
   }, []);
