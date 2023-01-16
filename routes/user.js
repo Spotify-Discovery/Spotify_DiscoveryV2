@@ -9,7 +9,7 @@ const SPOTIFY_BASE = 'https://api.spotify.com/v1/';
 /**
  *
  */
-router.get(':token?', (req, res) => {
+router.get(':token', (req, res) => {
   const access_token = req.query.token;
   axios.get(`${SPOTIFY_BASE}me`, {
     headers: {
@@ -25,7 +25,7 @@ router.get(':token?', (req, res) => {
 /**
  *
  */
-router.get('/topTracks:token?:time_range?', (req, res) => {
+router.get('/topTracks:token:time_range?', (req, res) => {
   console.log('topTracks')
   const access_token = req.query.token;
   const time_range = req.query.time_range;
@@ -49,7 +49,7 @@ router.get('/topTracks:token?:time_range?', (req, res) => {
 /**
  *
  */
-router.get('/topArtists:token?:time_range?', (req, res) => {
+router.get('/topArtists:token:time_range?', (req, res) => {
   const access_token = req.query.token;
   const time_range = req.query.time_range;
   console.log(time_range)
