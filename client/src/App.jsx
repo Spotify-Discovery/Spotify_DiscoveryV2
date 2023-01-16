@@ -23,15 +23,15 @@ const App = () => {
 
       dispatch(setView('Home'));
 
-      spotify.getTopTracks(access_token)
-        .then((res) => {
-          dispatch(setTopTracks({topTracks: res}));
-        });
+      // spotify.getTopTracks(access_token)
+      //   .then((res) => {
+      //     dispatch(setTopTracks({topTracks: res}));
+      //   });
 
-      spotify.getTopArtists(access_token)
-        .then((res) => {
-          dispatch(setTopArtists({topArtists: res}))
-        });
+      // spotify.getTopArtists(access_token)
+      //   .then((res) => {
+      //     dispatch(setTopArtists({topArtists: res}))
+      //   });
 
       spotify.getUserData(access_token)
         .then((res) => {

@@ -301,16 +301,63 @@ body {
   color: var(--text-color);
 }
 
+.gallery-leftPointer {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  left: 32px;
+  text-shadow: 0 0 2px var(--main-bg-color);
+  font-size: 100px;
+  color: var(--text-color);
+  z-index: 3;
+  user-select: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.gallery-leftPointer:hover {
+  color: var(--spotify-green);
+  text-shadow: 0 0 5px var(--spotify-green);
+}
+
+.gallery-rightPointer {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  right: 32px;
+  text-shadow: 0 0 2px var(--main-bg-color);
+  font-size: 100px;
+  color: var(--text-color);
+  z-index: 3;
+  user-select: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.gallery-rightPointer:hover {
+  color: var(--spotify-green);
+  text-shadow: 0 0 5px var(--spotify-green);
+}
+
 .top-artists-container {
-  width: 97vw;
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
+  width: 60vw;
   margin-top: 10px;
   height: 300px;
-  overflow-x: scroll;
+  overflow-x: hidden;
   overflow-y: hidden;
   padding-bottom: 20px;
+}
+
+.top-options {
+  position: absolute;
+  height: 300px;
+  width: 60vw;
+}
+
+.top-inner-container {
+  display: inline-flex;
+  gap: 10px;
+  height: 300px;
 }
 
 

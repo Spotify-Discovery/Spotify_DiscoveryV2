@@ -1,6 +1,7 @@
 import React from 'react'
 import Search from './Search.jsx'
-import TopArtistsEntry from './TopLists/TopArtistsEntry.jsx'
+import TopArtistsList from './TopLists/TopArtistList.jsx'
+import WebPlayer from './WebPlayer.jsx'
 import { useSelector } from 'react-redux';
 
 const {useRef, useState} = React;
@@ -29,12 +30,8 @@ const Home = ({handleSearch, handleViewChange}) => {
         </form>
       </div>
 
-      <div className="top-artists-container">
-        {user.topArtists.map((artist) => {
-          return <TopArtistsEntry artist={artist}/>
-        })}
-      </div>
-
+      <TopArtistsList />
+      <WebPlayer />
     </div>
   );
 }
