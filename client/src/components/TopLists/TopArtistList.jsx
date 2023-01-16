@@ -6,7 +6,7 @@ import spotify from '../../helpers/spotify'
 
 const {useState, useEffect} = React;
 
-const TopArtistsList = ({ artist }) => {
+const TopArtistsList = () => {
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
