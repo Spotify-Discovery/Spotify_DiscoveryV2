@@ -306,7 +306,7 @@ body {
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
-  left: 32px;
+  left: -50px;
   text-shadow: 0 0 2px var(--main-bg-color);
   font-size: 100px;
   color: var(--text-color);
@@ -325,7 +325,7 @@ body {
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
-  right: 32px;
+  right: -50px;
   text-shadow: 0 0 2px var(--main-bg-color);
   font-size: 100px;
   color: var(--text-color);
@@ -341,7 +341,7 @@ body {
 }
 
 .top-artists-container {
-  width: 60vw;
+  width: 1190px;
   margin-top: 10px;
   height: 300px;
   overflow-x: hidden;
@@ -352,7 +352,7 @@ body {
 .top-options {
   position: absolute;
   height: 300px;
-  width: 60vw;
+  width: 1190px;
 }
 
 .top-inner-container {
@@ -365,7 +365,7 @@ body {
 .item-info {
   z-index: 2;
   opacity: 0;
-  width: auto;
+  width: 275px;
   display: flex;
   flex-direction: column;
   gap: 5px;

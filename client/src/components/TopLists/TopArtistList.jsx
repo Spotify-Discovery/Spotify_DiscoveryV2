@@ -88,7 +88,6 @@ const TopArtistsList = () => {
         </div>
         <div className="top-inner-container"
           style={{
-            whiteSpace: 'nowrap',
             transition: 'transform 0.3s',
             transform: `translateX(-${currentIndex * 900}px)`,
           }}>
