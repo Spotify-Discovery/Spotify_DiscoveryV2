@@ -70,6 +70,7 @@ body {
 }
 
 .title-home {
+  font-weight: bold;
   font-size: 36px;
   color: var(--text-color);
 }
@@ -78,7 +79,7 @@ body {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  width: 755px;
+  width: 1190px;
 }
 
 .text {

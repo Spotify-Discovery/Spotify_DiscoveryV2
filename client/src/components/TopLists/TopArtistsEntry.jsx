@@ -1,14 +1,8 @@
 import React from 'react';
 
+
 const TopArtistsEntry = ({ artist }) => {
-  const pictureStyle = {
-    backgroundImage: `url(${artist.images[2].url})`,
-    height: '150px',
-    width: '150px',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    borderRadius: '20px'
-  }
+
   const containerStyle = {
     backgroundImage: `url(${artist.images[1].url})`,
     backgroundSize: 'cover',
@@ -29,3 +23,12 @@ const TopArtistsEntry = ({ artist }) => {
 }
 
 export default TopArtistsEntry;
+
+// const pictureStyle = {
+//   backgroundImage: `url(${artist.images[2].url})`,
+//   height: '150px',
+//   width: '150px',
+//   backgroundSize: 'cover',
+//   backgroundRepeat: 'no-repeat',
+//   borderRadius: '20px'
+// }

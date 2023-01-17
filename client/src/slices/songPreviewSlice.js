@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  song: {}
+  song: null
 }
 
 export const songPreviewSlice = createSlice({
@@ -9,9 +9,11 @@ export const songPreviewSlice = createSlice({
   initialState,
   reducers: {
     setSong: (state, data) => {
-      state.song = data.payload.song;
+      state.song = data.payload;
     }
   }
 });
 
-export default playbackSlice.reducer;
+export const { setSong } = songPreviewSlice.actions;
+
+export default songPreviewSlice.reducer;

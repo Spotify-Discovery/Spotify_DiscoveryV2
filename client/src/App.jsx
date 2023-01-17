@@ -9,6 +9,9 @@ import { setView } from './slices/viewSlice';
 const {useState, useEffect} = React;
 
 const App = () => {
+  const mediaPlayer = new Audio();
+  mediaPlayer.volume = 0.5;
+
   const params = new URLSearchParams(window.location.search);
   const access_token = params.get('access_token');
   const refresh_token = params.get('refresh_token');
