@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 const webPlayback = {
 
   /**
@@ -26,8 +24,8 @@ const webPlayback = {
   /**
    * Creates and then connects to a 'device' - something a Spotify user can play music through.  In this case, play music through our Web App.
    *
-   * @param {*} access_token - the access token for the user
-   * @param {*} refresh_token - the refresh token for the user
+   * @param {*} access_token - auth token
+   * @param {*} refresh_token - refresh token
    * @param {*} setPlayer - dispatches player to store
    * @param {*} setPaused - dispatches paused to store
    * @param {*} setActive - dispatches active to store
@@ -57,11 +55,11 @@ const webPlayback = {
         player.addListener('ready', ({ device_id }) => {
             console.log('Ready with Device ID', device_id);
             const connectToDevice = () => {
-              const data = {
+              const body = {
                 device_ids: [device_id],
                 play: false,
               }
-              axios.put(`/player?token=${access_token}`, data)
+              axios.put(`${SERVER_ADDR}/spotify/player/${access_token}`, body)
                 .catch((error) => {
                   handleError(error);
                 });
@@ -103,5 +101,3 @@ const webPlayback = {
     };
   },
 }
-
-export default webPlayback;
