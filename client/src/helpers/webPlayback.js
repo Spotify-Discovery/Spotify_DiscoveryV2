@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const webPlayback = {
 
   /**
@@ -55,11 +57,11 @@ const webPlayback = {
         player.addListener('ready', ({ device_id }) => {
             console.log('Ready with Device ID', device_id);
             const connectToDevice = () => {
-              const body = {
+              const data = {
                 device_ids: [device_id],
                 play: false,
               }
-              axios.put(`${SERVER_ADDR}/spotify/player/${access_token}`, body)
+              axios.put(`/player?token=${access_token}`, data)
                 .catch((error) => {
                   handleError(error);
                 });
@@ -101,3 +103,5 @@ const webPlayback = {
     };
   },
 }
+
+export default webPlayback;
