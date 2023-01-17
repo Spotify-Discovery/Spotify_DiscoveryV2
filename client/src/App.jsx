@@ -1,6 +1,7 @@
 import React from 'react';
 import Login from './components/Login.jsx'
 import Home from './components/Home.jsx'
+import WebPlayer from './components/WebPlayer.jsx'
 import spotify from './helpers/spotify'
 import { useSelector, useDispatch } from 'react-redux';
 import { setToken, setUserData, setTopTracks, setTopArtists } from './slices/userSlice'
@@ -60,7 +61,12 @@ const App = () => {
       case 'Login':
         return <Login />;
       case 'Home':
-        return <Home />
+        return (
+          <>
+            <Home />
+            <WebPlayer />
+          </>
+        )
       default:
         return <div>404</div>;
     }
@@ -69,7 +75,9 @@ const App = () => {
   const renderedView = renderView();
 
   return (
-    <main>{renderView()}</main>
+    <main>
+      {renderView()}
+    </main>
   );
 }
 
