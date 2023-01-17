@@ -1,7 +1,8 @@
 import React from 'react'
 import Search from './Search.jsx'
 import TopArtistsList from './TopLists/TopArtistList.jsx'
-import WebPlayer from './WebPlayer.jsx'
+import TopTracksList from './TopLists/TopTracksList.jsx'
+// import WebPlayer from './WebPlayer.jsx'
 import { useSelector } from 'react-redux';
 
 const {useRef, useState} = React;
@@ -9,6 +10,7 @@ const {useRef, useState} = React;
 const Home = ({handleSearch, handleViewChange}) => {
   const searchRef = useRef('');
   const [firstSearch, setFirstSearch] = useState(true);
+  const [currentList, setCurrentList] = useState('ARTISTS');
   const user = useSelector((state) => state.user);
 
   const handleSubmit = (e) => {
@@ -17,6 +19,28 @@ const Home = ({handleSearch, handleViewChange}) => {
     if (searchRef.current.value !== '') {
       handleSearch(searchRef.current.value);
       handleViewChange('Search')
+    }
+  }
+
+  const getHeaderStyle = (listName) => {
+    if (currentList === listName) {
+      return (
+        {
+          opacity: 1,
+          color: '#1DB954',
+        }
+      )
+    }
+  }
+
+  const renderList = () => {
+    switch (currentList) {
+      case 'ARTISTS':
+        return <TopArtistsList />;
+      case 'TRACKS':
+        return <TopTracksList />
+      default:
+        return <div>404</div>;
     }
   }
 
@@ -29,9 +53,20 @@ const Home = ({handleSearch, handleViewChange}) => {
           <button id="search-button" className="fa-solid fa-magnifying-glass fa-lg" type="submit"></button>
         </form>
       </div>
+      <div>
+        <div className="header-container">
+          <div className="top-header"
+            onClick={() => {setCurrentList('ARTISTS')}}
+            style={getHeaderStyle('ARTISTS')}
+            >Top Artists</div>
+          <div className="top-header"
+            onClick={() => {setCurrentList('TRACKS')}}
+            style={getHeaderStyle('TRACKS')}>
+            Top Tracks</div>
+          </div>
+        {renderList()};
 
-      <TopArtistsList />
-      <WebPlayer />
+      </div>
     </div>
   );
 }

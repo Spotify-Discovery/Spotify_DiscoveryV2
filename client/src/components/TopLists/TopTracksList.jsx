@@ -1,27 +1,27 @@
 import React from 'react';
-import TopArtistsEntry from "./TopArtistsEntry.jsx";
+import TopTracksEntry from "./TopTracksEntry.jsx";
 import { useSelector, useDispatch } from 'react-redux';
-import { setTopArtists } from '../../slices/userSlice'
+import { setTopTracks } from '../../slices/userSlice'
 import spotify from '../../helpers/spotify'
 
 const {useState, useEffect} = React;
 
-const TopArtistsList = () => {
+const TopTracksList = () => {
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [timeRange, setTimeRange] = useState('short_term');
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  let maxIndex = Math.floor(user.topArtists.length / 3);
+  let maxIndex = Math.floor(user.topTracks.length / 3);
   if (maxIndex === 1) {
     maxIndex = 0;
   }
 
   useEffect(() => {
-    spotify.getTopArtists(user.access_token, timeRange)
+    spotify.getTopTracks(user.access_token, timeRange)
       .then((res) => {
-        dispatch(setTopArtists({topArtists: res}))
+        dispatch(setTopTracks({topTracks: res}))
       })
     setCurrentIndex(0);
   }, [timeRange]);
@@ -76,7 +76,7 @@ const TopArtistsList = () => {
 
       </div>
 
-      {user.topArtists &&
+      {user.topTracks &&
       <div className="top-artists-container">
         <div className="top-options">
           {currentIndex !== 0 &&
@@ -92,8 +92,8 @@ const TopArtistsList = () => {
             transition: 'transform 0.3s',
             transform: `translateX(-${currentIndex * 900}px)`,
           }}>
-          {user.topArtists.map((artist, i) => {
-            return <TopArtistsEntry artist={artist} key={i}/>
+          {user.topTracks.map((track, i) => {
+            return <TopTracksEntry track={track} key={i}/>
           })}
         </div>
       </div>}
@@ -101,4 +101,4 @@ const TopArtistsList = () => {
   )
 }
 
-export default TopArtistsList;
+export default TopTracksList;
