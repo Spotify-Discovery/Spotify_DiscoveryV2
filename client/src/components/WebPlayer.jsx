@@ -45,8 +45,6 @@ function WebPlayer({ track }) {
     );
   }, []);
 
-  const play = is_paused ? 'faPlay' : 'fa-duotone fa-pause'
-
   if (!is_active || !current_track) {
     return (
       <div></div>
@@ -81,7 +79,7 @@ function WebPlayer({ track }) {
 
             <div className={is_paused ? "fa-solid fa-play" : "fa-solid fa-pause"} onClick={() => {player.togglePlay()}}/>
 
-            <div className="fa-solid fa-forward" onClick={() => { player.previousTrack() }}/>
+            <div className="fa-solid fa-forward" onClick={() => { player.nextTrack() }}/>
           </div>
         </div>
         <div className="webplayer-hamburger">
