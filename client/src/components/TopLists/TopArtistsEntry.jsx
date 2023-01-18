@@ -1,7 +1,12 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSong } from '../../slices/songPreviewSlice.js';
 
 
 const TopArtistsEntry = ({ artist }) => {
+
+  const previewSong = useSelector((state) => state.previewSong);
+  const dispatch = useDispatch();
 
   const containerStyle = {
     backgroundImage: `url(${artist.images[1].url})`,
@@ -10,8 +15,25 @@ const TopArtistsEntry = ({ artist }) => {
     backgroundPosition: 'center'
   }
 
+  const handleMouseEnter = () => {
+    console.log('mouse enter:', artist);
+    dispatch(setSong(artist.preview_url));
+  }
+
+  const handleMouseLeave = () => {
+    console.log('mouse enter:', artist);
+    dispatch(setSong(null));
+  }
+
   return (
-    <div className="top-entry" style={containerStyle}>
+    <div className="top-entry" style={containerStyle}
+      onMouseEnter={() => {
+        handleMouseEnter();
+        }}
+
+      onMouseLeave={() => {
+        handleMouseLeave();
+      }}>
       <div className="black-filter"></div>
       <div className="item-info">
         <div className="item-name">{artist.name}</div>

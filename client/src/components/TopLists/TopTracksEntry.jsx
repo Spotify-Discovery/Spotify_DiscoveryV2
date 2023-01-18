@@ -14,9 +14,10 @@ const TopTracksEntry = ({ track }) => {
     backgroundPosition: 'center'
   }
 
+
   const handleMouseEnter = () => {
     console.log('mouse enter:', track);
-    dispatch(setSong(track));
+    dispatch(setSong(track.preview_url));
   }
 
   const handleMouseLeave = () => {

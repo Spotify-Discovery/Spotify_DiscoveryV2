@@ -28,7 +28,7 @@ export const userSlice = createSlice({
       state.user_id = data.payload.user_id;
     },
     setTopTracks: (state, data) => {
-      state.topTracks = data.payload.topTracks.tracks;
+      state.topTracks = data.payload.topTracks;
     },
     setTopArtists: (state, data) => {
       state.topArtists = data.payload.topArtists;

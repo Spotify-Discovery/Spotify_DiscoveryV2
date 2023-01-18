@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const mediaPlayer = new Audio();
+
+mediaPlayer.volume = 0.5;
+
 const initialState = {
-  song: null
+  songUrl: null
 }
 
 export const songPreviewSlice = createSlice({
@@ -9,11 +13,30 @@ export const songPreviewSlice = createSlice({
   initialState,
   reducers: {
     setSong: (state, data) => {
-      state.song = data.payload;
+      // console.log(data.payload)
+      state.songUrl = data.payload;
+    },
+
+    playSong: (state, data) => {
+      console.log('song is not null')
+      if (!mediaPlayer.paused) {
+        mediaPlayer.pause();
+      }
+      if (state.songUrl) {
+        mediaPlayer.src = state.songUrl;
+        mediaPlayer.play();
+      }
+    },
+
+    pauseSong: (state, data) => {
+      console.log('song is null');
+      mediaPlayer.pause();
+      console.log('pausing');
+      mediaPlayer.src = '';
     }
   }
 });
 
-export const { setSong } = songPreviewSlice.actions;
+export const { setSong, playSong, pauseSong } = songPreviewSlice.actions;
 
 export default songPreviewSlice.reducer;
