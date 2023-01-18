@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setSong } from '../../slices/songPreviewSlice.js';
 
 
+
 const TopArtistsEntry = ({ artist }) => {
 
   const previewSong = useSelector((state) => state.previewSong);

@@ -2,6 +2,7 @@ import React from 'react'
 import Search from './Search.jsx'
 import TopArtistsList from './TopLists/TopArtistList.jsx'
 import TopTracksList from './TopLists/TopTracksList.jsx'
+import FeedInstanceEntry from './Feed/FeedInstanceEntry.jsx'
 // import WebPlayer from './WebPlayer.jsx'
 import { useSelector } from 'react-redux';
 
@@ -64,7 +65,24 @@ const Home = ({handleSearch, handleViewChange}) => {
             style={getHeaderStyle('TRACKS')}>
             Top Tracks</div>
           </div>
-        {renderList()};
+
+        {renderList()}
+
+        <div className="feed">
+          {user.feed.map((instance) => {
+            return (
+              <div className="feed-instance-container">
+                <div className="recommended-header">Recommendations based on "{instance.relatedTo}"</div>
+                <div className="feed-instance">
+                  {instance.relatedTracks.map((element) => {
+                    return <FeedInstanceEntry element={element}/>
+                  })}
+                </div>
+              </div>
+            )
+          })}
+
+        </div>
 
       </div>
     </div>

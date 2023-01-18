@@ -1,10 +1,13 @@
 import React from 'react';
+import spotify from '../../helpers/spotify.js'
 import { useSelector, useDispatch } from 'react-redux';
 import { setSong } from '../../slices/songPreviewSlice.js';
+import { addToFeed } from '../../slices/userSlice.js';
 
 const TopTracksEntry = ({ track }) => {
 
   const previewSong = useSelector((state) => state.previewSong);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const containerStyle = {
@@ -33,6 +36,15 @@ const TopTracksEntry = ({ track }) => {
 
       onMouseLeave={() => {
         handleMouseLeave();
+      }}
+
+      onClick={() => {
+        dispatch(setSong(null));
+        spotify.getRelated(user.access_token, track.id)
+          .then((res) => {
+            console.log('got related:', res);
+            dispatch(addToFeed({relatedTo: track.name, relatedTracks: res}));
+          })
       }}
         >
       <div className="black-filter"></div>

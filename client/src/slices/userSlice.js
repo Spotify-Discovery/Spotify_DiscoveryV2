@@ -10,6 +10,7 @@ const initialState = {
   product: '',
   topArtists: [],
   topTracks: [],
+  feed: []
 }
 
 export const userSlice = createSlice({
@@ -32,10 +33,13 @@ export const userSlice = createSlice({
     },
     setTopArtists: (state, data) => {
       state.topArtists = data.payload.topArtists;
+    },
+    addToFeed: (state, data) => {
+      state.feed.push(data.payload);
     }
   }
 });
 
-export const { setToken, setUserData, setTopTracks, setTopArtists } = userSlice.actions;
+export const { setToken, setUserData, setTopTracks, setTopArtists, addToFeed } = userSlice.actions;
 
 export default userSlice.reducer;

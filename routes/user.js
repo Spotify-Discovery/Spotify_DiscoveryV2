@@ -40,7 +40,7 @@ router.get('/topTracks:token?:time_range?', (req, res) => {
     // console.log(result.data.items)
     searchById(result.data.items, access_token)
       .then((updatedResults) => {
-        console.log(updatedResults)
+        // console.log(updatedResults)
         res.send(updatedResults)
       })
   })

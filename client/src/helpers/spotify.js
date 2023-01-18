@@ -54,6 +54,20 @@ const spotify = {
       // console.log('toptracks', res.data)
       return res.data
     })
+  },
+
+  getRelated : (access_token, id) => {
+    console.log(id);
+    return axios({
+      method: 'get',
+      url: `./related?token=${access_token}&track_id=${id}`,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((res) => {
+      return res.data
+    })
   }
 }
 export default spotify;
