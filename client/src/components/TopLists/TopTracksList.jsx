@@ -21,6 +21,7 @@ const TopTracksList = () => {
   useEffect(() => {
     spotify.getTopTracks(user.access_token, timeRange)
       .then((res) => {
+        console.log(res)
         dispatch(setTopTracks({topTracks: res}))
       })
     setCurrentIndex(0);

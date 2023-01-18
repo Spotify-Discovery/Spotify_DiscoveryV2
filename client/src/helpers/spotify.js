@@ -52,7 +52,7 @@ const spotify = {
     })
     .then((res) => {
       // console.log('toptracks', res.data)
-      return res.data.items
+      return res.data
     })
   }
 }

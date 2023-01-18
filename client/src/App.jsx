@@ -4,18 +4,21 @@ import Home from './components/Home.jsx'
 import WebPlayer from './components/WebPlayer.jsx'
 import spotify from './helpers/spotify'
 import { useSelector, useDispatch } from 'react-redux';
-import { setToken, setUserData, setTopTracks, setTopArtists } from './slices/userSlice'
+import { setToken, setUserData, setTopTracks, setTopArtist } from './slices/userSlice'
 import { setView } from './slices/viewSlice';
+
+import { playSong, pauseSong } from './slices/songPreviewSlice';
 const {useState, useEffect} = React;
 
 const App = () => {
-  const mediaPlayer = new Audio();
-  mediaPlayer.volume = 0.5;
+  // const mediaPlayer = new Audio();
+  // mediaPlayer.volume = 0.5;
 
   const params = new URLSearchParams(window.location.search);
   const access_token = params.get('access_token');
   const refresh_token = params.get('refresh_token');
 
+  const previewSong = useSelector((state) => state.previewSong)
   const view = useSelector((state) => state.view);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -53,8 +56,16 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    console.log(user)
-  }, [user]);
+    console.log('in useeffect')
+    if (previewSong.songUrl) {
+      console.log('playing')
+      dispatch(playSong());
+    } else {
+
+      dispatch(pauseSong());
+    }
+
+  }, [previewSong.songUrl])
 
   /**
    *

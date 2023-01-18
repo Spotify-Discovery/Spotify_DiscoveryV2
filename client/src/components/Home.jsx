@@ -36,7 +36,7 @@ const Home = ({handleSearch, handleViewChange}) => {
   const renderList = () => {
     switch (currentList) {
       case 'ARTISTS':
-        return <TopArtistsList />;
+        return <TopArtistsList />
       case 'TRACKS':
         return <TopTracksList />
       default:
