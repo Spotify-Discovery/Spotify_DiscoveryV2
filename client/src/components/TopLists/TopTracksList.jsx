@@ -21,6 +21,7 @@ const TopTracksList = () => {
   useEffect(() => {
     spotify.getTopTracks(user.access_token, timeRange)
       .then((res) => {
+        console.log(res)
         dispatch(setTopTracks({topTracks: res}))
       })
     setCurrentIndex(0);
@@ -88,7 +89,6 @@ const TopTracksList = () => {
         </div>
         <div className="top-inner-container"
           style={{
-            whiteSpace: 'nowrap',
             transition: 'transform 0.3s',
             transform: `translateX(-${currentIndex * 900}px)`,
           }}>

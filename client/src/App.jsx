@@ -5,13 +5,19 @@ import WebPlayer from './components/WebPlayer.jsx'
 import Navbar from './components/Navbar.jsx'
 import spotify from './helpers/spotify'
 import { useSelector, useDispatch } from 'react-redux';
-import { setToken, setUserData, setTopTracks, setTopArtists } from './slices/userSlice'
+import { setToken, setUserData, setTopTracks, setTopArtist } from './slices/userSlice'
 import { setView } from './slices/viewSlice';
+
+import { playSong, pauseSong } from './slices/songPreviewSlice';
 const {useState, useEffect} = React;
 
 const App = () => {
+  // const mediaPlayer = new Audio();
+  // mediaPlayer.volume = 0.5;
+
   const params = new URLSearchParams(window.location.search);
 
+  const previewSong = useSelector((state) => state.previewSong)
   const view = useSelector((state) => state.view);
   const user = useSelector((state) => state.user);
   const access_token = useSelector((state) => state.user.access_token);
@@ -41,6 +47,18 @@ const App = () => {
 
     }
   }, []);
+
+  useEffect(() => {
+    console.log('in useeffect')
+    if (previewSong.songUrl) {
+      console.log('playing')
+      dispatch(playSong());
+    } else {
+
+      dispatch(pauseSong());
+    }
+
+  }, [previewSong.songUrl])
 
   /**
    *

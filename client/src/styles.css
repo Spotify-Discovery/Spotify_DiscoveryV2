@@ -70,6 +70,7 @@ body {
 }
 
 .title-home {
+  font-weight: bold;
   font-size: 36px;
   color: var(--text-color);
 }
@@ -78,7 +79,7 @@ body {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  width: 755px;
+  width: 1190px;
 }
 
 .text {
@@ -306,7 +307,7 @@ body {
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
-  left: 32px;
+  left: -50px;
   text-shadow: 0 0 2px var(--main-bg-color);
   font-size: 100px;
   color: var(--text-color);
@@ -325,7 +326,7 @@ body {
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
-  right: 32px;
+  right: -50px;
   text-shadow: 0 0 2px var(--main-bg-color);
   font-size: 100px;
   color: var(--text-color);
@@ -341,7 +342,7 @@ body {
 }
 
 .top-artists-container {
-  width: 60vw;
+  width: 1190px;
   margin-top: 10px;
   height: 300px;
   overflow-x: hidden;
@@ -352,7 +353,7 @@ body {
 .top-options {
   position: absolute;
   height: 300px;
-  width: 60vw;
+  width: 1190px;
 }
 
 .top-inner-container {
@@ -365,7 +366,7 @@ body {
 .item-info {
   z-index: 2;
   opacity: 0;
-  width: auto;
+  width: 275px;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -497,4 +498,36 @@ body {
 
 .webplayer-hamburger {
   flex-basis: 33%;
+}
+
+.feed {
+  width: 1190px;
+
+}
+
+.feed-instance {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+}
+
+.feed-instance-container {
+  background-color: var(--background-secondary);
+  color: var(--text-color);
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.recommended-header {
+  font-size: 20px;
+}
+
+.mini-albumart {
+  width: 74px;
+  height: 74px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }

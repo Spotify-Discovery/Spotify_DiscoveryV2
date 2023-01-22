@@ -2,7 +2,8 @@ require("dotenv").config();
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
-const { searchByIds } = require('./searchById.js')
+const { searchById } = require('./searchById.js')
+const { getPreviewsForArtists } = require('../helpers/getPreviewsForArtists.js')
 
 const SPOTIFY_BASE = 'https://api.spotify.com/v1/';
 
@@ -37,7 +38,7 @@ router.get('/topTracks:token?:time_range?', (req, res) => {
   })
   .then((result) => {
     // console.log(result.data.items)
-    searchByIds(result.data.items, access_token)
+    searchById(result.data.items, access_token)
       .then((updatedResults) => {
         // console.log(updatedResults)
         res.send(updatedResults)
@@ -59,8 +60,15 @@ router.get('/topArtists:token?:time_range?', (req, res) => {
     }
   })
   .then((result) => {
-    res.send(result.data)
-  })
+    // console.log('res data:', result.data)
+    getPreviewsForArtists(result.data.items, access_token)
+    .then((updatedResults) => {
+      // console.log('updtate:', updatedResults);
+      console.log('legnth:', updatedResults.length);
+      res.send(updatedResults)
+    })
+
+  }).catch((err) => {console.log('error', err)})
 });
 
 module.exports = router;
