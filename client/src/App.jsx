@@ -38,8 +38,8 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    console.log('in useeffect')
-    if (previewSong.songUrl) {
+    // console.log('in useeffect', previewSong.song.preview_url)
+    if (previewSong.song) {
       console.log('playing')
       dispatch(playSong());
     } else {
@@ -47,7 +47,7 @@ const App = () => {
       dispatch(pauseSong());
     }
 
-  }, [previewSong.songUrl])
+  }, [previewSong])
 
   /**
    *

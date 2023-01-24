@@ -18,8 +18,8 @@ module.exports.getPreviewsForArtists = (array, access_token) => {
   }
   return axios.all(requests).then(axios.spread((...responses) => {
     for (var i = 0; i < responses.length; i++) {
-      console.log(responses[i].data.tracks[0])
-      array[i]['preview_url'] = responses[i].data.tracks[0].preview_url;
+      // console.log(responses[i].data.tracks.length)
+      array[i]['track'] = responses[i].data.tracks[0];
     }
     return array;
   }))

@@ -18,12 +18,12 @@ const TopArtistsEntry = ({ artist }) => {
 
   const handleMouseEnter = () => {
     console.log('mouse enter:', artist);
-    dispatch(setSong(artist.preview_url));
+    dispatch(setSong(artist.track));
   }
 
   const handleMouseLeave = () => {
     console.log('mouse enter:', artist);
-    dispatch(setSong(null));
+    dispatch(setSong({}));
   }
 
   return (

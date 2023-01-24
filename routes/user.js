@@ -89,8 +89,24 @@ router.get('/topArtists:token?:time_range?', (req, res) => {
     getPreviewsForArtists(result.data.items, access_token)
     .then((updatedResults) => {
       // console.log('updtate:', updatedResults);
-      console.log('legnth:', updatedResults.length);
-      res.send(updatedResults)
+      // console.log('legnth:', updatedResults.length);
+      Promise.all(
+        updatedResults.map((artist, i) => {
+          console.log('preview', artist.track.preview_url, i);
+          if (artist.track.preview_url == null) {
+            return getNullPreviews(artist.track, access_token)
+              .then((updatedUrl) => {
+                console.log("updated Url", updatedUrl, i);
+                artist.track.preview_url = updatedUrl;
+                return artist;
+              })
+          }
+          return artist;
+        })
+      ).then((result) => {
+        res.send(result);
+      })
+
     })
 
   })
