@@ -3,7 +3,7 @@ const express = require('express');
 const axios = require('axios');
 const router = express.Router();
 
-const { searchById } = require('./searchById.js')
+const { searchById, getNullPreviews } = require('./searchById.js')
 
 const SPOTIFY_BASE = 'https://api.spotify.com/v1/';
 
@@ -17,11 +17,23 @@ router.get(':token?:track_id?', (req, res) => {
     }
   })
   .then((result) => {
-    searchById(result.data.tracks, access_token)
-      .then((updatedResults) => {
-        console.log(updatedResults)
-        res.send(updatedResults)
+    Promise.all(
+      result.data.tracks.map((track, i) => {
+        if (track.preview_url === null) {
+          console.log('preview', track.preview_url, i)
+          return getNullPreviews(track, access_token)
+            .then((updatedUrl) => {
+              // console.log("updated Url", updatedUrl, i);
+              track.preview_url = updatedUrl;
+              return track;
+            })
+        }
+        return track;
       })
+    ).then((result) => {
+      res.send(result);
+    })
+
   })
   .catch((err) => {
     console.log(err);
