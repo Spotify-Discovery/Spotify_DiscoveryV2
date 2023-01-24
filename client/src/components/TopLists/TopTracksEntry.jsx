@@ -40,11 +40,7 @@ const TopTracksEntry = ({ track }) => {
 
       onClick={() => {
         dispatch(setSong(null));
-        spotify.getRelated(user.access_token, track.id)
-          .then((res) => {
-            console.log('got related:', res);
-            dispatch(addToFeed({relatedTo: track.name, relatedTracks: res}));
-          })
+        spotify.getRelated(user, dispatch, track)
       }}
         >
       <div className="black-filter"></div>

@@ -3,15 +3,18 @@ import Search from './Search.jsx'
 import TopArtistsList from './TopLists/TopArtistList.jsx'
 import TopTracksList from './TopLists/TopTracksList.jsx'
 import FeedInstanceEntry from './Feed/FeedInstanceEntry.jsx'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import spotify from '../helpers/spotify';
 
-const {useRef, useState} = React;
+const {useRef, useState, useEffect} = React;
 
 const Home = ({handleSearch, handleViewChange}) => {
   const searchRef = useRef('');
   const [firstSearch, setFirstSearch] = useState(true);
   const [currentList, setCurrentList] = useState('ARTISTS');
   const user = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,6 +46,17 @@ const Home = ({handleSearch, handleViewChange}) => {
         return <div>404</div>;
     }
   }
+
+  // Get user data from access token on initial render
+  useEffect(() => {
+    spotify.getUserData(user, dispatch);
+  }, []);
+
+  //
+  useEffect(() => {
+    console.log(user)
+  }, [user])
+
 
   return (
     <div className="center">
