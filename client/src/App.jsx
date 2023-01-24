@@ -31,17 +31,6 @@ const App = () => {
       dispatch(setToken({access_token: params.get('access_token'), refresh_token: params.get('refresh_token')}));
       dispatch(setView('Home'));
 
-      spotify.getUserData(params.get('access_token'))
-        .then((res) => {
-          dispatch(setUserData({
-            username: res.display_name,
-            email: res.email,
-            user_id: res.id,
-            market: res.country,
-            product: res.product
-          }))
-        })
-
       // Remove access and refresh tokens from URL params
       window.history.pushState({}, document.title, (window.location.href.split(window.location.host)[1]).split("?")[0]);
 
