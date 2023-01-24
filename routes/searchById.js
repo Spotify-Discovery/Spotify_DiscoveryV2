@@ -2,7 +2,7 @@ const axios = require('axios');
 const SPOTIFY_BASE = 'https://api.spotify.com/v1/';
 
 module.exports.searchById = (array, access_token) => {
-  console.log('=================================');
+  // console.log('=================================');
   let tracks = [];
   let requests = [];
   for (var i = 0; i < array.length; i++) {
@@ -23,6 +23,19 @@ module.exports.searchById = (array, access_token) => {
     return tracks
   }))
 
+}
+
+module.exports.getNullPreviews = (track, access_token) => {
+  return axios.get(`${SPOTIFY_BASE}search?q=isrc:${track.external_ids.isrc}&type=track&limit=1`,
+    {
+      headers: {
+        "Authorization": `Bearer ${access_token}`
+      }
+    }
+  ).then((response) => {
+    console.log('got res from searchById');
+    return response.data.tracks.items[0].preview_url;
+  })
 }
 
 module.exports.searchByIds = (data, access_token) => {
