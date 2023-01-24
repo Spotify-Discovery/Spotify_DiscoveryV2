@@ -9,12 +9,12 @@ const FeedInstanceEntry = ({ element }) => {
 
   const handleMouseEnter = () => {
     console.log('mouse enter:', element);
-    dispatch(setSong(element.preview_url));
+    dispatch(setSong(element));
   }
 
   const handleMouseLeave = () => {
     console.log('mouse enter:', element);
-    dispatch(setSong(null));
+    dispatch(setSong({}));
   }
 
   return (
