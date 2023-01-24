@@ -10,8 +10,9 @@ const SPOTIFY_BASE = 'https://api.spotify.com/v1/';
 /**
  *
  */
-router.get(':token?', (req, res) => {
+router.get('/', (req, res) => {
   const access_token = req.query.token;
+  console.log(req.params)
   axios.get(`${SPOTIFY_BASE}me`, {
     headers: {
       "Authorization": `Bearer ${access_token}`
@@ -21,30 +22,40 @@ router.get(':token?', (req, res) => {
     // console.log(res.data);
     res.send(response.data)
   })
+  .catch(error => {
+    if (error.response.status === 401) {
+      res.status(401).send();
+    } else {
+      res.status(500).send('Spotify responded with a status ' + error.response.status);
+    }
+  })
 });
 
 /**
  *
  */
 router.get('/topTracks:token?:time_range?', (req, res) => {
-  console.log('topTracks')
   const access_token = req.query.token;
   const time_range = req.query.time_range;
-  console.log(time_range)
+
   axios.get(`${SPOTIFY_BASE}me/top/tracks?time_range=${time_range}`, {
     headers: {
       "Authorization": `Bearer ${access_token}`
     }
   })
   .then((result) => {
-    // console.log(result.data.items)
     searchById(result.data.items, access_token)
       .then((updatedResults) => {
-        // console.log(updatedResults)
         res.send(updatedResults)
       })
   })
-  .catch((e) => {console.log(e)})
+  .catch(error => {
+    if (error.response.status === 401) {
+      res.status(401).send();
+    } else {
+      res.status(500).send('Spotify responded with a status ' + error.response.status);
+    }
+  })
 });
 
 /**
@@ -68,7 +79,14 @@ router.get('/topArtists:token?:time_range?', (req, res) => {
       res.send(updatedResults)
     })
 
-  }).catch((err) => {console.log('error', err)})
+  })
+  .catch(error => {
+    if (error.response.status === 401) {
+      res.status(401).send();
+    } else {
+      res.status(500).send('Spotify responded with a status ' + error.response.status);
+    }
+  })
 });
 
 module.exports = router;
