@@ -19,12 +19,9 @@ const TopTracksList = () => {
   }
 
   useEffect(() => {
-    spotify.getTopTracks(user.access_token, timeRange)
-      .then((res) => {
-        console.log(res)
-        dispatch(setTopTracks({topTracks: res}))
-      })
+    spotify.getTopTracks(user, dispatch, timeRange)
     setCurrentIndex(0);
+
   }, [timeRange]);
 
   const handleRightClick = () => {

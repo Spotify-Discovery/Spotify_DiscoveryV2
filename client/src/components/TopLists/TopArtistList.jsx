@@ -19,11 +19,7 @@ const TopArtistsList = () => {
   }
 
   useEffect(() => {
-    spotify.getTopArtists(user.access_token, timeRange)
-      .then((res) => {
-        console.log('topartists:', res)
-        dispatch(setTopArtists({topArtists: res}))
-      })
+    spotify.getTopArtists(user, dispatch, timeRange)
     setCurrentIndex(0);
   }, [timeRange]);
 

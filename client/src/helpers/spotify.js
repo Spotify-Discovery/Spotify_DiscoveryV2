@@ -1,73 +1,106 @@
-import axios from "axios"
+import talkToSpotify from "./talkToSpotify";
 
-// const handleError = (error, refresh_token, setAccess_token) => {
-//   if (error.response.status === 401) {
-//     axios.get(`/spotify/auth/refresh/${refresh_token}`)
-//       .then((response) => {
-//         setAccess_token(response.data.access_token);
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       })
-//   } else {
-//     throw 'Something went wrong talking to Spotify!';
-//   }
-// }
+import { setUserData, setTopTracks, setTopArtists, addToFeed } from '../slices/userSlice';
 
 const spotify = {
 
-  getUserData: async (access_token) => {
-    return axios({
-      method: 'get',
-      url: `./user?token=${access_token}`,
-      headers: {
-        'Content-Type': 'application/json'
-      }
+  /**
+   *
+   * @param {*} user
+   * @param {*} dispatch
+   */
+  getUserData: async (user, dispatch) => {
+    talkToSpotify({
+      method: 'GET',
+      endpoint: `/user`,
+      user: user,
+      dispatch: dispatch,
     })
-    .then((res) => {
-      return res.data
+    .then((data) => {
+      dispatch(setUserData({
+        username: data.display_name,
+        email: data.email,
+        user_id: data.id,
+        market: data.country,
+        product: data.product
+      }));
     })
+    .catch((error) => {
+      console.log(error);
+    });
   },
 
-  getTopTracks: async (access_token, timeRange = 'short_term') => {
-    return axios({
-      method: 'get',
-      url: `./user/topTracks?token=${access_token}&time_range=${timeRange}`,
-      headers: {
-        'Content-Type': 'application/json'
-      }
+  /**
+   *
+   * @param {*} user
+   * @param {*} dispatch
+   * @param {*} timeRange
+   */
+  getTopTracks: async (user, dispatch, timeRange = 'short_term') => {
+    talkToSpotify({
+      method: 'GET',
+      endpoint: `/user/topTracks`,
+      user: user,
+      dispatch: dispatch,
+      query: {time_range: timeRange}
     })
-    .then((res) => {
-      return res.data
+    .then((data) => {
+      dispatch(setTopTracks({
+        topTracks: data
+      }));
     })
+    .catch((error) => {
+      console.log(error);
+    });
   },
 
-  getTopArtists: async (access_token, timeRange = 'short_term') => {
-    return axios({
-      method: 'get',
-      url: `./user/topArtists?token=${access_token}&time_range=${timeRange}`,
-      headers: {
-        'Content-Type': 'application/json'
-      }
+  /**
+   *
+   * @param {*} user
+   * @param {*} dispatch
+   * @param {*} timeRange
+   */
+  getTopArtists: async (user, dispatch, timeRange = 'short_term') => {
+    talkToSpotify({
+      method: 'GET',
+      endpoint: `/user/topArtists`,
+      user: user,
+      dispatch: dispatch,
+      query: {time_range: timeRange}
     })
-    .then((res) => {
-      // console.log('toptracks', res.data)
-      return res.data
+    .then((data) => {
+      dispatch(setTopArtists({
+        topArtists: data
+      }));
     })
+    .catch((error) => {
+      console.log(error);
+    });
   },
 
-  getRelated : (access_token, id) => {
-    console.log(id);
-    return axios({
-      method: 'get',
-      url: `./related?token=${access_token}&track_id=${id}`,
-      headers: {
-        'Content-Type': 'application/json'
-      }
+  /**
+   *
+   * @param {*} user
+   * @param {*} dispatch
+   * @param {*} id
+   */
+  getRelated : (user, dispatch, track) => {
+    talkToSpotify({
+      method: 'GET',
+      endpoint: `/related`,
+      user: user,
+      dispatch: dispatch,
+      query: {track_id: track.id}
     })
-    .then((res) => {
-      return res.data
+    .then((data) => {
+        dispatch(addToFeed({
+          relatedTo: track.name,
+          relatedTracks: data
+        }));
     })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 }
 export default spotify;
