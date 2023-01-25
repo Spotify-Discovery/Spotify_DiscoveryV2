@@ -13,6 +13,7 @@ const Home = ({handleSearch, handleViewChange}) => {
   const [firstSearch, setFirstSearch] = useState(true);
   const [currentList, setCurrentList] = useState('ARTISTS');
   const user = useSelector((state) => state.user);
+  const previewSong = useSelector((state) => state.previewSong);
 
   const dispatch = useDispatch();
 
@@ -59,8 +60,32 @@ const Home = ({handleSearch, handleViewChange}) => {
 
 
   return (
-    <div className="center">
-      <div>
+    <div className="" id="main-column">
+      <div id="mainColumnInner">
+        {previewSong.song.preview_url &&
+          <div id="artwork">
+            <div id="artworkImg">
+              <img class="now-playing-image" src={previewSong.song.album.images[0].url}></img>
+            </div>
+
+            <div className="caption-track-name">
+              {previewSong.song.name}
+            </div>
+
+            <div class="caption-artists">
+              {previewSong.song.artists.map((artist, i) => {
+                let lastIndex = previewSong.song.artists.length - 1;
+                if (i === lastIndex) {
+                  return `${artist.name}`;
+                } else if (i+1 === lastIndex) {
+                  return `${artist.name} & `
+                } else {
+                  return `${artist.name}, `
+                }
+              })}
+            </div>
+          </div>
+        }
         <div className="header-container">
           <div className="top-header"
             onClick={() => {setCurrentList('ARTISTS')}}
@@ -103,7 +128,7 @@ const Home = ({handleSearch, handleViewChange}) => {
 
                     <div style={{
                       color: '#1DB954',
-                      fontSize: '14px',
+                      fontSize: '12px',
                       fontWeight: 'bold',
                     }}>
                       Recommended:
