@@ -86,7 +86,7 @@ const TopArtistsList = () => {
         <div className="top-inner-container"
           style={{
             transition: 'transform 0.3s',
-            transform: `translateX(-${currentIndex * 900}px)`,
+            transform: `translateX(-${currentIndex * 645}px)`,
           }}>
           {user.topArtists.map((artist, i) => {
             return <TopArtistsEntry artist={artist} key={i}/>

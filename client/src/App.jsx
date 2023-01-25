@@ -67,7 +67,7 @@ const App = () => {
 
   return !access_token ? <Login /> : (
     <main>
-      <div className="center">
+      <div className="">
         <Navbar />
         {renderView()}
         <WebPlayer />
