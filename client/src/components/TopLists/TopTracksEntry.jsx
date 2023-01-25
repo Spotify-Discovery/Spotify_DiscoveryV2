@@ -39,7 +39,7 @@ const TopTracksEntry = ({ track }) => {
       }}
 
       onClick={() => {
-        dispatch(setSong(null));
+        dispatch(setSong({}));
         spotify.getRelated(user, dispatch, track)
       }}
         >

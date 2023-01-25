@@ -94,7 +94,7 @@ const spotify = {
     })
     .then((data) => {
         dispatch(addToFeed({
-          relatedTo: track.name,
+          relatedTo: track,
           relatedTracks: data
         }));
     })
