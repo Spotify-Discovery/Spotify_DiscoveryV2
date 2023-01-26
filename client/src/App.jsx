@@ -5,7 +5,7 @@ import WebPlayer from './components/WebPlayer.jsx'
 import Navbar from './components/Navbar.jsx'
 import spotify from './helpers/spotify'
 import { useSelector, useDispatch } from 'react-redux';
-import { setToken, setUserData, setTopTracks, setTopArtist } from './slices/userSlice'
+import { setTokens, setUserData, setTopTracks, setTopArtist } from './slices/userSlice'
 import { setView } from './slices/viewSlice';
 
 import { playSong, pauseSong } from './slices/songPreviewSlice';
@@ -28,7 +28,7 @@ const App = () => {
   // run useEffect to gather initial data and store it with redux
   useEffect(() => {
     if (params.get('access_token') && params.get('refresh_token')) {
-      dispatch(setToken({access_token: params.get('access_token'), refresh_token: params.get('refresh_token')}));
+      dispatch(setTokens({access_token: params.get('access_token'), refresh_token: params.get('refresh_token')}));
       dispatch(setView('Home'));
 
       // Remove access and refresh tokens from URL params

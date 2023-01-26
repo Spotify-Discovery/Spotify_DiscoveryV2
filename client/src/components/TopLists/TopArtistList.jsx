@@ -13,14 +13,23 @@ const TopArtistsList = () => {
   const [timeRange, setTimeRange] = useState('short_term');
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  console.log('user.topArtists', user.topArtists)
   let maxIndex = Math.floor(user.topArtists.length / 3);
   if (maxIndex === 1) {
     maxIndex = 0;
   }
 
   useEffect(() => {
-    spotify.getTopArtists(user, dispatch, timeRange)
-    setCurrentIndex(0);
+    const getTopArtists = async () => {
+      const topArtists = await spotify.getTopArtists(user, dispatch, timeRange);
+    }
+
+    getTopArtists()
+      .then(() => {
+        setCurrentIndex(0);
+      });
+    // spotify.getTopArtists(user, dispatch, timeRange)
+    // setCurrentIndex(0);
   }, [timeRange]);
 
   const handleRightClick = () => {

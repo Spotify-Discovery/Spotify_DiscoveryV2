@@ -19,7 +19,7 @@ const webPlayback = {
       return response.data;
     })
     .catch((error) => {
-      handleError(error);
+      console.log(error);
     });
   },
 
