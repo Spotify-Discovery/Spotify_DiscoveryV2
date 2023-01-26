@@ -89,7 +89,7 @@ router.get('/topArtists:token?:time_range?', (req, res) => {
     getPreviewsForArtists(result.data.items, access_token)
     .then((updatedResults) => {
       // console.log('updtate:', updatedResults);
-      console.log('legnth:', updatedResults.length);
+      console.log('length:', updatedResults.length);
       res.send(updatedResults)
     })
 
