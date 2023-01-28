@@ -1,12 +1,14 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSong } from '../../slices/songPreviewSlice.js';
+import spotify from '../../helpers/spotify.js'
 
 
 
 const TopArtistsEntry = ({ artist }) => {
 
   const previewSong = useSelector((state) => state.previewSong);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const containerStyle = {
@@ -26,6 +28,8 @@ const TopArtistsEntry = ({ artist }) => {
     dispatch(setSong({}));
   }
 
+
+
   return (
     <div className="top-entry" style={containerStyle}
       onMouseEnter={() => {
@@ -34,7 +38,13 @@ const TopArtistsEntry = ({ artist }) => {
 
       onMouseLeave={() => {
         handleMouseLeave();
-      }}>
+      }}
+
+      onClick={() => {
+        dispatch(setSong({}));
+        spotify.getArtistDetails(user, dispatch, artist)
+      }}
+      >
       <div className="black-filter"></div>
       <div className="item-info">
         <div className="item-name">{artist.name}</div>

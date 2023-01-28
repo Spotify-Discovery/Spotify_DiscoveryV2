@@ -33,7 +33,7 @@ module.exports.getNullPreviews = (track, access_token) => {
       }
     }
   ).then((response) => {
-    console.log('got res from searchById');
+    // console.log('got res from searchById');
     return response.data.tracks.items[0].preview_url;
   })
 }
@@ -66,4 +66,25 @@ module.exports.searchByIds = (data, access_token) => {
           return response.data;
         })
     });
+}
+
+module.exports.searchByTrackName = (track, albumName, access_token) => {
+  /**
+   * Spotify's search endpoint is bugged and so we actually need to search each track received from the search by its ID
+   */
+  var artistName = track.artists[0].name.split(' ').join('%20');
+  var trackName = track.name.split(' ').join('%20');
+  var albumName = albumName.split(' ').join('%20');
+
+  // console.log(albumName);
+  return axios.get(`${SPOTIFY_BASE}search?q=${trackName}%20artist:${artistName}%20album:${albumName}&type=track&limit=1`,
+    {
+      headers: {
+        "Authorization": `Bearer ${access_token}`
+      }
+    }
+  ).then((response) => {
+    // console.log('got res from searchById');
+    return response.data.tracks.items[0].preview_url;
+  })
 }

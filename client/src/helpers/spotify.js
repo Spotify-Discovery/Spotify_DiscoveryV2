@@ -85,6 +85,7 @@ const spotify = {
    * @param {*} id
    */
   getRelated : (user, dispatch, track) => {
+
     talkToSpotify({
       method: 'GET',
       endpoint: `/related`,
@@ -94,9 +95,28 @@ const spotify = {
     })
     .then((data) => {
         dispatch(addToFeed({
+          type: 'TRACKS',
           relatedTo: track,
           relatedTracks: data
         }));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  },
+
+  getArtistDetails : (user, dispatch, artist) => {
+    console.log('spot')
+    talkToSpotify({
+      method: 'GET',
+      endpoint: `/artist`,
+      user: user,
+      dispatch: dispatch,
+      query: {artist_id: artist.id}
+    })
+    .then((data) => {
+      data.artist = artist;
+      console.log('Artist data:', data)
     })
     .catch((error) => {
       console.log(error);
