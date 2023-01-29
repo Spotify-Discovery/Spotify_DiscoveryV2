@@ -40,14 +40,13 @@ const App = () => {
    *
    */
   useEffect(() => {
-    console.log('in useeffect')
-    if (previewSong.songUrl) {
+    if (previewSong.song) {
       dispatch(playSong());
     } else {
       dispatch(pauseSong());
     }
 
-  }, [previewSong.songUrl])
+  }, [previewSong])
 
   /**
    *
@@ -67,7 +66,7 @@ const App = () => {
 
   return !access_token ? <Login /> : (
     <main>
-      <div className="center">
+      <div className="">
         <Navbar />
         {renderView()}
         <WebPlayer />

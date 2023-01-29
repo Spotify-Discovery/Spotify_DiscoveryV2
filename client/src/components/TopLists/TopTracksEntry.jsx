@@ -20,12 +20,12 @@ const TopTracksEntry = ({ track }) => {
 
   const handleMouseEnter = () => {
     console.log('mouse enter:', track);
-    dispatch(setSong(track.preview_url));
+    dispatch(setSong(track));
   }
 
   const handleMouseLeave = () => {
     console.log('mouse enter:', track);
-    dispatch(setSong(null));
+    dispatch(setSong({}));
   }
 
   return (
@@ -39,7 +39,7 @@ const TopTracksEntry = ({ track }) => {
       }}
 
       onClick={() => {
-        dispatch(setSong(null));
+        dispatch(setSong({}));
         spotify.getRelated(user, dispatch, track)
       }}
         >

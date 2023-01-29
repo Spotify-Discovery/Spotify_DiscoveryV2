@@ -5,7 +5,7 @@ const mediaPlayer = new Audio();
 mediaPlayer.volume = 0.5;
 
 const initialState = {
-  songUrl: null
+  song: {}
 }
 
 export const songPreviewSlice = createSlice({
@@ -14,7 +14,7 @@ export const songPreviewSlice = createSlice({
   reducers: {
     setSong: (state, data) => {
       // console.log(data.payload)
-      state.songUrl = data.payload;
+      state.song = data.payload;
     },
 
     playSong: (state, data) => {
@@ -22,8 +22,8 @@ export const songPreviewSlice = createSlice({
       if (!mediaPlayer.paused) {
         mediaPlayer.pause();
       }
-      if (state.songUrl) {
-        mediaPlayer.src = state.songUrl;
+      if (state.song) {
+        mediaPlayer.src = state.song.preview_url;
         mediaPlayer.play();
       }
     },

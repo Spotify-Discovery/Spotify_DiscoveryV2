@@ -87,7 +87,7 @@ const TopTracksList = () => {
         <div className="top-inner-container"
           style={{
             transition: 'transform 0.3s',
-            transform: `translateX(-${currentIndex * 900}px)`,
+            transform: `translateX(-${currentIndex * 645}px)`,
           }}>
           {user.topTracks.map((track, i) => {
             return <TopTracksEntry track={track} key={i}/>
