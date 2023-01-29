@@ -2,31 +2,67 @@ import React from 'react';
 const {useState, useEffect} = React;
 import { useSelector, useDispatch } from 'react-redux';
 import { setView } from '../slices/viewSlice';
+import TrackResult from './TrackResult.jsx';
+import TopArtistsEntry from './TopLists/TopArtistsEntry.jsx';
 
 const SearchResults = () => {
+
   const searchResults = useSelector((state) => state.searchResults);
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  let maxIndex = Math.floor(searchResults.artists.length / 3);
+  if (maxIndex === 1) {
+    maxIndex = 0;
+  }
+
+  const handleRightClick = () => {
+
+    if (currentIndex === maxIndex) {
+      setCurrentIndex(maxIndex);
+    } else {
+      setCurrentIndex(currentIndex + 1);
+    }
+  }
+
+  const handleLeftClick = () => {
+    if (currentIndex === 0) {
+      setCurrentIndex(0)
+    } else {
+      setCurrentIndex(currentIndex - 1);
+    }
+  }
+
   const renderTracks = () => {
-    return searchResults.tracks.map((track, index) => {
+    return searchResults.tracks.map((track) => {
       return (
-        <div key={index}>
-          <img src={track.album.images[0].url} />
-          <div>{track.name}</div>
-          <div>{track.artists[0].name}</div>
-        </div>
+        <TrackResult track={track} key={track.id} />
       )
     })
   }
 
   const renderArtists = () => {
-    return searchResults.artists.map((artist, index) => {
       return (
-        <div key={index}>
-          <img src={artist.images[0] ? artist.images[0].url : null} />
-          <div>{artist.name}</div>
+        <div className="top-artists-container">
+        <div className="top-options">
+          {currentIndex !== 0 &&
+            <div className="gallery-leftPointer" onClick={handleLeftClick}>‹</div>
+          }
+          {currentIndex !== maxIndex &&
+            <div className="gallery-rightPointer" onClick={handleRightClick}>›</div>
+          }
         </div>
+        <div className="top-inner-container"
+          style={{
+            transition: 'transform 0.3s',
+            transform: `translateX(-${currentIndex * 645}px)`,
+          }}>
+          {searchResults.artists.map((artist, i) => {
+            return <TopArtistsEntry artist={artist} key={i}/>
+          })}
+        </div>
+      </div>
       )
-    })
   }
 
   return (

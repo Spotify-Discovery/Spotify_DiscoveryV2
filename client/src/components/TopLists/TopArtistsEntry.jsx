@@ -12,7 +12,7 @@ const TopArtistsEntry = ({ artist }) => {
   const dispatch = useDispatch();
 
   const containerStyle = {
-    backgroundImage: `url(${artist.images[1].url})`,
+    backgroundImage: `url(${artist.images[1] ? artist.images[1].url : null})`,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center'
