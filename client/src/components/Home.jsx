@@ -1,5 +1,4 @@
 import React from 'react'
-import Search from './Search.jsx'
 import TopArtistsList from './TopLists/TopArtistList.jsx'
 import TopTracksList from './TopLists/TopTracksList.jsx'
 import FeedInstanceEntry from './Feed/FeedInstanceEntry.jsx'
@@ -9,21 +8,10 @@ import spotify from '../helpers/spotify';
 const {useRef, useState, useEffect} = React;
 
 const Home = ({handleSearch, handleViewChange}) => {
-  const searchRef = useRef('');
-  const [firstSearch, setFirstSearch] = useState(true);
   const [currentList, setCurrentList] = useState('ARTISTS');
   const user = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // if (firstSearch) {setFirstSearch(false)}
-    if (searchRef.current.value !== '') {
-      handleSearch(searchRef.current.value);
-      handleViewChange('Search')
-    }
-  }
 
   const getHeaderStyle = (listName) => {
     if (currentList === listName) {
@@ -59,38 +47,36 @@ const Home = ({handleSearch, handleViewChange}) => {
 
 
   return (
-    <div className="center">
-      <div>
-        <div className="header-container">
-          <div className="top-header"
-            onClick={() => {setCurrentList('ARTISTS')}}
-            style={getHeaderStyle('ARTISTS')}
-            >Top Artists</div>
-          <div className="top-header"
-            onClick={() => {setCurrentList('TRACKS')}}
-            style={getHeaderStyle('TRACKS')}>
-            Top Tracks</div>
-          </div>
-
-        {renderList()}
-
-        <div className="feed">
-          {user.feed.map((instance) => {
-            return (
-              <div className="feed-instance-container">
-                <div className="recommended-header">Recommendations based on "{instance.relatedTo}"</div>
-                <div className="feed-instance">
-                  {instance.relatedTracks.map((element) => {
-                    return <FeedInstanceEntry element={element}/>
-                  })}
-                </div>
-              </div>
-            )
-          })}
-
+    <div>
+      <div className="header-container">
+        <div className="top-header"
+          onClick={() => {setCurrentList('ARTISTS')}}
+          style={getHeaderStyle('ARTISTS')}
+          >Top Artists</div>
+        <div className="top-header"
+          onClick={() => {setCurrentList('TRACKS')}}
+          style={getHeaderStyle('TRACKS')}>
+          Top Tracks</div>
         </div>
 
+      {renderList()}
+
+      <div className="feed">
+        {user.feed.map((instance) => {
+          return (
+            <div className="feed-instance-container">
+              <div className="recommended-header">Recommendations based on "{instance.relatedTo}"</div>
+              <div className="feed-instance">
+                {instance.relatedTracks.map((element) => {
+                  return <FeedInstanceEntry element={element}/>
+                })}
+              </div>
+            </div>
+          )
+        })}
+
       </div>
+
     </div>
   );
 }
