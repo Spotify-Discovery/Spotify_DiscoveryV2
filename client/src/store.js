@@ -3,13 +3,15 @@ import userReducer from './slices/userSlice';
 import viewReducer from './slices/viewSlice';
 import playbackReducer from './slices/playbackSlice';
 import songPreviewSlice from './slices/songPreviewSlice';
+import searchResultsSlice from './slices/searchResultsSlice';
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     view: viewReducer,
     playback: playbackReducer,
-    previewSong: songPreviewSlice
+    previewSong: songPreviewSlice,
+    searchResults: searchResultsSlice
   }
 });
 
