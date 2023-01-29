@@ -78,25 +78,21 @@ router.get('/topTracks:token?:time_range?', (req, res) => {
 router.get('/topArtists:token?:time_range?', (req, res) => {
   const access_token = req.query.token;
   const time_range = req.query.time_range;
-  console.log(time_range)
+
   axios.get(`${SPOTIFY_BASE}me/top/artists?time_range=${time_range}`, {
     headers: {
       "Authorization": `Bearer ${access_token}`
     }
   })
   .then((result) => {
-    // console.log('res data:', result.data)
     getPreviewsForArtists(result.data.items, access_token)
     .then((updatedResults) => {
-      // console.log('updtate:', updatedResults);
-      // console.log('legnth:', updatedResults.length);
       Promise.all(
         updatedResults.map((artist, i) => {
-          console.log('preview', artist.track.preview_url, i);
+
           if (artist.track.preview_url == null) {
             return getNullPreviews(artist.track, access_token)
               .then((updatedUrl) => {
-                console.log("updated Url", updatedUrl, i);
                 artist.track.preview_url = updatedUrl;
                 return artist;
               })

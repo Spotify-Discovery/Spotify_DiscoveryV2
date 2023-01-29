@@ -1,5 +1,4 @@
 import React from 'react'
-import Search from './Search.jsx'
 import TopArtistsList from './TopLists/TopArtistList.jsx'
 import TopTracksList from './TopLists/TopTracksList.jsx'
 import FeedInstanceEntry from './Feed/FeedInstanceEntry.jsx'
@@ -9,22 +8,11 @@ import spotify from '../helpers/spotify';
 const {useRef, useState, useEffect} = React;
 
 const Home = ({handleSearch, handleViewChange}) => {
-  const searchRef = useRef('');
-  const [firstSearch, setFirstSearch] = useState(true);
   const [currentList, setCurrentList] = useState('ARTISTS');
   const user = useSelector((state) => state.user);
   const previewSong = useSelector((state) => state.previewSong);
 
   const dispatch = useDispatch();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // if (firstSearch) {setFirstSearch(false)}
-    if (searchRef.current.value !== '') {
-      handleSearch(searchRef.current.value);
-      handleViewChange('Search')
-    }
-  }
 
   const getHeaderStyle = (listName) => {
     if (currentList === listName) {
@@ -97,7 +85,7 @@ const Home = ({handleSearch, handleViewChange}) => {
             Top Tracks</div>
           </div>
 
-        {renderList()}
+      {renderList()}
 
         <div className="feed">
           {user.feed.map((instance) => {
@@ -145,9 +133,7 @@ const Home = ({handleSearch, handleViewChange}) => {
               </div>
             )
           })}
-
         </div>
-
       </div>
     </div>
   );

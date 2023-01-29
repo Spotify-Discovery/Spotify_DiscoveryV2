@@ -1,7 +1,9 @@
 import axios from "axios"
 
+import { refreshToken } from "../slices/userSlice";
+
 let talkToSpotify = async (params) => {
-  const access_token = params.user.access_token;
+  const access_token = !params.new_token ? params.user.access_token : params.new_token;
   const refresh_token = params.user.refresh_token;
 
   return axios({
@@ -16,8 +18,23 @@ let talkToSpotify = async (params) => {
     return response.data;
   })
   .catch((error) => {
-    console.log("error from talkToSpotify:");
-    console.log(error);
+    if (error.response.status === 401) {
+      axios({
+        method: "get",
+        url: `/refresh/${refresh_token}`
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          const access_token = response.data.access_token;
+          params.dispatch(refreshToken({ access_token: access_token }));
+          params.new_token = access_token;
+          return talkToSpotify(params);
+        } else {
+          console.log("error from talkToSpotify:");
+          console.log(error);
+        }
+      });
+    }
   });
 }
 

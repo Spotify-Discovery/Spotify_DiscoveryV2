@@ -3,18 +3,17 @@ import Login from './components/Login.jsx'
 import Home from './components/Home.jsx'
 import WebPlayer from './components/WebPlayer.jsx'
 import Navbar from './components/Navbar.jsx'
+import SearchResults from './components/SearchResults.jsx'
+
 import spotify from './helpers/spotify'
 import { useSelector, useDispatch } from 'react-redux';
-import { setToken, setUserData, setTopTracks, setTopArtist } from './slices/userSlice'
+import { setTokens, setUserData, setTopTracks, setTopArtist } from './slices/userSlice'
 import { setView } from './slices/viewSlice';
 
 import { playSong, pauseSong } from './slices/songPreviewSlice';
 const {useState, useEffect} = React;
 
 const App = () => {
-  // const mediaPlayer = new Audio();
-  // mediaPlayer.volume = 0.5;
-
   const params = new URLSearchParams(window.location.search);
 
   const previewSong = useSelector((state) => state.previewSong)
@@ -28,7 +27,7 @@ const App = () => {
   // run useEffect to gather initial data and store it with redux
   useEffect(() => {
     if (params.get('access_token') && params.get('refresh_token')) {
-      dispatch(setToken({access_token: params.get('access_token'), refresh_token: params.get('refresh_token')}));
+      dispatch(setTokens({access_token: params.get('access_token'), refresh_token: params.get('refresh_token')}));
       dispatch(setView('Home'));
 
       // Remove access and refresh tokens from URL params
@@ -37,13 +36,13 @@ const App = () => {
     }
   }, []);
 
+  /**
+   *
+   */
   useEffect(() => {
-    // console.log('in useeffect', previewSong.song.preview_url)
     if (previewSong.song) {
-      console.log('playing')
       dispatch(playSong());
     } else {
-
       dispatch(pauseSong());
     }
 
@@ -58,12 +57,12 @@ const App = () => {
         return <Login />;
       case 'Home':
         return <Home />
+      case 'SearchResults':
+        return <SearchResults />
       default:
         return <div>404</div>;
     }
   }
-
-  const renderedView = renderView();
 
   return !access_token ? <Login /> : (
     <main>

@@ -17,9 +17,12 @@ export const userSlice = createSlice({
   name: 'userSlice',
   initialState,
   reducers: {
-    setToken: (state, data) => {
+    setTokens: (state, data) => {
       state.access_token = data.payload.access_token;
       state.refresh_token = data.payload.refresh_token;
+    },
+    refreshToken: (state, data) => {
+      state.access_token = data.payload.access_token;
     },
     setUserData: (state, data) => {
       state.username = data.payload.username;
@@ -40,6 +43,6 @@ export const userSlice = createSlice({
   }
 });
 
-export const { setToken, setUserData, setTopTracks, setTopArtists, addToFeed } = userSlice.actions;
+export const { setTokens, refreshToken, setUserData, setTopTracks, setTopArtists, addToFeed } = userSlice.actions;
 
 export default userSlice.reducer;
