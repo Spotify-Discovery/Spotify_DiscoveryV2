@@ -24,7 +24,7 @@ const Navbar = () => {
     let cancel = false;
 
     const handleQueryChange = async () => {
-      let result = !query ? [] : await search.fromQuery(user, dispatch, query);
+      let result = !query ? {tracks: {items: []}, artists: {items:[]}} : await search.fromQuery(user, dispatch, query);
       if (cancel) return;
       console.log(result);
       dispatch(setTracks(result.tracks.items));
