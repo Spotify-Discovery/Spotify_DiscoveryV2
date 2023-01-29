@@ -12,7 +12,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true} ));
 
-app.use(express.static(path.join(__dirname, 'client/dist')))
+app.use(express.static(path.join(__dirname, 'client/dist')));
+app.use('/about', express.static(path.join(__dirname, 'client/dist/assets/about')));
 
 app.use(cookieParser);
 
