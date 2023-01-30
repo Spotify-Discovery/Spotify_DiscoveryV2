@@ -3,6 +3,7 @@ const {useState, useEffect} = React;
 import { useSelector, useDispatch } from 'react-redux';
 import { setView } from '../slices/viewSlice';
 import { setTracks, setArtists } from '../slices/searchResultsSlice';
+import { setToken } from '../slices/userSlice';
 import search from '../helpers/search.js';
 
 const Navbar = () => {
@@ -37,15 +38,22 @@ const Navbar = () => {
 
   }, [query]);
 
+  const handleLogoutClick = () => {
+    dispatch(setToken(null));
+    localStorage.removeItem('refresh_token');
+  }
+
   return (
-    <div className="head-container">
+    <div className="nav-container">
       <div className="title-home">Discover<span id="spotify-title">Spotify</span></div>
-      <div className="nav-container">
-      <form onSubmit={()=>{}} autoComplete="off">
-        <input id="search" placeholder="Search Artists or Songs..." value={query} onChange={e => setQuery(e.target.value)}></input>
-        <button id="search-button" className="fa-solid fa-magnifying-glass fa-lg" type="submit"></button>
-      </form>
-    </div>
+
+      <input id="search" placeholder="Search Artists or Songs..." value={query} onChange={e => setQuery(e.target.value)}></input>
+      {/* <button id="search-button" className="fa-solid fa-magnifying-glass fa-lg" type="submit"></button> */}
+
+      <div className="logout-button" onClick={handleLogoutClick}>
+        <a>Log Out</a>
+      </div>
+
     </div>
   )
 }
