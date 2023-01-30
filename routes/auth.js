@@ -138,15 +138,35 @@ router.get('/callback', (req, res) => {
  */
 router.get('/access_token', (req, res) => {
   const access_token = req.cookies.access_token;
-  res.send(access_token);
+
+  const headers = {
+    headers: {
+      "Authorization": `Bearer ${access_token}`
+    }
+  };
+
+  axios.get('https://api.spotify.com/v1/me', headers)
+    .then(response => {
+      if (response.status === 200) {
+        res.send(access_token);
+      } else {
+        res.status(500).send('Spotify responded with a status ' + response.status);
+      }
+    })
+    .catch((error) => {
+      if (error.response.status === 401) {
+        res.status(401).send();
+      } else {
+        res.status(500).send('Spotify responded with a status ' + error.response.status);
+      }
+    });
 });
 
 /**
  * Endpoint for refreshing access token.
  */
-router.get('/refresh:refresh_token', function(req, res) {
-
-  const refresh_token = req.params.refresh_token;
+router.get('/refresh', function(req, res) {
+  const refresh_token = req.query.refresh_token;
 
   const authOptions = new URLSearchParams({
     grant_type: 'refresh_token',

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import talkToSpotify from './talkToSpotify';
 
 const webPlayback = {
 
@@ -14,7 +14,11 @@ const webPlayback = {
       context_uri: uri
     };
 
-    return axios.put(`/spotify/play/`, body)
+    return talkToSpotify({
+      method: 'PUT',
+      endpoint: '/spotify/play',
+      data: body
+    })
     .then((response) => {
       return response.data;
     })
@@ -43,8 +47,12 @@ const webPlayback = {
     document.body.appendChild(script);
 
     window.onSpotifyWebPlaybackSDKReady = async () => {
-      const response = await axios.get(`/access_token`);
-      const access_token = response.data;
+      const response = await talkToSpotify({
+        method: 'GET',
+        endpoint: '/access_token',
+      });
+
+      const access_token = response;
 
       const player = new window.Spotify.Player({
           name: 'Spotify V2',
@@ -63,10 +71,12 @@ const webPlayback = {
                 device_ids: [device_id],
                 play: false,
               }
-              axios.put(`/player`, data)
-                .catch((error) => {
-                  handleError(error);
-                });
+
+              talkToSpotify({
+                method: 'PUT',
+                endpoint: '/player',
+                data: data
+              })
             }
 
             connectToDevice();

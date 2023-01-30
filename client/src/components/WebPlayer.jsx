@@ -10,9 +10,6 @@ function WebPlayer({ track }) {
   const [is_active, setActive] = useState(false);
   const [current_track, setTrack] = useState(track);
 
-  const access_token = useSelector((state) => state.user.access_token);
-  const refresh_token = useSelector((state) => state.user.refresh_token);
-
   // Our hooks wrapped in non-hook functions to be used as callbacks
   const handlers = {
     setPlayer: (player) => {
