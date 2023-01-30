@@ -7,9 +7,9 @@ const { searchById, getNullPreviews } = require('./searchById.js')
 
 const SPOTIFY_BASE = 'https://api.spotify.com/v1/';
 
-router.get(':token?:track_id?', (req, res) => {
-  console.log('in related')
-  const access_token = req.query.token;
+router.get(':track_id?', (req, res) => {
+
+  const access_token = req.cookies.access_token;
   const track_id = req.query.track_id;
   axios.get(`${SPOTIFY_BASE}recommendations?seed_tracks=${track_id}&limit=45&market=US`, {
     headers: {

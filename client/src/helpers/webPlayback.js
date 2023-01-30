@@ -9,12 +9,12 @@ const webPlayback = {
    * @param {*} refresh_token - refresh token
    * @param {*} uri - the track to play
    */
-  setPlayback: (access_token, refresh_token, uri) => {
+  setPlayback: (uri) => {
     const body = {
       context_uri: uri
     };
 
-    return axios.put(`/spotify/play/${access_token}`, body)
+    return axios.put(`/spotify/play/`, body)
     .then((response) => {
       return response.data;
     })
@@ -33,7 +33,7 @@ const webPlayback = {
    * @param {*} setActive - dispatches active to store
    * @param {*} setTrack - dispatches track to store
    */
-  createAndConnectDevice: async (access_token, refresh_token, setPlayer, setPaused, setActive, setTrack) => {
+  createAndConnectDevice: async (setPlayer, setPaused, setActive, setTrack) => {
 
     // https://developer.spotify.com/documentation/web-playback-sdk/guide/#react-components
     const script = document.createElement("script");
@@ -42,15 +42,17 @@ const webPlayback = {
 
     document.body.appendChild(script);
 
-    window.onSpotifyWebPlaybackSDKReady = () => {
+    window.onSpotifyWebPlaybackSDKReady = async () => {
+      const response = await axios.get(`/access_token`);
+      const access_token = response.data;
 
-        const player = new window.Spotify.Player({
-            name: 'Spotify V2',
-            getOAuthToken: cb => {
-              cb(access_token);
-            },
-            volume: 0.2
-        });
+      const player = new window.Spotify.Player({
+          name: 'Spotify V2',
+          getOAuthToken: cb => {
+            cb(access_token);
+          },
+          volume: 0.2
+      });
 
         setPlayer(player);
 
@@ -61,7 +63,7 @@ const webPlayback = {
                 device_ids: [device_id],
                 play: false,
               }
-              axios.put(`/player?token=${access_token}`, data)
+              axios.put(`/player`, data)
                 .catch((error) => {
                   handleError(error);
                 });

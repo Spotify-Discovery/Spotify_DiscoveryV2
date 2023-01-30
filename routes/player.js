@@ -8,8 +8,8 @@ const SPOTIFY_BASE = 'https://api.spotify.com/v1/';
 /**
  *
  */
-router.put(':token?', (req, res) => {
-  const access_token = req.query.token;
+router.put('/', (req, res) => {
+  const access_token = req.cookies.access_token;
   const body = req.body;
 
   const headers = {

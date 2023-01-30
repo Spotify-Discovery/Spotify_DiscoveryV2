@@ -9,11 +9,12 @@ const { getAlbumTracks } = require('../helpers/getAlbumTracks.js');
 
 const SPOTIFY_BASE = 'https://api.spotify.com/v1/';
 
-router.get(':token?:artist_id?', (req, res) => {
-  console.log('get artist');
+router.get(':artist_id?', (req, res) => {
   let responseData = {}
-  const access_token = req.query.token;
+
+  const access_token = req.cookies.access_token;
   const artist_id = req.query.artist_id;
+
   //TODO: set country to user's
   axios.get(`${SPOTIFY_BASE}artists/${artist_id}/top-tracks?market=US`, {
     headers: {

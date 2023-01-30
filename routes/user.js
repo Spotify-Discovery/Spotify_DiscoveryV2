@@ -11,15 +11,14 @@ const SPOTIFY_BASE = 'https://api.spotify.com/v1/';
  *
  */
 router.get('/', (req, res) => {
-  const access_token = req.query.token;
-  console.log(req.params)
+  const access_token = req.cookies.access_token;
+
   axios.get(`${SPOTIFY_BASE}me`, {
     headers: {
       "Authorization": `Bearer ${access_token}`
     }
   })
   .then((response) => {
-    // console.log(res.data);
     res.send(response.data)
   })
   .catch(error => {
@@ -34,8 +33,8 @@ router.get('/', (req, res) => {
 /**
  *
  */
-router.get('/topTracks:token?:time_range?', (req, res) => {
-  const access_token = req.query.token;
+router.get('/topTracks:time_range?', (req, res) => {
+  const access_token = req.cookies.access_token;
   const time_range = req.query.time_range;
 
   axios.get(`${SPOTIFY_BASE}me/top/tracks?time_range=${time_range}`, {
@@ -75,8 +74,8 @@ router.get('/topTracks:token?:time_range?', (req, res) => {
 /**
  *
  */
-router.get('/topArtists:token?:time_range?', (req, res) => {
-  const access_token = req.query.token;
+router.get('/topArtists:time_range?', (req, res) => {
+  const access_token = req.cookies.access_token;
   const time_range = req.query.time_range;
 
   axios.get(`${SPOTIFY_BASE}me/top/artists?time_range=${time_range}`, {
