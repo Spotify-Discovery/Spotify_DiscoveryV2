@@ -19,13 +19,14 @@ const App = () => {
   const previewSong = useSelector((state) => state.previewSong)
   const view = useSelector((state) => state.view);
   const user = useSelector((state) => state.user);
-  const refresh_token = localStorage.getItem('refresh_token');
+  const refresh_token = localStorage.getItem('refresh_token') || params.get('refresh_token');
 
   const dispatch = useDispatch();
 
   // run useEffect to gather initial data and store it with redux
   useEffect(() => {
-    if (params.get('refresh_token')) {
+    if (refresh_token) {
+      dispatch(setToken(refresh_token));
       dispatch(setView('Home'));
 
       localStorage.setItem('refresh_token', refresh_token);
