@@ -25,9 +25,6 @@ let talkToSpotify = async (params) => {
       })
       .then((response) => {
         if (response.status === 200) {
-          const access_token = response.data.access_token;
-          params.dispatch(refreshToken({ access_token: access_token }));
-          params.new_token = access_token;
           return talkToSpotify(params);
         } else {
           console.log("error from talkToSpotify:");

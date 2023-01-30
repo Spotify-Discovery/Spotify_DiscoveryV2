@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  access_token: null,
   refresh_token: null,
   username: '',
   email: '',
@@ -17,12 +16,11 @@ export const userSlice = createSlice({
   name: 'userSlice',
   initialState,
   reducers: {
-    setTokens: (state, data) => {
-      state.access_token = data.payload.access_token;
-      state.refresh_token = data.payload.refresh_token;
-    },
-    refreshToken: (state, data) => {
-      state.access_token = data.payload.access_token;
+    setToken: (state, data) => {
+      // Store refresh token in localStorage and in state
+
+      localStorage.setItem('refresh_token', data.payload);
+      state.refresh_token = data.payload;
     },
     setUserData: (state, data) => {
       state.username = data.payload.username;
@@ -43,6 +41,6 @@ export const userSlice = createSlice({
   }
 });
 
-export const { setTokens, refreshToken, setUserData, setTopTracks, setTopArtists, addToFeed } = userSlice.actions;
+export const { setToken, setUserData, setTopTracks, setTopArtists, addToFeed } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -655,3 +655,15 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.logout-button {
+  top: 10px;
+  right: 10px;
+  background-color: var(--background-secondary);
+  color: var(--text-color);
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}

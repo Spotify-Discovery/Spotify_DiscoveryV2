@@ -68,7 +68,7 @@ router.get('/login', (req, res) => {
       scope: scopeParam,
       redirect_uri: REDIRECT_URI,
       state: state,
-      show_dialog: false,
+      show_dialog: true,
     })
   );
 });
@@ -110,9 +110,10 @@ router.get('/callback', (req, res) => {
           const access_token = response.data.access_token;
           const refresh_token = response.data.refresh_token;
 
+          res.cookie('access_token', access_token, { maxAge: 3600000, httpOnly: true });
+
           res.redirect(`${CLIENT_HOME_URL}?` +
             new URLSearchParams({
-              access_token: access_token,
               refresh_token: refresh_token
             })
           );
@@ -133,9 +134,17 @@ router.get('/callback', (req, res) => {
 });
 
 /**
+ * Endpoint for getting access token.
+ */
+router.get('/access_token', (req, res) => {
+  const access_token = req.cookies.access_token;
+  res.send(access_token);
+});
+
+/**
  * Endpoint for refreshing access token.
  */
-router.get('/refresh/:refresh_token', function(req, res) {
+router.get('/refresh:refresh_token', function(req, res) {
 
   const refresh_token = req.params.refresh_token;
 
@@ -154,9 +163,10 @@ router.get('/refresh/:refresh_token', function(req, res) {
     .then(response => {
       if (response.status === 200) {
         const access_token = response.data.access_token;
-        res.send({
-          'access_token': access_token
-        });
+
+        res.cookie('access_token', access_token, { maxAge: 3600000, httpOnly: true });
+
+        res.status(200).send();
       } else {
         res.status(500).send(response);
       }

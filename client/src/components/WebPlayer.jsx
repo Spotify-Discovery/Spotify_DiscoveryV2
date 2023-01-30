@@ -36,8 +36,6 @@ function WebPlayer({ track }) {
   // Create a device and then connect to it using Spotify's Webplayer SDK
   useEffect(() => {
     webPlayback.createAndConnectDevice(
-      access_token,
-      refresh_token,
       handlers.setPlayer,
       handlers.setPaused,
       handlers.setActive,
