@@ -9,7 +9,12 @@ const { getAlbumTracks } = require('../helpers/getAlbumTracks.js');
 
 const SPOTIFY_BASE = 'https://api.spotify.com/v1/';
 
-router.get(':artist_id?', (req, res) => {
+
+
+/**
+ *
+ */
+router.get('/', (req, res) => {
   let responseData = {}
 
   const access_token = req.cookies.access_token;
@@ -104,6 +109,8 @@ router.get(':artist_id?', (req, res) => {
         })
     })
   })
-})
+});
+
 
 module.exports = router;
+

@@ -8,6 +8,7 @@ body {
   --background-tertiary: #4e4e4e;
   --main-bg-color: #1b1b1b;
   --dark-bg-color: #0e0e0e;
+  --dark2-bg-color: #181818;
   --text-color: #f1f1f1;
   --accent-color: #ff9900;
   --infrared-color: #ff496c;
@@ -224,10 +225,24 @@ body {
   justify-content: flex-start;
   align-items: flex-start;
   background-color: var(--background-secondary);
-  padding: 20px;
-  border-radius: 20px;
   flex-shrink: 0;
   width: 165px;
+  height: 165px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-entry-container {
+  width: 165px;
+  height: 225px;
+  background-color: var(--dark-bg-color);
+  padding: 20px;
+  border-radius: 20px;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s;
 }
 
 .top-tracks {
@@ -287,9 +302,6 @@ body {
   opacity: 0.7;
 }
 
-.top-entry:hover .item-info {
-  opacity: 1;
-}
 
 .place {
   z-index: 1;
@@ -341,7 +353,7 @@ body {
 .top-artists-container {
   width: 100%;
   margin-top: 10px;
-  height: 205px;
+  height: 265px;
   overflow-x: hidden;
   overflow-y: hidden;
 }
@@ -361,7 +373,6 @@ body {
 
 .item-info {
   z-index: 2;
-  opacity: 0;
   width: 275px;
   display: flex;
   flex-direction: column;
@@ -421,15 +432,55 @@ body {
 }
 
 .item-name {
-  font-size: 22px;
+  font-size: 12px;
   color: var(--text-color);
+  width: fit-content;
   font-weight: bold;
+  white-space: nowrap;
+}
+
+.item-name-container {
+  width: 23ch;
+  overflow-x: hidden;
+  font-size: 12px;
+}
+
+@keyframes shift {
+  0% {transform: translateX(0);}
+  50% {transform: translateX(calc(-100% + 140px));}
+  100% {transform: translateX(0);}
+}
+
+.shadow-scroll {
+  opacity: 0;
+  position: absolute;
+  background: linear-gradient(90deg, #181818 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 90%, #181818 100%);
+  height: 12px;
+  width: 23ch;
+  z-index: 3;
+  transition: 0.3s;
+}
+
+.top-entry-container:hover .shadow-scroll {
+  opacity: 1;
+}
+
+.top-entry-container:hover .item-name {
+  animation: shift 10s infinite linear;
+}
+
+.top-entry-container:hover {
+  background-color: var(--dark2-bg-color);
 }
 
 .item-details {
   color: var(--text-color);
-  font-weight: 600;
-  font-style: italic;
+  font-size: 13px;
+  opacity: 0.75;
+  width: 18ch;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .item-popularity {
