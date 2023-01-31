@@ -447,8 +447,9 @@ body {
 }
 
 @keyframes shift {
-  0% {transform: translateX(0);}
-  50% {transform: translateX(calc(-100% + 160px));}
+  30% {transform: translateX(0);}
+  50% {transform: translateX(calc(-100% + 165px));}
+  80% {transform: translateX(calc(-100% + 165px));}
   100% {transform: translateX(0);}
 }
 
