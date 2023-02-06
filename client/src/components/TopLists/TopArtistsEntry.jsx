@@ -12,56 +12,62 @@ const TopArtistsEntry = ({ artist }) => {
   const dispatch = useDispatch();
 
   const containerStyle = {
-    backgroundImage: `url(${artist.images[1] ? artist.images[1].url : null})`,
+    backgroundImage: `url(${artist.images[1]?.url})`,
+    borderRadius: '50%',
+    border: 'none',
+    boxShadow: 'rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center'
   }
 
   const handleMouseEnter = () => {
-    console.log('mouse enter:', artist);
     dispatch(setSong(artist.track));
   }
 
   const handleMouseLeave = () => {
-    console.log('mouse enter:', artist);
     dispatch(setSong({}));
   }
 
 
-
   return (
-    <div className="top-entry" style={containerStyle}
-      onMouseEnter={() => {
-        handleMouseEnter();
-        }}
+    <div className="top-entry-container">
+      <a href={'youtube.com'}>
+        <div
+          className="top-entry"
+          style={containerStyle}
+          onMouseEnter={() => {
+            handleMouseEnter();
+          }}
 
-      onMouseLeave={() => {
-        handleMouseLeave();
-      }}
+          onMouseLeave={() => {
+            handleMouseLeave();
+          }}
 
-      onClick={() => {
-        dispatch(setSong({}));
-        spotify.getArtistDetails(user, dispatch, artist)
-      }}
-      >
-      <div className="black-filter"></div>
-      <div className="item-info">
-        <div className="item-name">{artist.name}</div>
-        <div className="item-details">{artist.genres[0]}</div>
-        <div className="item-popularity">{'Popularity ' + artist.popularity}</div>
+          onClick={() => {
+            dispatch(setSong({}));
+            spotify.getArtistDetails(user, dispatch, artist)
+          }}
+          >
+            <div className="black-filter"></div>
+          </div>
+        </a>
+        <div className="item-info">
+          <div className="item-name">{artist.name}</div>
+          <div className="item-details">{artist.genres[0]}</div>
+          <div className="item-popularity">{'Popularity ' + artist.popularity}</div>
+        </div>
       </div>
-    </div>
   )
 }
 
 export default TopArtistsEntry;
 
 // const pictureStyle = {
-//   backgroundImage: `url(${artist.images[2].url})`,
-//   height: '150px',
-//   width: '150px',
-//   backgroundSize: 'cover',
-//   backgroundRepeat: 'no-repeat',
-//   borderRadius: '20px'
+  //   backgroundImage: `url(${artist.images[2].url})`,
+  //   height: '150px',
+  //   width: '150px',
+  //   backgroundSize: 'cover',
+  //   backgroundRepeat: 'no-repeat',
+  //   borderRadius: '20px'
 // }
