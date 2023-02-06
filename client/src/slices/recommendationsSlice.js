@@ -5,8 +5,8 @@ const initialState = {
   isLoading: false,
 }
 
-export const feedSlice = createSlice({
-  name: 'feedSlice',
+export const recommendationsSlice = createSlice({
+  name: 'recommendationsSlice',
   initialState,
   reducers: {
     addToFeed: (state, data) => {
@@ -18,6 +18,6 @@ export const feedSlice = createSlice({
   }
 });
 
-export const { addToFeed, setIsLoading } = feedSlice.actions;
+export const { addToFeed, setIsLoading } = recommendationsSlice.actions;
 
-export default feedSlice.reducer;
+export default recommendationsSlice.reducer;

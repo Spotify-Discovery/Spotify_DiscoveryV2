@@ -2,7 +2,7 @@ import talkToSpotify from "./talkToSpotify";
 
 import { setUserData, setTopTracks, setTopArtists } from '../slices/userSlice';
 
-import { addToFeed, setIsLoading } from '../slices/feedSlice';
+import { addToFeed, setIsLoading } from '../slices/recommendationsSlice';
 
 const spotify = {
 

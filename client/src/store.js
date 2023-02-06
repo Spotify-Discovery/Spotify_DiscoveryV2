@@ -4,7 +4,7 @@ import viewReducer from './slices/viewSlice';
 import playbackReducer from './slices/playbackSlice';
 import songPreviewReducer from './slices/songPreviewSlice';
 import searchResultsReducer from './slices/searchResultsSlice';
-import feedReducer from './slices/feedSlice';
+import recommendationsReducer from './slices/recommendationsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -13,7 +13,7 @@ export const store = configureStore({
     playback: playbackReducer,
     previewSong: songPreviewReducer,
     searchResults: searchResultsReducer,
-    feed: feedReducer
+    recommendations: recommendationsReducer
   }
 });
 
