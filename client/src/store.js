@@ -2,16 +2,18 @@ import { configureStore } from "@reduxjs/toolkit";
 import userReducer from './slices/userSlice';
 import viewReducer from './slices/viewSlice';
 import playbackReducer from './slices/playbackSlice';
-import songPreviewSlice from './slices/songPreviewSlice';
-import searchResultsSlice from './slices/searchResultsSlice';
+import songPreviewReducer from './slices/songPreviewSlice';
+import searchResultsReducer from './slices/searchResultsSlice';
+import feedReducer from './slices/feedSlice';
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     view: viewReducer,
     playback: playbackReducer,
-    previewSong: songPreviewSlice,
-    searchResults: searchResultsSlice
+    previewSong: songPreviewReducer,
+    searchResults: searchResultsReducer,
+    feed: feedReducer
   }
 });
 
