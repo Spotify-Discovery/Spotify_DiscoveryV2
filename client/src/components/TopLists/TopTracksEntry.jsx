@@ -8,6 +8,7 @@ const { useRef, useEffect } = React;
 const TopTracksEntry = ({ track }) => {
   const previewSong = useSelector((state) => state.previewSong);
   const user = useSelector((state) => state.user);
+  const recommendations = useSelector((state) => state.recommendations);
   const dispatch = useDispatch();
 
   const elemRef = useRef();
@@ -44,8 +45,10 @@ const TopTracksEntry = ({ track }) => {
           handleMouseLeave();
         }}
         onClick={() => {
-          dispatch(setSong({}));
-          spotify.getRelated(user, dispatch, track);
+          if (!recommendations.isLoading) {
+            console.log('hereeeeeeeee',recommendations.isLoading)
+            spotify.getRelated(user, dispatch, track)
+          }
         }}
       >
         <div className="black-filter"></div>
