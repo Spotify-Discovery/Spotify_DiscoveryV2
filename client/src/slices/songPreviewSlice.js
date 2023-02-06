@@ -18,7 +18,6 @@ export const songPreviewSlice = createSlice({
     },
 
     playSong: (state, data) => {
-      console.log('song is not null')
       if (!mediaPlayer.paused) {
         mediaPlayer.pause();
       }
