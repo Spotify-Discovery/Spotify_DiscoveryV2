@@ -11,7 +11,7 @@ const Home = ({handleSearch, handleViewChange}) => {
   const [currentList, setCurrentList] = useState('ARTISTS');
   const user = useSelector((state) => state.user);
   const previewSong = useSelector((state) => state.previewSong);
-
+  const feed = useSelector((state) => state.feed);
   const dispatch = useDispatch();
 
   const getHeaderStyle = (listName) => {
@@ -88,7 +88,9 @@ const Home = ({handleSearch, handleViewChange}) => {
       {renderList()}
 
         <div className="feed">
-          {user.feed.map((instance) => {
+          {console.log(feed)}
+          {feed.isLoading && <div class="loading"/>}
+          {feed.feed.map((instance) => {
             return (
               <div>
                 <div className="rec-head-container">
