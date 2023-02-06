@@ -16,7 +16,8 @@ const {useState, useEffect} = React;
 const App = () => {
   const params = new URLSearchParams(window.location.search);
 
-  const previewSong = useSelector((state) => state.previewSong)
+  const previewSong = useSelector((state) => state.previewSong);
+  const playback = useSelector((state) => state.playback);
   const view = useSelector((state) => state.view);
   const user = useSelector((state) => state.user);
   const refresh_token = localStorage.getItem('refresh_token') || params.get('refresh_token');
@@ -41,9 +42,9 @@ const App = () => {
    *
    */
   useEffect(() => {
-    if (previewSong.song) {
+    if (previewSong.song && !playback.isPlaying) {
       dispatch(playSong());
-    } else {
+    } else if (!previewSong.song && !playback.isPlaying) {
       dispatch(pauseSong());
     }
 

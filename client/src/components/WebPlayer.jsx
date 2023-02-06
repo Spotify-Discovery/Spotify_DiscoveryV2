@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { setIsPlaying } from '../slices/playbackSlice.js';
+
 import axios from 'axios';
 
 import webPlayback from '../helpers/webPlayback.js';
@@ -10,22 +12,25 @@ function WebPlayer({ track }) {
   const [is_active, setActive] = useState(false);
   const [current_track, setTrack] = useState(track);
 
+  const dispatch = useDispatch();
+
   // Our hooks wrapped in non-hook functions to be used as callbacks
   const handlers = {
     setPlayer: (player) => {
       setPlayer(player);
     },
 
-    setTrack: (player) => {
-      setTrack(player);
+    setTrack: (track) => {
+      setTrack(track);
     },
 
-    setActive: (player) => {
-      setActive(player);
+    setActive: (isActive) => {
+      setActive(isActive);
     },
 
-    setPaused: (player) => {
-      setPaused(player);
+    setPaused: (isPaused) => {
+      setPaused(isPaused);
+      dispatch(setIsPlaying(!isPaused));
     },
 
   }
