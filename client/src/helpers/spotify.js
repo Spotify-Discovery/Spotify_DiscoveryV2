@@ -1,6 +1,8 @@
 import talkToSpotify from "./talkToSpotify";
 
-import { setUserData, setTopTracks, setTopArtists, addToFeed } from '../slices/userSlice';
+import { setUserData, setTopTracks, setTopArtists } from '../slices/userSlice';
+
+import { addToFeed, setIsLoading } from '../slices/recommendationsSlice';
 
 const spotify = {
 
@@ -85,7 +87,7 @@ const spotify = {
    * @param {*} id
    */
   getRelated : (user, dispatch, track) => {
-
+    dispatch(setIsLoading(true));
     talkToSpotify({
       method: 'GET',
       endpoint: `/related`,
@@ -94,6 +96,7 @@ const spotify = {
       query: {track_id: track.id}
     })
     .then((data) => {
+      dispatch(setIsLoading(false));
         dispatch(addToFeed({
           type: 'TRACKS',
           relatedTo: track,
@@ -101,6 +104,7 @@ const spotify = {
         }));
     })
     .catch((error) => {
+      dispatch();
       console.log(error);
     });
   },

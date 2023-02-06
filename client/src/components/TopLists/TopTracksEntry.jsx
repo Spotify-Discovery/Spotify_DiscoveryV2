@@ -2,7 +2,6 @@ import React from "react";
 import spotify from "../../helpers/spotify.js";
 import { useSelector, useDispatch } from "react-redux";
 import { setSong } from "../../slices/songPreviewSlice.js";
-import { addToFeed } from "../../slices/userSlice.js";
 
 const { useRef, useEffect } = React;
 
@@ -26,35 +25,31 @@ const TopTracksEntry = ({ track }) => {
   };
 
   const handleMouseEnter = () => {
-    console.log("mouse enter:", track);
     dispatch(setSong(track));
   };
 
   const handleMouseLeave = () => {
-    console.log("mouse enter:", track);
     dispatch(setSong({}));
   };
 
   return (
     <div className="top-entry-container">
-      <a href={'youtube.com'}>
-        <div
-          className="top-entry"
-          style={containerStyle}
-          onMouseEnter={() => {
-            handleMouseEnter();
-          }}
-          onMouseLeave={() => {
-            handleMouseLeave();
-          }}
-          // onClick={() => {
-          //   dispatch(setSong({}));
-          //   spotify.getRelated(user, dispatch, track);
-          // }}
-        >
-          <div className="black-filter"></div>
-        </div>
-      </a>
+      <div
+        className="top-entry"
+        style={containerStyle}
+        onMouseEnter={() => {
+          handleMouseEnter();
+        }}
+        onMouseLeave={() => {
+          handleMouseLeave();
+        }}
+        onClick={() => {
+          dispatch(setSong({}));
+          spotify.getRelated(user, dispatch, track);
+        }}
+      >
+        <div className="black-filter"></div>
+      </div>
       <div className="item-info">
         <div className="item-name-container">
           <div className="shadow-scroll"></div>

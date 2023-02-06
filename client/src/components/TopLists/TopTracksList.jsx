@@ -19,6 +19,7 @@ const TopTracksList = () => {
   }
 
   useEffect(() => {
+    dispatch(setTopTracks({topTracks: []}));
     spotify.getTopTracks(user, dispatch, timeRange)
     setCurrentIndex(0);
 
@@ -74,7 +75,7 @@ const TopTracksList = () => {
 
       </div>
 
-      {user.topTracks &&
+      {user.topTracks.length > 0 &&
       <div className="top-artists-container">
         <div className="top-options">
           {currentIndex !== 0 &&
@@ -93,7 +94,7 @@ const TopTracksList = () => {
             return <TopTracksEntry track={track} key={i}/>
           })}
         </div>
-      </div>}
+      </div> || <div class="loading"/>}
     </div>
   )
 }
