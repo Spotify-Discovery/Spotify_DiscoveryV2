@@ -2,21 +2,18 @@ import React from "react";
 import spotify from "../../helpers/spotify.js";
 import { useSelector, useDispatch } from "react-redux";
 import { setSong } from "../../slices/songPreviewSlice.js";
+import { motion } from "framer-motion"
 
-
-const { useRef, useEffect } = React;
+const { useRef, useEffect, useState } = React;
 
 const TopTracksEntry = ({ track }) => {
   const previewSong = useSelector((state) => state.previewSong);
   const user = useSelector((state) => state.user);
   const recommendations = useSelector((state) => state.recommendations);
   const dispatch = useDispatch();
+  const [isHovered, setIsHovered] = useState(false);
 
   const elemRef = useRef();
-
-  useEffect(() => {
-    console.log('REF', elemRef)
-  }, [elemRef])
 
   const containerStyle = {
     backgroundImage: `url(${track.album.images[1].url})`,
@@ -27,6 +24,7 @@ const TopTracksEntry = ({ track }) => {
   };
 
   const handleMouseEnter = () => {
+    console.log('REF', elemRef)
     dispatch(setSong(track));
   };
 
@@ -34,31 +32,63 @@ const TopTracksEntry = ({ track }) => {
     dispatch(setSong({}));
   };
 
+
+  const getAnimation = () => {
+    if (isHovered && elemRef.current.clientWidth >= 165) {
+      return { x: [0, -elemRef.current.clientWidth + 155, 0] }
+    } else {
+      return {}
+    }
+  }
+
+  const getTransition = (width) => {
+    return {
+    duration: width / 10,
+    ease: 'linear'
+    }
+  }
+
   return (
-    <div className="top-entry-container">
+    <div className="top-entry-container"
+    onMouseEnter={() => {
+      setIsHovered(true);
+      handleMouseEnter();
+    }}
+    onMouseLeave={() => {
+      setIsHovered(false)
+      handleMouseLeave();
+    }}
+    onClick={() => {
+      if (!recommendations.isLoading) {
+        console.log('hereeeeeeeee',recommendations.isLoading)
+        spotify.getRelated(user, dispatch, track)
+      }
+    }}
+    >
       <div
         className="top-entry"
         style={containerStyle}
-        onMouseEnter={() => {
-          handleMouseEnter();
-        }}
-        onMouseLeave={() => {
-          handleMouseLeave();
-        }}
-        onClick={() => {
-          if (!recommendations.isLoading) {
-            console.log('hereeeeeeeee',recommendations.isLoading)
-            spotify.getRelated(user, dispatch, track)
-          }
-        }}
       >
         <div className="black-filter"></div>
       </div>
       <div className="item-info">
-        <div className="item-name-container">
+        <motion.div className="item-name-container" data-is-hovered={isHovered}>
           <div className="shadow-scroll"></div>
-            <div ref={elemRef} className="item-name">{track.name}</div>
-        </div>
+            <motion.div
+              ref={elemRef}
+              className="item-name"
+              animate={getAnimation}
+              transition={{
+                duration: elemRef.current && isHovered ?
+                (elemRef.current.clientWidth - 165) / 10 : 0,
+                ease: 'linear',
+                delay: 0.3
+
+              }}
+              >
+                {track.name}
+            </motion.div>
+        </motion.div>
         <div className="item-details">{track.artists[0].name}</div>
         <div className="item-popularity">{'Popularity ' + track.popularity}</div>
       </div>
