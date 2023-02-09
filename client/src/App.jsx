@@ -4,6 +4,7 @@ import Home from './components/Home.jsx'
 import WebPlayer from './components/WebPlayer.jsx'
 import Navbar from './components/Navbar.jsx'
 import SearchResults from './components/SearchResults.jsx'
+import "./styles.scss";
 
 import spotify from './helpers/spotify'
 import { useSelector, useDispatch } from 'react-redux';
