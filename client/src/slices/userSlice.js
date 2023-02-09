@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialUserSettings = {
+  autoPlayPreviews: true,
+}
+
 const initialState = {
-  refresh_token: null,
+  refresh_token: localStorage.getItem('refresh_token') || null,
   username: '',
   email: '',
   market: '',
@@ -9,9 +13,7 @@ const initialState = {
   product: '',
   topArtists: [],
   topTracks: [],
-  settings: {
-    autoPlayPreviews: true,
-  }
+  settings: localStorage.getItem('user_settings') ? JSON.parse(localStorage.getItem('user_settings')) : initialUserSettings
 }
 
 export const userSlice = createSlice({
@@ -37,12 +39,22 @@ export const userSlice = createSlice({
     setTopArtists: (state, data) => {
       state.topArtists = data.payload.topArtists;
     },
+    setUserSettings: (state, data) => {
+      console.log(data.payload)
+      let userSettings = JSON.stringify(data.payload);
+      console.log(userSettings)
+      localStorage.setItem('user_settings', userSettings);
+      state.settings = data.payload;
+    },
     setAutoPlayPreviews: (state, data) => {
+      state.settings.autoPlayPreviews = data.payload;
+      let userSettings = JSON.stringify(state.settings);
+      localStorage.setItem('user_settings', userSettings);
       state.settings.autoPlayPreviews = data.payload;
     }
   }
 });
 
-export const { setToken, setUserData, setTopTracks, setTopArtists, setAutoPlayPreviews } = userSlice.actions;
+export const { setToken, setUserData, setTopTracks, setTopArtists, setUserSettings, setAutoPlayPreviews } = userSlice.actions;
 
 export default userSlice.reducer;
