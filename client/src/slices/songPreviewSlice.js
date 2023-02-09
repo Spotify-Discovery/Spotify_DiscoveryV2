@@ -21,16 +21,16 @@ export const songPreviewSlice = createSlice({
       if (!mediaPlayer.paused) {
         mediaPlayer.pause();
       }
-      if (state.song) {
+      if (state.song.preview_url) {
         mediaPlayer.src = state.song.preview_url;
         mediaPlayer.play();
       }
     },
 
     pauseSong: (state, data) => {
-      console.log('song is null');
-      mediaPlayer.pause();
       console.log('pausing');
+      mediaPlayer.pause();
+      console.log('song is null');
       mediaPlayer.src = '';
     }
   }

@@ -20,6 +20,8 @@ const TopArtistsList = () => {
   }
 
   useEffect(() => {
+    dispatch(setTopArtists({topArtists: []}));
+
     const getTopArtists = async () => {
       const topArtists = await spotify.getTopArtists(user, dispatch, timeRange);
     }
@@ -82,7 +84,7 @@ const TopArtistsList = () => {
 
       </div>
 
-      {user.topArtists &&
+      {user.topArtists.length > 0 &&
       <div className="top-artists-container">
         <div className="top-options">
           {currentIndex !== 0 &&
@@ -101,7 +103,7 @@ const TopArtistsList = () => {
             return <TopArtistsEntry artist={artist} key={i}/>
           })}
         </div>
-      </div>}
+      </div> || <div class="loading"/>}
     </div>
   )
 }
