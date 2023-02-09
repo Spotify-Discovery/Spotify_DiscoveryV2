@@ -35,7 +35,12 @@ const TopTracksEntry = ({ track }) => {
   };
 
   return (
-    <div className="top-entry-container">
+    <div
+    className="top-entry-container"
+    onContextMenu={(e) => {
+      e.preventDefault();
+      console.log('right click', track.name)
+    }}>
       <div
         className="top-entry"
         style={containerStyle}
