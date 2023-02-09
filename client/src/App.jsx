@@ -20,7 +20,7 @@ const App = () => {
   const playback = useSelector((state) => state.playback);
   const view = useSelector((state) => state.view);
   const user = useSelector((state) => state.user);
-  const refresh_token = localStorage.getItem('refresh_token') || params.get('refresh_token');
+  const refresh_token = user.refresh_token || params.get('refresh_token');
 
   const dispatch = useDispatch();
 
@@ -29,8 +29,6 @@ const App = () => {
     if (refresh_token) {
       dispatch(setToken(refresh_token));
       dispatch(setView('Home'));
-
-      localStorage.setItem('refresh_token', refresh_token);
 
       // Remove access and refresh tokens from URL params
       window.history.pushState({}, document.title, (window.location.href.split(window.location.host)[1]).split("?")[0]);
