@@ -3,6 +3,7 @@ import spotify from "../../helpers/spotify.js";
 import { useSelector, useDispatch } from "react-redux";
 import { setSong } from "../../slices/songPreviewSlice.js";
 
+
 const { useRef, useEffect } = React;
 
 const TopTracksEntry = ({ track }) => {
