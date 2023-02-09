@@ -281,6 +281,7 @@ body {
   display: flex;
   flex-direction: column;
   transition: 0.3s;
+  justify-content: space-between;
 }
 
 .top-tracks {
@@ -470,25 +471,31 @@ body {
 }
 
 .item-name {
-  font-size: 12px;
+  font-size: 18px;
   color: var(--text-color);
   width: fit-content;
   font-weight: bold;
   white-space: nowrap;
 }
 
+.artist-name {
+  width: 165px;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}
+
 .item-name-container {
+  display: flex;
+  justify-content: flex-start;
   position: relative;
   width: 100%;
   overflow-x: hidden;
-  font-size: 12px;
+  font-size: 18px;
 }
 
 @keyframes shift {
-  30% {transform: translateX(0);}
-  50% {transform: translateX(calc(-100% + 165px)); }
-  80% {transform: translateX(calc(-100% + 165px));}
-  100% {transform: translateX(0);}
+  50% {justify-content: flex-end;}
+  100% {justify-content: flex-start;}
 }
 
 .shadow-scroll {
@@ -505,9 +512,9 @@ body {
   opacity: 1;
 }
 
-.top-entry-container:hover .item-name {
-  animation: shift 10s infinite linear;
-}
+// .top-entry-container:hover .item-name-container {
+//   animation: shift infinite;
+// }
 
 .top-entry-container:hover {
   background-color: var(--dark2-bg-color);
@@ -515,7 +522,7 @@ body {
 
 .item-details {
   color: var(--text-color);
-  font-size: 13px;
+  font-size: 16px;
   opacity: 0.75;
   width: 18ch;
   overflow: hidden;
@@ -525,6 +532,7 @@ body {
 
 .item-popularity {
   color: var(--spotify-green);
+  font-size: 14px;
 }
 
 .player-wrapper {
