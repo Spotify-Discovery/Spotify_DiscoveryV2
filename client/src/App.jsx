@@ -72,7 +72,7 @@ const App = () => {
       <div className="">
         <Navbar />
         {renderView()}
-        <WebPlayer />
+        {/* <WebPlayer /> */}
       </div>
     </main>
   );
