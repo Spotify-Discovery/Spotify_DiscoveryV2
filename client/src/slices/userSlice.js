@@ -9,6 +9,9 @@ const initialState = {
   product: '',
   topArtists: [],
   topTracks: [],
+  settings: {
+    autoPlayPreviews: true,
+  }
 }
 
 export const userSlice = createSlice({
@@ -34,9 +37,12 @@ export const userSlice = createSlice({
     setTopArtists: (state, data) => {
       state.topArtists = data.payload.topArtists;
     },
+    setAutoPlayPreviews: (state, data) => {
+      state.settings.autoPlayPreviews = data.payload;
+    }
   }
 });
 
-export const { setToken, setUserData, setTopTracks, setTopArtists } = userSlice.actions;
+export const { setToken, setUserData, setTopTracks, setTopArtists, setAutoPlayPreviews } = userSlice.actions;
 
 export default userSlice.reducer;

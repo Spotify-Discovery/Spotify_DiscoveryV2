@@ -42,7 +42,7 @@ const App = () => {
    *
    */
   useEffect(() => {
-    if (previewSong.song && !playback.isPlaying) {
+    if (previewSong.song && !playback.isPlaying && user.settings.autoPlayPreviews) {
       dispatch(playSong());
     } else if (!previewSong.song && !playback.isPlaying) {
       dispatch(pauseSong());
