@@ -66,12 +66,15 @@ const SearchResults = () => {
   }
 
   return (
-    <div>
-      <h1>Tracks</h1>
-      {renderTracks()}
-      <h1>Artists</h1>
-      {renderArtists()}
-    </div>
+    <>
+      {searchResults.tracks.length > 0 &&
+        <div>
+          <h1>Tracks</h1>
+          {renderTracks()}
+          <h1>Artists</h1>
+          {renderArtists()}
+        </div> || <div class="loading"/>}
+    </>
   )
 }
 
