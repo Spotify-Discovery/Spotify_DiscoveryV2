@@ -254,7 +254,7 @@ body {
   cursor: pointer;
 }
 
-.top-entry {
+.card-background {
   position: relative;
   display: flex;
   gap: 15px;
@@ -268,9 +268,14 @@ body {
   margin-top: 25px;
   display: flex;
   flex-direction: column;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-.top-entry-container {
+.card-container {
   width: 165px;
   height: 300px;
   background-color: var(--dark-bg-color);
@@ -389,7 +394,7 @@ body {
   text-shadow: 0 0 5px var(--spotify-green);
 }
 
-.top-artists-container {
+.cards-container {
   width: 100%;
   margin-top: 10px;
   height: 320px;
@@ -508,13 +513,9 @@ body {
   transition: 0.3s;
 }
 
-.top-entry-container:hover .shadow-scroll {
+.card-container:hover .shadow-scroll {
   opacity: 1;
 }
-
-// .top-entry-container:hover .item-name-container {
-//   animation: shift infinite;
-// }
 
 .top-entry-container:hover {
   background-color: var(--dark2-bg-color);

@@ -19,18 +19,14 @@ const Navbar = () => {
   }
 
   const handleSetAutoPlayPreviews = () => {
-    console.log(speakerIcon)
     setSpeakerIcon(!speakerIcon);
   }
 
   useEffect(() => {
     if (view.currentView !== 'SearchResults' && query.length > 0) {
-      console.log('change')
       dispatch(setView('SearchResults'));
     } else if (view.currentView === 'SearchResults' && query.length === 0) {
       dispatch(setView('Home'));
-    } else {
-      console.log(view)
     }
 
     let cancel = false;
@@ -38,7 +34,6 @@ const Navbar = () => {
     const handleQueryChange = async () => {
       let result = !query ? {tracks: {items: []}, artists: {items:[]}} : await search.fromQuery(user, dispatch, query);
       if (cancel) return;
-      console.log(result);
       dispatch(setTracks(result.tracks.items));
       dispatch(setArtists(result.artists.items));
     }
@@ -51,7 +46,6 @@ const Navbar = () => {
 
   useEffect(() => {
     dispatch(setAutoPlayPreviews(speakerIcon));
-    console.log(user.settings.autoPlayPreviews)
   }, [speakerIcon]);
 
   const handleLogoutClick = () => {
@@ -65,7 +59,7 @@ const Navbar = () => {
         <div className="title-home">Discover<span id="spotify-title">Spotify</span></div>
 
         <div className="nav-search-logout">
-          <input autocomplete="off" id="search-bar" placeholder="Search Artists or Songs..." value={query} onChange={e => setQuery(e.target.value)}></input>
+          <input autoComplete="off" id="search-bar" placeholder="Search Artists or Songs..." value={query} onChange={e => setQuery(e.target.value)}></input>
           {/* <button id="search-button" className="fa-solid fa-magnifying-glass fa-lg" type="submit"></button> */}
           <i id="settings-hamburger" className="fa-solid fa-bars fa-2xl" onClick={handleSettingsClick}/>
         </div>
