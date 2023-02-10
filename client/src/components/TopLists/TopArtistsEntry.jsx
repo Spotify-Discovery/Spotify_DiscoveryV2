@@ -47,11 +47,11 @@ const TopArtistsEntry = ({ artist }) => {
         spotify.getArtistDetails(user, dispatch, artist);
       }}
     >
-      <a>
-        <div className="top-entry" style={containerStyle}>
-          <div className="black-filter"></div>
-        </div>
-      </a>
+
+      <div className="top-entry" style={containerStyle}>
+        <div className="black-filter"></div>
+      </div>
+
       <div className="item-info">
         <div className="item-name artist-name">{artist.name}</div>
         <div className="item-details">{artist.genres[0]}</div>

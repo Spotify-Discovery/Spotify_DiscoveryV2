@@ -49,28 +49,29 @@ const TopTracksEntry = ({ track }) => {
   }
 
   return (
-    <div className="top-entry-container">
+    <div className="top-entry-container"
+    onContextMenu={(e) => {
+      e.preventDefault();
+      console.log('right click', track.name)
+    }}
+    onMouseEnter={() => {
+      setIsHovered(true);
+      handleMouseEnter();
+    }}
+    onMouseLeave={() => {
+      setIsHovered(false)
+      handleMouseLeave();
+    }}
+    onClick={() => {
+      if (!recommendations.isLoading) {
+        console.log('hereeeeeeeee',recommendations.isLoading)
+        spotify.getRelated(user, dispatch, track)
+      }
+    }}
+    >
       <div
         className="top-entry"
-
-        onContextMenu={(e) => {
-          e.preventDefault();
-          console.log('right click', track.name)
-        }}
-
         style={containerStyle}
-        onMouseEnter={() => {
-          handleMouseEnter();
-        }}
-        onMouseLeave={() => {
-          handleMouseLeave();
-        }}
-        onClick={() => {
-          if (!recommendations.isLoading) {
-            console.log('hereeeeeeeee',recommendations.isLoading)
-            spotify.getRelated(user, dispatch, track)
-          }
-        }}
       >
         <div className="black-filter"></div>
       </div>
