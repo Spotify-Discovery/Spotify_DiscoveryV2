@@ -34,7 +34,7 @@ const TopArtistsEntry = ({ artist }) => {
       onContextMenu={(e) => {
         e.preventDefault();
         console.log('right click', artist.name)
-      }}>
+      }}
 
       onMouseEnter={() => {
         handleMouseEnter();

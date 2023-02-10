@@ -56,7 +56,7 @@ const TopTracksEntry = ({ track }) => {
         onContextMenu={(e) => {
           e.preventDefault();
           console.log('right click', track.name)
-        }}>
+        }}
 
         style={containerStyle}
         onMouseEnter={() => {
