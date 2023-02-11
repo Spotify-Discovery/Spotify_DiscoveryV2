@@ -793,3 +793,20 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.context-menu {
+  position: absolute;
+  background-color: rgba(0, 0, 0);
+  box-sizing: border-box;
+}
+
+.context-menu ul {
+  padding: 0px;
+}
+
+.context-menu li {
+  list-style: none;
+  display: flex;
+  cursor: pointer;
+  color: white;
+}

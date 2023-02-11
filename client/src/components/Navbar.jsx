@@ -22,6 +22,36 @@ const Navbar = () => {
     setSpeakerIcon(!speakerIcon);
   }
 
+  /**
+   * Close settings dropdown when user clicks outside of it
+   */
+  useEffect(() => {
+    const handleClick = (e) => {
+      let isSettingsDropdown = false;
+      let node = e.target;
+
+      while (node.id !== 'root') {
+        if (node.id === 'settings-dropdown' || node.id === 'settings-hamburger') {
+          isSettingsDropdown = true;
+        }
+        node = node.parentNode;
+      }
+
+      if (!isSettingsDropdown) {
+        setIsSettings(false);
+      }
+
+
+    };
+    window.addEventListener("click", handleClick);
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
+  }, [])
+
+  /**
+   *
+   */
   useEffect(() => {
     if (view.currentView !== 'SearchResults' && query.length > 0) {
       dispatch(setView('SearchResults'));
@@ -44,15 +74,21 @@ const Navbar = () => {
 
   }, [query]);
 
+  /**
+   *
+   */
   useEffect(() => {
     dispatch(setAutoPlayPreviews(speakerIcon));
   }, [speakerIcon]);
 
+  /**
+   *
+   */
   const handleLogoutClick = () => {
     dispatch(setToken(null));
     localStorage.removeItem('refresh_token');
   }
-// fa-solid fa-volume-xmark
+
   return (
     <>
       <div className="nav-container">
@@ -60,12 +96,12 @@ const Navbar = () => {
 
         <div className="nav-search-logout">
           <input autoComplete="off" id="search-bar" placeholder="Search Artists or Songs..." value={query} onChange={e => setQuery(e.target.value)}></input>
-          {/* <button id="search-button" className="fa-solid fa-magnifying-glass fa-lg" type="submit"></button> */}
+
           <i id="settings-hamburger" className="fa-solid fa-bars fa-2xl" onClick={handleSettingsClick}/>
         </div>
       </div>
       {isSettings &&
-      <div className="settings-dropdown">
+      <div id="settings-dropdown" className="settings-dropdown">
         <i className={speakerIcon ? "fa-solid fa-volume-high" : "fa-solid fa-volume-xmark"} onClick={handleSetAutoPlayPreviews}></i>
         <a href="#about">About</a>
         <a href="#logout">Logout</a>

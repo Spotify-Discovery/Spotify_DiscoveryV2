@@ -3,6 +3,7 @@ import Login from './components/Login.jsx'
 import Home from './components/Home.jsx'
 import WebPlayer from './components/WebPlayer.jsx'
 import Navbar from './components/Navbar.jsx'
+import ContextMenu from "./components/ContextMenu.jsx";
 import SearchResults from './components/SearchResults.jsx'
 import "./styles.scss";
 
@@ -71,6 +72,7 @@ const App = () => {
         <Navbar />
         {renderView()}
         {/* <WebPlayer /> */}
+        <ContextMenu />
       </div>
     </main>
   );
