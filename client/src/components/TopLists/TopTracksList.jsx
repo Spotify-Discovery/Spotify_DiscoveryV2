@@ -76,7 +76,7 @@ const TopTracksList = () => {
       </div>
 
       {user.topTracks.length > 0 &&
-      <div className="top-artists-container">
+      <div className="cards-container">
         <div className="top-options">
           {currentIndex !== 0 &&
             <div className="gallery-leftPointer" onClick={handleLeftClick}>‹</div>

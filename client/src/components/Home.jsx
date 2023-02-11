@@ -1,6 +1,5 @@
 import React from 'react'
-import TopArtistsList from './TopLists/TopArtistList.jsx'
-import TopTracksList from './TopLists/TopTracksList.jsx'
+import CardCarousel from './CardCarousel.jsx'
 import FeedInstanceEntry from './Feed/FeedInstanceEntry.jsx'
 import { useSelector, useDispatch } from 'react-redux';
 import spotify from '../helpers/spotify';
@@ -41,16 +40,10 @@ const Home = ({handleSearch, handleViewChange}) => {
     spotify.getUserData(user, dispatch);
   }, []);
 
-  //
-  useEffect(() => {
-    console.log(user)
-  }, [user])
-
-
   return (
     <div className="" id="main-column">
       <div id="mainColumnInner">
-        {previewSong.song.preview_url &&
+        {previewSong.song?.preview_url &&
           <div id="artwork">
             <div id="artworkImg">
               <img class="now-playing-image" src={previewSong.song.album.images[0].url}></img>
@@ -85,7 +78,7 @@ const Home = ({handleSearch, handleViewChange}) => {
             Top Tracks</div>
           </div>
 
-      {renderList()}
+      <CardCarousel type={currentList}/>
 
         <div className="feed">
           {recommendations.isLoading && <div class="loading"/>}

@@ -50,6 +50,10 @@ const TopTracksEntry = ({ track }) => {
 
   return (
     <div className="top-entry-container"
+    // onContextMenu={(e) => {
+    //   e.preventDefault();
+    //   console.log('right click', track.name)
+    // }}
     onMouseEnter={() => {
       setIsHovered(true);
       handleMouseEnter();
@@ -60,7 +64,6 @@ const TopTracksEntry = ({ track }) => {
     }}
     onClick={() => {
       if (!recommendations.isLoading) {
-        console.log('hereeeeeeeee',recommendations.isLoading)
         spotify.getRelated(user, dispatch, track)
       }
     }}
@@ -83,7 +86,6 @@ const TopTracksEntry = ({ track }) => {
                 (elemRef.current.clientWidth - 165) / 10 : 0,
                 ease: 'linear',
                 delay: 0.3
-
               }}
               >
                 {track.name}

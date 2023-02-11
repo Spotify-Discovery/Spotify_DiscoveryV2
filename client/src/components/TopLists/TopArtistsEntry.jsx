@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSong } from "../../slices/songPreviewSlice.js";
 import spotify from "../../helpers/spotify.js";
 
 const TopArtistsEntry = ({ artist }) => {
+  const [clicked, setClicked] = useState(false);
+  const [points, setPoints] = useState({
+    x: 0,
+    y: 0,
+  });
   const previewSong = useSelector((state) => state.previewSong);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -31,6 +36,11 @@ const TopArtistsEntry = ({ artist }) => {
     <div
       className="top-entry-container"
 
+      // onContextMenu={(e) => {
+      //   e.preventDefault();
+      //   console.log('right click', artist.name)
+      // }}
+
       onMouseEnter={() => {
         handleMouseEnter();
       }}
@@ -42,11 +52,11 @@ const TopArtistsEntry = ({ artist }) => {
         spotify.getArtistDetails(user, dispatch, artist);
       }}
     >
-      <a>
-        <div className="top-entry" style={containerStyle}>
-          <div className="black-filter"></div>
-        </div>
-      </a>
+
+      <div className="top-entry" style={containerStyle}>
+        <div className="black-filter"></div>
+      </div>
+
       <div className="item-info">
         <div className="item-name artist-name">{artist.name}</div>
         <div className="item-details">{artist.genres[0]}</div>

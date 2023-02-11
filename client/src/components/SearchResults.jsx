@@ -43,7 +43,7 @@ const SearchResults = () => {
 
   const renderArtists = () => {
       return (
-        <div className="top-artists-container">
+        <div className="cards-container">
         <div className="top-options">
           {currentIndex !== 0 &&
             <div className="gallery-leftPointer" onClick={handleLeftClick}>‹</div>
