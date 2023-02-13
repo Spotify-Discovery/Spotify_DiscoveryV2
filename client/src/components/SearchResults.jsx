@@ -73,7 +73,7 @@ const SearchResults = () => {
           {renderTracks()}
           <h1>Artists</h1>
           {renderArtists()}
-        </div> || <div class="loading"/>}
+        </div> || <div className="loading"/>}
     </>
   )
 }

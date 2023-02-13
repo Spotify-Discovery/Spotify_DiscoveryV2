@@ -103,7 +103,7 @@ const TopArtistsList = () => {
             return <TopArtistsEntry artist={artist} key={i}/>
           })}
         </div>
-      </div> || <div class="loading"/>}
+      </div> || <div className="loading"/>}
     </div>
   )
 }

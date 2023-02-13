@@ -94,7 +94,7 @@ const TopTracksList = () => {
             return <TopTracksEntry track={track} key={i}/>
           })}
         </div>
-      </div> || <div class="loading"/>}
+      </div> || <div className="loading"/>}
     </div>
   )
 }

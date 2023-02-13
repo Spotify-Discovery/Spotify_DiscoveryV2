@@ -46,14 +46,14 @@ const Home = ({handleSearch, handleViewChange}) => {
         {previewSong.song?.preview_url &&
           <div id="artwork">
             <div id="artworkImg">
-              <img class="now-playing-image" src={previewSong.song.album.images[0].url}></img>
+              <img className="now-playing-image" src={previewSong.song.album.images[0].url}></img>
             </div>
 
             <div className="caption-track-name">
               {previewSong.song.name}
             </div>
 
-            <div class="caption-artists">
+            <div className="caption-artists">
               {previewSong.song.artists.map((artist, i) => {
                 let lastIndex = previewSong.song.artists.length - 1;
                 if (i === lastIndex) {
