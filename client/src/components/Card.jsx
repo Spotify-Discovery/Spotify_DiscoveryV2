@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSong } from "../slices/songPreviewSlice.js";
-import { setContextMenuClicked, setContextMenuPosition } from "../slices/contextMenuSlice.js";
+import { setContextMenuClicked, setContextMenuPosition, setContextInfo } from "../slices/contextMenuSlice.js";
 import spotify from "../helpers/spotify.js";
 import { motion } from "framer-motion"
 
 
 const Card = ({ type, datum }) => {
+  console.log(datum)
   const [image, setImage] = useState();
   const [name, setName] = useState();
   const [details, setDetails] = useState();
@@ -21,6 +22,9 @@ const Card = ({ type, datum }) => {
 
   const isArtists = type === "ARTISTS";
 
+  /**
+   * Set card properties based on if artist or track
+   */
   useEffect(() => {
     if (isArtists) {
       setImage(datum.images[1]);
@@ -92,7 +96,7 @@ const Card = ({ type, datum }) => {
         e.preventDefault();
         dispatch(setContextMenuClicked(true));
         dispatch(setContextMenuPosition({ x: e.pageX, y: e.pageY }));
-        console.log('right click', e.pageX, e.pageY);
+        dispatch(setContextInfo(datum));
       }}
 
       onMouseEnter={() => {

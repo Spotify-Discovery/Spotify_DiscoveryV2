@@ -13,10 +13,7 @@ const ContextMenu = () => {
     {contextMenu.isClicked &&
       <div className="context-menu" style={{ top: contextMenu.coords.y, left: contextMenu.coords.x}}>
         <ul className="">
-          <li>Open in Spotify</li>
-          <li>Share</li>
-          <li>Copy Link</li>
-          <li>Go to Artist</li>
+          <li><a href={contextMenu.contextInfo.external_urls.spotify} target="_blank" rel="noopener noreferrer">Open in Spotify</a></li>
         </ul>
       </div>
     }
