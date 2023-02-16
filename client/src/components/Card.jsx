@@ -105,7 +105,11 @@ const Card = ({ type, datum }) => {
       }}
       onClick={() => {
         dispatch(setSong({}));
-        // spotify.getArtistDetails(user, dispatch, datum);
+        if (isArtists) {
+          spotify.getArtistDetails(user, dispatch, datum)
+        } else {
+          spotify.getRelated(user, dispatch, datum);
+        }
       }}
       >
 

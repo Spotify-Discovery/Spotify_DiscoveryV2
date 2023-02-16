@@ -14,7 +14,15 @@ export const songPreviewSlice = createSlice({
   reducers: {
     setSong: (state, data) => {
       // console.log(data.payload)
-      state.song = data.payload;
+      if (data.payload.type === 'FROM_ALBUM') {
+        var songObj = {
+          ...data.payload.track,
+          album: data.payload.album
+        }
+        state.song = songObj;
+      } else {
+        state.song = data.payload;
+      }
     },
 
     playSong: (state, data) => {

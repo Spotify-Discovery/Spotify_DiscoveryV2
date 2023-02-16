@@ -88,6 +88,7 @@ const spotify = {
    */
   getRelated : (user, dispatch, track) => {
     dispatch(setIsLoading(true));
+    console.log('get related')
     talkToSpotify({
       method: 'GET',
       endpoint: `/related`,
@@ -110,7 +111,7 @@ const spotify = {
   },
 
   getArtistDetails : (user, dispatch, artist) => {
-    console.log('spot')
+    console.log('spot', artist)
     talkToSpotify({
       method: 'GET',
       endpoint: `/artist`,
@@ -121,6 +122,13 @@ const spotify = {
     .then((data) => {
       data.artist = artist;
       console.log('Artist data:', data)
+      dispatch(addToFeed({
+        type: 'ARTIST',
+        relatedTo: artist,
+        albums: data.albums,
+        relatedArtists: data.relatedArtists,
+        topTracks: data.topTracks
+      }));
     })
     .catch((error) => {
       console.log(error);

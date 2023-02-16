@@ -42,7 +42,7 @@ router.get('/', (req, res) => {
       })
     )
   }).then((updatedTracks) => {
-    console.log(updatedTracks.length)
+    // console.log(updatedTracks.length)
     responseData['topTracks'] = updatedTracks;
 
     axios.get(`${SPOTIFY_BASE}artists/${artist_id}/related-artists`, {
@@ -51,17 +51,16 @@ router.get('/', (req, res) => {
       }
     })
     .then((result) => {
-      // console.log(result.data)
-
-      getPreviewsForArtists(result.data.artists, access_token)
+      let slicedArtistArray = result.data.artists.slice(0, 8);
+      getPreviewsForArtists(slicedArtistArray, access_token)
         .then((updatedResults) => {
           Promise.all(
             updatedResults.map((artist, i) => {
-              console.log('preview', artist.track.preview_url, i);
+              // console.log('preview', artist.track.preview_url, i);
               if (artist.track.preview_url == null) {
                 return getNullPreviews(artist.track, access_token)
                   .then((updatedUrl) => {
-                    console.log("updated Url", updatedUrl, i);
+                    // console.log("updated Url", updatedUrl, i);
                     artist.track.preview_url = updatedUrl;
                     return artist;
                   })
@@ -76,21 +75,22 @@ router.get('/', (req, res) => {
                 "Authorization": `Bearer ${access_token}`
               }
             }).then((result) => {
-              console.log('reeee', result.data.items.length)
+              // console.log('reeee', result.data.items.length)
               getAlbumTracks(result.data.items, access_token)
                 .then((result) => {
-                  console.log('rreeeeeeeee2', result[0].tracks[0]);
+                  // console.log('rreeeeeeeee2', result[0].tracks[0]);
                   Promise.all(
                     result.map((album) => {
-                      console.log('ALBUM NAME', album.name)
+                      // console.log('ALBUM NAME', album.name)
                       return Promise.all(
                         album.tracks.map((track, i) => {
-                          console.log('preview', track.preview_url, i);
+                          // console.log('preview', track.preview_url, i);
                           if (track.preview_url === null) {
                             return searchByTrackName(track, album.name, access_token)
                             .then((updatedUrl) => {
-                              console.log("updated Url", updatedUrl, i);
+                              // console.log("updated Url", updatedUrl, i);
                               track.preview_url = updatedUrl;
+
                               return track;
                             })
 
