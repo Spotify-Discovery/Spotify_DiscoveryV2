@@ -32,7 +32,7 @@ const ArtistDetailsInstance = ({ instance }) => {
             <div className="feed-subheaders">
               <div className="sub-head-text">Top Tracks</div>
             </div>
-            <div className="feed-instance">
+            <div className="feed-instance sub-instance">
               {instance.topTracks.map((element) => {
                 return <FeedInstanceEntry element={element} />;
               })}
@@ -43,7 +43,7 @@ const ArtistDetailsInstance = ({ instance }) => {
             <div className="feed-subheaders">
               <div className="sub-head-text">Albums</div>
             </div>
-            <div className="feed-instance">
+            <div className="feed-instance sub-instance">
               {instance.albums.map((album) => {
                 return <AlbumEntry album={album} />;
               })}
@@ -56,7 +56,7 @@ const ArtistDetailsInstance = ({ instance }) => {
             <div className="feed-subheaders">
               <div className="sub-head-text">Related Artists</div>
             </div>
-            <div className="feed-instance">
+            <div className="feed-instance sub-instance">
               {instance.relatedArtists.map((artist) => {
                 return <RelatedArtistsEntry artist={artist}/>;
               })}

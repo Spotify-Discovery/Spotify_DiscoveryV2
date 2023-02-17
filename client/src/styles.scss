@@ -609,6 +609,9 @@ body {
   color: var(--text-color);
   /* border-radius: 20px; */
   padding: 0;
+}
+
+.sub-instance {
   margin-top: 35px;
 }
 
@@ -866,4 +869,59 @@ body {
 .sub-head-text {
   margin-left: 10px;
   opacity: 0.7;
+}
+
+.album-instance-artwork {
+  width: 300px;
+  height: 300px;
+}
+
+.album-instance-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.album-info {
+  color: var(--text-color);
+  font-size: 16px;
+}
+
+.album-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.album-artist {
+  opacity: 0.7;
+}
+
+.album-tracks {
+  width: 40%;
+  height: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.album-track-container {
+  background-color: var(--dark2-bg-color);
+  padding: 10px;
+  border-bottom: solid 2px rgba(100, 100, 100, 0.5);
+  width: 90%;
+}
+
+.artwork-name-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.album-track-entry {
+  color: var(--text-color);
+}
+
+.album-track-container:hover {
+  background-color: var(--dark-bg-color);
 }

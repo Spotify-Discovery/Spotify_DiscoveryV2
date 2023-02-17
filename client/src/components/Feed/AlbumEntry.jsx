@@ -33,7 +33,7 @@ const AlbumEntry = ({ album }) => {
 
         onClick={() => {
           dispatch(setSong({}));
-          // spotify.getRelated(user, dispatch, element)
+          spotify.getAlbumTracks(user, dispatch, album)
         }}
 
         style={

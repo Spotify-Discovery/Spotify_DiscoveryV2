@@ -1,8 +1,9 @@
 import React from 'react'
 import CardCarousel from './CardCarousel.jsx'
 
-import RelatedTracksInstance from './Feed/RelatedTracksInstance.jsx'
-import ArtistDetailsInstance from './Feed/ArtistDetailsInstance.jsx'
+import RelatedTracksInstance from './Feed/RelatedTracksInstance.jsx';
+import ArtistDetailsInstance from './Feed/ArtistDetailsInstance.jsx';
+import AlbumInstance from './Feed/AlbumInstance.jsx';
 import { useSelector, useDispatch } from 'react-redux';
 import spotify from '../helpers/spotify';
 
@@ -91,6 +92,9 @@ const Home = ({handleSearch, handleViewChange}) => {
                 break;
               case 'ARTIST':
                 return <ArtistDetailsInstance instance={instance}/>
+                break;
+              case 'ALBUM':
+                return <AlbumInstance instance={instance} />
                 break;
               default:
                 return null;

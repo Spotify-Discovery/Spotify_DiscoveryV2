@@ -1,11 +1,10 @@
 import talkToSpotify from "./talkToSpotify";
 
-import { setUserData, setTopTracks, setTopArtists } from '../slices/userSlice';
+import { setUserData, setTopTracks, setTopArtists } from "../slices/userSlice";
 
-import { addToFeed, setIsLoading } from '../slices/recommendationsSlice';
+import { addToFeed, setIsLoading } from "../slices/recommendationsSlice";
 
 const spotify = {
-
   /**
    *
    * @param {*} user
@@ -13,23 +12,25 @@ const spotify = {
    */
   getUserData: async (user, dispatch) => {
     talkToSpotify({
-      method: 'GET',
+      method: "GET",
       endpoint: `/user`,
       user: user,
       dispatch: dispatch,
     })
-    .then((data) => {
-      dispatch(setUserData({
-        username: data.display_name,
-        email: data.email,
-        user_id: data.id,
-        market: data.country,
-        product: data.product
-      }));
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .then((data) => {
+        dispatch(
+          setUserData({
+            username: data.display_name,
+            email: data.email,
+            user_id: data.id,
+            market: data.country,
+            product: data.product,
+          })
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 
   /**
@@ -38,22 +39,24 @@ const spotify = {
    * @param {*} dispatch
    * @param {*} timeRange
    */
-  getTopTracks: async (user, dispatch, timeRange = 'short_term') => {
+  getTopTracks: async (user, dispatch, timeRange = "short_term") => {
     talkToSpotify({
-      method: 'GET',
+      method: "GET",
       endpoint: `/user/topTracks`,
       user: user,
       dispatch: dispatch,
-      query: {time_range: timeRange}
+      query: { time_range: timeRange },
     })
-    .then((data) => {
-      dispatch(setTopTracks({
-        topTracks: data
-      }));
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .then((data) => {
+        dispatch(
+          setTopTracks({
+            topTracks: data,
+          })
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 
   /**
@@ -62,22 +65,24 @@ const spotify = {
    * @param {*} dispatch
    * @param {*} timeRange
    */
-  getTopArtists: async (user, dispatch, timeRange = 'short_term') => {
+  getTopArtists: async (user, dispatch, timeRange = "short_term") => {
     talkToSpotify({
-      method: 'GET',
+      method: "GET",
       endpoint: `/user/topArtists`,
       user: user,
       dispatch: dispatch,
-      query: {time_range: timeRange}
+      query: { time_range: timeRange },
     })
-    .then((data) => {
-      dispatch(setTopArtists({
-        topArtists: data
-      }));
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .then((data) => {
+        dispatch(
+          setTopArtists({
+            topArtists: data,
+          })
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 
   /**
@@ -86,55 +91,84 @@ const spotify = {
    * @param {*} dispatch
    * @param {*} id
    */
-  getRelated : (user, dispatch, track) => {
+  getRelated: (user, dispatch, track, album) => {
     dispatch(setIsLoading(true));
-    console.log('get related')
+    console.log("get related");
     talkToSpotify({
-      method: 'GET',
+      method: "GET",
       endpoint: `/related`,
       user: user,
       dispatch: dispatch,
-      query: {track_id: track.id}
+      query: { track_id: track.id },
     })
-    .then((data) => {
-      dispatch(setIsLoading(false));
-        dispatch(addToFeed({
-          type: 'TRACKS',
-          relatedTo: track,
-          relatedTracks: data
-        }));
-    })
-    .catch((error) => {
-      dispatch();
-      console.log(error);
-    });
+      .then((data) => {
+        dispatch(setIsLoading(false));
+
+        dispatch(
+          addToFeed({
+            type: "TRACKS",
+            relatedTo: track,
+            relatedTracks: data,
+          })
+        );
+      })
+      .catch((error) => {
+        dispatch();
+        console.log(error);
+      });
   },
 
-  getArtistDetails : (user, dispatch, artist) => {
-    console.log('spot', artist)
+  getArtistDetails: (user, dispatch, artist) => {
+    console.log("spot", artist);
+    dispatch(setIsLoading(true));
     talkToSpotify({
-      method: 'GET',
+      method: "GET",
       endpoint: `/artist`,
       user: user,
       dispatch: dispatch,
-      query: {artist_id: artist.id}
+      query: { artist_id: artist.id },
     })
-    .then((data) => {
-      data.artist = artist;
-      console.log('Artist data:', data)
-      dispatch(addToFeed({
-        type: 'ARTIST',
-        relatedTo: artist,
-        albums: data.albums,
-        relatedArtists: data.relatedArtists,
-        topTracks: data.topTracks
-      }));
-    })
-    .catch((error) => {
-      console.log(error);
+      .then((data) => {
+        data.artist = artist;
+        console.log("Artist data:", data);
+        dispatch(setIsLoading(false));
+        dispatch(
+          addToFeed({
+            type: "ARTIST",
+            relatedTo: artist,
+            albums: data.albums,
+            relatedArtists: data.relatedArtists,
+            topTracks: data.topTracks,
+          })
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+
+  getAlbumTracks: (user, dispatch, album) => {
+    dispatch(setIsLoading(true));
+    talkToSpotify({
+      method: "GET",
+      endpoint: "/album",
+      user: user,
+      dispatch: dispatch,
+      query: { album_id: album.id, albumName: album.name },
+    }).then((data) => {
+      console.log("album data:", data);
+      data.map((track) => {track.album = album});
+      dispatch(setIsLoading(false));
+      dispatch(
+        addToFeed({
+          type: "ALBUM",
+          album: album,
+          tracks: data,
+        })
+      );
     });
-  }
-}
+  },
+};
 export default spotify;
 
 // const SERVER_ADDR = process.env.SERVER_ADDR + ':' + process.env.PORT;
@@ -397,7 +431,6 @@ export default spotify;
 
 //           setTrack(state.track_window.current_track);
 //           setPaused(state.paused);
-
 
 //           player.getCurrentState().then( state => {
 //               (!state)? setActive(false) : setActive(true)
