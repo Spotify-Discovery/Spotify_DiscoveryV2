@@ -108,11 +108,12 @@ const Card = ({ type, datum }) => {
         handleMouseLeave();
       }}
       onClick={() => {
-        //dispatch(setSong({}));
-        if (!isArtists && !recommendations.isLoading) {
-          spotify.getRelated(user, dispatch, datum)
+        dispatch(setSong({}));
+        if (isArtists && !recommendations.isLoading) {
+          spotify.getArtistDetails(user, dispatch, datum)
+        } else if (!isArtists && !recommendations.isLoading) {
+          spotify.getRelated(user, dispatch, datum);
         }
-        // spotify.getArtistDetails(user, dispatch, datum);
       }}
       >
 

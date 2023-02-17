@@ -63,6 +63,8 @@ const TopTracksEntry = ({ track }) => {
       handleMouseLeave();
     }}
     onClick={() => {
+
+      console.log('req')
       if (!recommendations.isLoading) {
         spotify.getRelated(user, dispatch, track)
       }

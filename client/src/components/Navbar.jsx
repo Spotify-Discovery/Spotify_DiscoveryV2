@@ -41,9 +41,10 @@ const Navbar = () => {
         setIsSettings(false);
       }
 
-
     };
+
     window.addEventListener("click", handleClick);
+
     return () => {
       window.removeEventListener("click", handleClick);
     };
@@ -95,8 +96,8 @@ const Navbar = () => {
         <div className="title-home">Discover<span id="spotify-title">Spotify</span></div>
 
         <div className="nav-search-logout">
-          <input autoComplete="off" id="search-bar" placeholder="Search Artists or Songs..." value={query} onChange={e => setQuery(e.target.value)}></input>
-
+          {/* <input autoComplete="off" id="search-bar" placeholder="Search Artists or Songs..." value={query} onChange={e => setQuery(e.target.value)}></input> */}
+          <div></div>
           <i id="settings-hamburger" className="fa-solid fa-bars fa-2xl" onClick={handleSettingsClick}/>
         </div>
       </div>
