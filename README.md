@@ -1,5 +1,6 @@
 # Spotify Discovery
 Spotify Discovery is a web application that helps you find new songs and artists that are similar to the ones you already love. The front-end of the application is built with React and Redux for handling the user interface and state management, while the back-end is built with Express and uses the Spotify API to retrieve data.
+
 ![](./screenshots/Recommendation.png)
 
 ## Setup
@@ -30,6 +31,7 @@ Assuming you've setup the environment variables as shown above, you can then vis
 
 ## Usage
 Once you have logged in with your Spotify credentials, you will be able to see your top tracks and artists from the past 1, 6, or 12 months. Hover over a track to listen to a preview, or click on a track or artist to get recommendations for new music.
+
 ![](./screenshots/Feed.png)
 
 To access the settings menu, click on the hamburger icon in the top right corner of the screen. From here, you can disable the play preview on hover feature.
