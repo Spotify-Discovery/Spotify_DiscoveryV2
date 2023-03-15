@@ -5,7 +5,7 @@ const router = express.Router();
 
 const SPOTIFY_BASE = 'https://api.spotify.com/v1/';
 
-router.get(':q?:type?', (req, res) => {
+router.get(':q?:type?', (req, res, next) => {
   const access_token = req.cookies.access_token;
   const q = req.query.q;
   const type = req.query.type || 'track,artist';
@@ -21,13 +21,7 @@ router.get(':q?:type?', (req, res) => {
       res.status(500).send('Spotify responded with a status ' + response.status);
     }
   })
-  .catch((error) => {
-    if (error.response.status === 401) {
-      res.status(401).send();
-    } else {
-      res.status(500).send('Spotify responded with a status ' + error.response.status);
-    }
-  });
+  .catch(next);
 
 });
 

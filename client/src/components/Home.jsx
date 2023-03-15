@@ -45,7 +45,7 @@ const Home = ({handleSearch, handleViewChange}) => {
 
   return (
     <div className="" id="main-column">
-      <div id="mainColumnInner">
+      {user.user_id.length > 0 && <div id="mainColumnInner">
         {previewSong.song?.preview_url &&
           <div id="artwork">
             <div id="artworkImg">
@@ -101,7 +101,7 @@ const Home = ({handleSearch, handleViewChange}) => {
             }
           })}
         </div>
-      </div>
+      </div> || <div class="loading"/>}
     </div>
   );
 }

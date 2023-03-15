@@ -10,7 +10,7 @@ const SPOTIFY_BASE = 'https://api.spotify.com/v1/';
 /**
  *
  */
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
   const access_token = req.cookies.access_token;
 
   axios.get(`${SPOTIFY_BASE}me`, {
@@ -21,19 +21,13 @@ router.get('/', (req, res) => {
   .then((response) => {
     res.send(response.data)
   })
-  .catch(error => {
-    if (error.response.status === 401) {
-      res.status(401).send();
-    } else {
-      res.status(500).send('Spotify responded with a status ' + error.response.status);
-    }
-  })
+  .catch(next);
 });
 
 /**
  *
  */
-router.get('/topTracks:time_range?', (req, res) => {
+router.get('/topTracks:time_range?', (req, res, next) => {
   const access_token = req.cookies.access_token;
   const time_range = req.query.time_range;
 
@@ -62,19 +56,13 @@ router.get('/topTracks:time_range?', (req, res) => {
     })
 
   })
-  .catch(error => {
-    if (error.response.status === 401) {
-      res.status(401).send();
-    } else {
-      res.status(500).send('Spotify responded with a status ' + error.response.status);
-    }
-  })
+  .catch(next);
 });
 
 /**
  *
  */
-router.get('/topArtists:time_range?', (req, res) => {
+router.get('/topArtists:time_range?', (req, res, next) => {
   const access_token = req.cookies.access_token;
   const time_range = req.query.time_range;
 
@@ -105,13 +93,7 @@ router.get('/topArtists:time_range?', (req, res) => {
     })
 
   })
-  .catch(error => {
-    if (error.response.status === 401) {
-      res.status(401).send();
-    } else {
-      res.status(500).send('Spotify responded with a status ' + error.response.status);
-    }
-  })
+  .catch(next);
 });
 
 module.exports = router;

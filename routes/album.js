@@ -7,7 +7,7 @@ const { getAlbumTracks } = require('../helpers/getAlbumTracks.js');
 
 const SPOTIFY_BASE = 'https://api.spotify.com/v1/';
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
   console.log('get albums');
   const access_token = req.cookies.access_token;
   const album_id = req.query.album_id;
@@ -36,7 +36,7 @@ router.get('/', (req, res) => {
       res.send(result);
     })
   })
-  .catch((err) => {console.log(err)})
+  .catch(next);
 })
 
 module.exports = router;

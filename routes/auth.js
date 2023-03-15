@@ -73,6 +73,16 @@ router.get('/login', (req, res) => {
   );
 });
 
+router.post('/register', (req, res) => {
+  console.log('register');
+  res.send();
+});
+
+router.delete('/unload', (req, res) => {
+  console.log('unload');
+  res.send();
+})
+
 /**
  * Endpoint for trading code from Spotify's auth page for an access and refresh token
  */

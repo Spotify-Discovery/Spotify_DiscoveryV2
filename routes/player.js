@@ -8,7 +8,7 @@ const SPOTIFY_BASE = 'https://api.spotify.com/v1/';
 /**
  *
  */
-router.put('/', (req, res) => {
+router.put('/', (req, res, next) => {
   const access_token = req.cookies.access_token;
   const body = req.body;
 
@@ -26,13 +26,7 @@ router.put('/', (req, res) => {
         res.status(500).send('Spotify responded with a status ' + response.status);
       }
     })
-    .catch((error) => {
-      if (error.response.status === 401) {
-        res.status(401).send();
-      } else {
-        res.status(500).send('Spotify responded with a status ' + error.response.status);
-      }
-    })
+    .catch(next);
 });
 
 module.exports = router;

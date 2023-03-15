@@ -4,7 +4,8 @@ import Home from './components/Home.jsx'
 import WebPlayer from './components/WebPlayer.jsx'
 import Navbar from './components/Navbar.jsx'
 import ContextMenu from "./components/ContextMenu.jsx";
-import SearchResults from './components/SearchResults.jsx'
+import SearchResults from './components/SearchResults.jsx';
+import Modal from './components/Modal.jsx';
 import "./styles.scss";
 
 import spotify from './helpers/spotify'
@@ -36,6 +37,13 @@ const App = () => {
       window.history.pushState({}, document.title, (window.location.href.split(window.location.host)[1]).split("?")[0]);
 
     }
+
+    const handleUnloadEvent = () => {
+      spotify.unload();
+    }
+
+    window.addEventListener("beforeunload", handleUnloadEvent);
+
   }, []);
 
   /**
@@ -73,6 +81,7 @@ const App = () => {
         {renderView()}
         {/* <WebPlayer /> */}
         <ContextMenu />
+        <Modal />
       </div>
     </main>
   );

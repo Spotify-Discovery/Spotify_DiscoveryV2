@@ -1,10 +1,46 @@
 import talkToSpotify from "./talkToSpotify";
 
 import { setUserData, setTopTracks, setTopArtists } from "../slices/userSlice";
+import { setIsOpen } from '../slices/modalSlice';
 
 import { addToFeed, setIsLoading } from "../slices/recommendationsSlice";
-
+import UserNotRegistered from './UserNotRegistered';
 const spotify = {
+  register: async (data, dispatch) => {
+    talkToSpotify({
+      method: "POST",
+      endpoint: `/register`,
+      data: data,
+      dispatch: dispatch,
+    })
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  },
+
+  /**
+   *
+   * @param {*} data
+   * @param {*} dispatch
+   */
+  unload: async (data, dispatch) => {
+    talkToSpotify({
+      method: "DELETE",
+      endpoint: `/unload`,
+      data: data,
+      dispatch: dispatch,
+    })
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  },
+
   /**
    *
    * @param {*} user
@@ -29,7 +65,12 @@ const spotify = {
         );
       })
       .catch((error) => {
-        console.log(error);
+        if (error instanceof UserNotRegistered) {
+          // Dispatch modal for
+          dispatch(setIsOpen(true));
+        } else {
+          console.log(error);
+        }
       });
   },
 

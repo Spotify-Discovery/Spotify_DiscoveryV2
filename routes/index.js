@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 const { searchById } = require('./searchById.js');
+const { handleError } = require('../helpers/handleError.js')
 
 const auth = require('./auth.js');
 const user = require('./user.js');
@@ -10,6 +11,7 @@ const related = require('./related.js');
 const artist = require('./artist.js');
 const search = require('./search.js');
 const album = require('./album.js');
+
 
 const SPOTIFY_BASE = 'https://api.spotify.com/v1/';
 
@@ -21,5 +23,6 @@ router.use('/related', related);
 router.use('/artist', artist);
 router.use('/search', search);
 router.use('/album', album);
+router.use(handleError)
 
 module.exports = router;

@@ -7,7 +7,7 @@ const { searchById, getNullPreviews } = require('./searchById.js')
 
 const SPOTIFY_BASE = 'https://api.spotify.com/v1/';
 
-router.get(':track_id?', (req, res) => {
+router.get(':track_id?', (req, res, next) => {
 
   const access_token = req.cookies.access_token;
   const track_id = req.query.track_id;
@@ -35,9 +35,7 @@ router.get(':track_id?', (req, res) => {
     })
 
   })
-  .catch((err) => {
-    console.log(err);
-  })
+  .catch(next)
 })
 
 module.exports = router;

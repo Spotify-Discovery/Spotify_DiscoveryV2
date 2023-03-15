@@ -6,6 +6,7 @@ import songPreviewReducer from './slices/songPreviewSlice';
 import searchResultsReducer from './slices/searchResultsSlice';
 import recommendationsReducer from './slices/recommendationsSlice';
 import contextMenuReducer from './slices/contextMenuSlice';
+import modalReducer from './slices/modalSlice';
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     searchResults: searchResultsReducer,
     recommendations: recommendationsReducer,
     contextMenu: contextMenuReducer,
+    modal: modalReducer
   }
 });
 
