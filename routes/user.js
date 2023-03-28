@@ -31,6 +31,23 @@ router.get('/', (req, res) => {
 });
 
 /**
+ *  
+  // .then((result) => {
+  //   console.log(result.data);
+  //   Promise.all(
+  //     result.data.items.map((track, i) => {
+  //       if (track.preview_url === null) {
+  //         console.log('preview', track.preview_url, i)
+  //         return getNullPreviews(track, access_token)
+  //           .then((updatedUrl) => {
+  //             // console.log("updated Url", updatedUrl, i);
+  //             track.preview_url = updatedUrl;
+  //             return track;
+  //           })
+  //       }
+  //       return track;
+  //     })
+  //   )
  *
  */
 router.get('/topTracks:time_range?', (req, res) => {
@@ -43,31 +60,15 @@ router.get('/topTracks:time_range?', (req, res) => {
     }
   })
   .then((result) => {
-    console.log(result.data);
-    Promise.all(
-      result.data.items.map((track, i) => {
-        if (track.preview_url === null) {
-          console.log('preview', track.preview_url, i)
-          return getNullPreviews(track, access_token)
-            .then((updatedUrl) => {
-              // console.log("updated Url", updatedUrl, i);
-              track.preview_url = updatedUrl;
-              return track;
-            })
-        }
-        return track;
-      })
-    ).then((result) => {
-      res.send(result);
-    })
-
+    res.send(result.data.items);
   })
   .catch(error => {
-    if (error.response.status === 401) {
-      res.status(401).send();
-    } else {
-      res.status(500).send('Spotify responded with a status ' + error.response.status);
-    }
+    console.log(error);
+    // if (error.response.status === 401) {
+    //   res.status(401).send();
+    // } else {
+    //   res.status(500).send('Spotify responded with a status ' + error.response.status);
+    // }
   })
 });
 

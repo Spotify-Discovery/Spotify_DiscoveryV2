@@ -3,7 +3,10 @@ import FeedInstanceEntry from "./FeedInstanceEntry.jsx";
 import RelatedArtistsEntry from "./RelatedArtistsEntry.jsx";
 import AlbumEntry from "./AlbumEntry.jsx";
 
+const { useState, useEffect } = React;
+
 const ArtistDetailsInstance = ({ instance }) => {
+
   return (
     <div>
       <div className="rec-head-container">
@@ -39,16 +42,50 @@ const ArtistDetailsInstance = ({ instance }) => {
             </div>
           </div>
 
+          { instance.albums.length > 0 && (
           <div className="sub-wrapper">
             <div className="feed-subheaders">
               <div className="sub-head-text">Albums</div>
             </div>
             <div className="feed-instance sub-instance">
               {instance.albums.map((album) => {
-                return <AlbumEntry album={album} />;
+                if (album.album_group === "album") {
+                  return <AlbumEntry album={album} type={album.album_group} />;
+                }
               })}
             </div>
           </div>
+          )}
+
+          { instance.singles.length > 0 && (
+          <div className="sub-wrapper">
+            <div className="feed-subheaders">
+              <div className="sub-head-text">Singles</div>
+            </div>
+            <div className="feed-instance sub-instance">
+              {instance.singles.map((album) => {
+                if (album.album_group === "single") {
+                  return <AlbumEntry album={album} type={album.album_group} />;
+                }
+              })}
+            </div>
+          </div>
+          )}
+
+          {instance.appearsOn.length > 0 && (
+          <div className="sub-wrapper">
+            <div className="feed-subheaders">
+              <div className="sub-head-text">Appears On</div>
+            </div>
+            <div className="feed-instance sub-instance">
+              {instance.appearsOn.map((album) => {
+                if (album.album_group === "appears_on") {
+                  return <AlbumEntry album={album} type={album.album_group} />;
+                }
+              })}
+            </div>
+          </div>
+          )}
         </div>
 
         <div className="related-artists-container">
@@ -58,12 +95,11 @@ const ArtistDetailsInstance = ({ instance }) => {
             </div>
             <div className="feed-instance sub-instance">
               {instance.relatedArtists.map((artist) => {
-                return <RelatedArtistsEntry artist={artist}/>;
+                return <RelatedArtistsEntry artist={artist} />;
               })}
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );

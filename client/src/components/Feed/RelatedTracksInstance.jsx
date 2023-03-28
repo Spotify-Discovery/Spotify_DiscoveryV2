@@ -27,8 +27,7 @@ const RelatedTracksInstance = ({instance}) => {
             </div>
           </div>
 
-          <div style={{
-            color: '#1DB954',
+          <div className="recommended-text" style={{
             fontSize: '12px',
             fontWeight: 'bold',
           }}>

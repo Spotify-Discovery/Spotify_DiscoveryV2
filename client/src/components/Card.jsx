@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setSong } from "../slices/songPreviewSlice.js";
+import { setSong, toggleLoading } from "../slices/songPreviewSlice.js";
 import { setContextMenuClicked, setContextMenuPosition } from "../slices/contextMenuSlice.js";
 import spotify from "../helpers/spotify.js";
 import { motion } from "framer-motion"
@@ -58,7 +58,21 @@ const Card = ({ type, datum }) => {
     if (isArtists) {
       dispatch(setSong(datum.track));
     } else {
-      dispatch(setSong(datum));
+      if (datum.preview_url) {
+        dispatch(setSong(datum));
+      } else {
+        console.log('no preview url', datum.preview_url)
+        spotify.getPreview(user, dispatch, datum)
+        .then((data) => {
+          console.log("preview data:", data);
+          console.log('is hovered', isHovered)
+          dispatch(toggleLoading(false));
+          dispatch(setSong({...datum, preview_url: data}));
+          
+
+        });
+
+      }
     }
   };
 
@@ -66,12 +80,13 @@ const Card = ({ type, datum }) => {
    *
    */
   const handleMouseLeave = () => {
+    dispatch(toggleLoading(false));
     dispatch(setSong({}));
   };
 
   const getAnimation = () => {
     if (isHovered && elemRef.current.clientWidth >= 165) {
-      return { x: [0, -elemRef.current.clientWidth + 155, 0] }
+      return { x: [0, -elemRef.current.clientWidth + 155, -elemRef.current.clientWidth + 155, 0] }
     } else {
       return {}
     }
@@ -83,70 +98,74 @@ const Card = ({ type, datum }) => {
     ease: 'linear'
     }
   }
-
-  return (
-    <div
-      className="card-container"
-
-      onContextMenu={(e) => {
-        e.preventDefault();
-        dispatch(setContextMenuClicked(true));
-        dispatch(setContextMenuPosition({ x: e.pageX, y: e.pageY }));
-        console.log('right click', e.pageX, e.pageY);
-      }}
-
-      onMouseEnter={() => {
-        setIsHovered(true);
-        handleMouseEnter();
-      }}
-      onMouseLeave={() => {
-        setIsHovered(false);
-        handleMouseLeave();
-      }}
-      onClick={() => {
-        dispatch(setSong({}));
-        if (isArtists) {
-          spotify.getArtistDetails(user, dispatch, datum)
-        } else {
-          spotify.getRelated(user, dispatch, datum);
-        }
-      }}
-      >
-
+  
+  if (name) {
+    return (
       <div
-        className="card-background"
-        style={{
-          backgroundImage: `url(${image?.url})`,
-          borderRadius: isArtists ? "50%" : "0%",
+        className="card-container"
+  
+        // onContextMenu={(e) => {
+        //   e.preventDefault();
+        //   dispatch(setContextMenuClicked(true));
+        //   dispatch(setContextMenuPosition({ x: e.pageX, y: e.pageY }));
+        //   console.log('right click', e.pageX, e.pageY);
+        // }}
+  
+        onMouseEnter={() => {
+          setIsHovered(true)
+          handleMouseEnter();
+        }}
+        onMouseLeave={() => {
+          setIsHovered(false);
+          handleMouseLeave();
+        }}
+        onClick={() => {
+          dispatch(setSong({}));
+          if (isArtists) {
+            spotify.getArtistDetails(user, dispatch, datum)
+          } else {
+            spotify.getRelated(user, dispatch, datum);
+          }
         }}
         >
-        <div className="black-filter"></div>
-      </div>
-
-      <div className="item-info">
-        <motion.div className="item-name-container" data-is-hovered={isHovered}>
-          {!isArtists && <div className="shadow-scroll"></div>}
-          <motion.div
-            ref={elemRef}
-            className={`item-name ${isArtists ? "artist-name" : ""}`}
-            animate={getAnimation}
-            transition={{
-              duration: elemRef.current && isHovered ?
-              (elemRef.current.clientWidth - 165) / 10 : 0,
-              ease: 'linear',
-              delay: 0.3
-            }}
-            >
-            {name}
+  
+        <div
+          className="card-background"
+          style={{
+            backgroundImage: `url(${image?.url})`,
+            borderRadius: isArtists ? "50%" : "0%",
+          }}
+          >
+          <div className="black-filter"></div>
+        </div>
+  
+        <div className="item-info">
+          <motion.div className="item-name-container" data-is-hovered={isHovered}>
+            {(!isArtists && name.length > 19) && <div className="shadow-scroll"></div>}
+            <motion.div
+              ref={elemRef}
+              className={`item-name ${isArtists ? "artist-name" : ""}`}
+              animate={getAnimation}
+              transition={{
+                duration: elemRef.current && isHovered ?
+                (elemRef.current.clientWidth - 165) / 10 : 0,
+                ease: 'linear',
+                repeat: Infinity,
+                delay: 3,
+                repeatDelay: 3
+              }}
+              >
+              {name}
+            </motion.div>
           </motion.div>
-        </motion.div>
-        <div className="item-details">{details}</div>
-        <div className="item-popularity">
-          Popularity {popularity}
+          <div className="item-details">{details}</div>
+          <div className="item-popularity">
+            Popularity {popularity}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default Card;

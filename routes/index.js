@@ -10,6 +10,7 @@ const related = require('./related.js');
 const artist = require('./artist.js');
 const search = require('./search.js');
 const album = require('./album.js');
+const preview = require('./preview.js');
 
 const SPOTIFY_BASE = 'https://api.spotify.com/v1/';
 
@@ -21,5 +22,6 @@ router.use('/related', related);
 router.use('/artist', artist);
 router.use('/search', search);
 router.use('/album', album);
+router.use('/preview', preview);
 
 module.exports = router;

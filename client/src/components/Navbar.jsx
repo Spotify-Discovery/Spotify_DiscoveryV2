@@ -92,7 +92,7 @@ const Navbar = () => {
   return (
     <>
       <div className="nav-container">
-        <div className="title-home">Discover<span id="spotify-title">Spotify</span></div>
+        <div className="title-home">Rhyth<span id="spotify-title">monica</span></div>
 
         <div className="nav-search-logout">
           <input autoComplete="off" id="search-bar" placeholder="Search Artists or Songs..." value={query} onChange={e => setQuery(e.target.value)}></input>

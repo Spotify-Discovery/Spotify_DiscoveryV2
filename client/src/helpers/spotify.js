@@ -4,6 +4,8 @@ import { setUserData, setTopTracks, setTopArtists } from "../slices/userSlice";
 
 import { addToFeed, setIsLoading } from "../slices/recommendationsSlice";
 
+import { toggleLoading, setSong } from "../slices/songPreviewSlice";
+
 const spotify = {
   /**
    *
@@ -136,7 +138,9 @@ const spotify = {
           addToFeed({
             type: "ARTIST",
             relatedTo: artist,
-            albums: data.albums,
+            albums: data.albums.filter((album) => album.album_type === "album"),
+            singles: data.albums.filter((album) => album.album_type === "single"),
+            appearsOn: data.albums.filter((album) => album.album_type === "appears_on"),
             relatedArtists: data.relatedArtists,
             topTracks: data.topTracks,
           })
@@ -167,6 +171,20 @@ const spotify = {
         })
       );
     });
+  },
+
+  getPreview: (user, dispatch, track) => {
+    dispatch(toggleLoading(true));
+    return talkToSpotify({
+      method: "GET",
+      endpoint: "/preview",
+      user: user,
+      dispatch: dispatch,
+      query: { 
+        artistName: track.artists[0].name,
+        trackName: track.name,
+        albumName: track.album.name, },
+    })
   },
 };
 export default spotify;

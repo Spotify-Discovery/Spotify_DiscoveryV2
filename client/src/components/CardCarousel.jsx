@@ -107,21 +107,20 @@ const CardCarousel = ({type}) => {
 
   return (
     <div>
-      <div className="header-container">
+      <div className="time-range-container">
         <div
-          className="time-range"
-          style={getTimeRangeStyle('short_term')}
+          className={`time-range ${timeRange === 'short_term' ? 'time-range-focused' : ''}`}
           onClick={() => {setTimeRange('short_term')}}>
             Last Month
         </div>
         <div
-          className="time-range"
+          className={`time-range ${timeRange === 'medium_term' ? 'time-range-focused' : ''}`}
           style={getTimeRangeStyle('medium_term')}
           onClick={() => {setTimeRange('medium_term')}}>
             Last 6 Months
         </div>
         <div
-          className="time-range"
+          className={`time-range ${timeRange === 'long_term' ? 'time-range-focused' : ''}`}
           style={getTimeRangeStyle('long_term')}
           onClick={() => {setTimeRange('long_term')}}>
             All Time

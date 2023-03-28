@@ -2,17 +2,32 @@
   font-family: 'Roboto', sans-serif;
 }
 
+// body {
+//   background-color: var(--main-bg-color);
+//   --background-secondary: #343434;
+//   --background-tertiary: #4e4e4e;
+//   --main-bg-color: #1b1b1b;
+//   --dark-bg-color: #0e0e0e;
+//   --dark2-bg-color: #181818;
+//   --text-color: #f1f1f1;
+//   --accent-color: #ff9900;
+//   --infrared-color: #ff496c;
+//   --spotify-green: #1DB954;
+// }
+
 body {
   background-color: var(--main-bg-color);
-  --background-secondary: #343434;
+  --background-secondary: #0e0e0e;
   --background-tertiary: #4e4e4e;
-  --main-bg-color: #1b1b1b;
+  --main-bg-color: #23262b;
+  // --main-bg-color: #1b1b1b;
   --dark-bg-color: #0e0e0e;
-  --dark2-bg-color: #181818;
+  --dark2-bg-color: #5C636E;
+  // 181818
   --text-color: #f1f1f1;
   --accent-color: #ff9900;
   --infrared-color: #ff496c;
-  --spotify-green: #1DB954;
+  --spotify-green: #F96D00;
 }
 
 ::-webkit-scrollbar {
@@ -185,6 +200,9 @@ body {
 .nav-container {
   display: flex;
   justify-content: space-between;
+  width: 70%;
+  margin: auto;
+  max-width: 1295px;;
 }
 
 .title {
@@ -248,10 +266,30 @@ body {
   align-items: baseline;
 }
 
+.focused {
+  color: var(--spotify-green) !important;
+}
+
+.time-range-container {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+
 .time-range {
+  transition: 0.5s ease-in-out;
   color: var(--text-color);
+  font-size: 14px;
+  background-color: var(--background-secondary);
+  padding: 10px;
+  border-radius: 20px;
   opacity: 0.3;
   cursor: pointer;
+}
+
+.time-range-focused {
+  opacity: 1;
 }
 
 .card-background {
@@ -358,7 +396,7 @@ body {
 
 .gallery-leftPointer {
   position: absolute;
-  top: 46%;
+  top: 68%;
   transform: translate(0, -50%);
   left: -50px;
   text-shadow: 0 0 2px var(--main-bg-color);
@@ -377,7 +415,7 @@ body {
 
 .gallery-rightPointer {
   position: absolute;
-  top: 46%;
+  top: 68%;
   transform: translate(0, -50%);
   right: -50px;
   text-shadow: 0 0 2px var(--main-bg-color);
@@ -425,8 +463,9 @@ body {
 }
 
 .top-header {
+  transition: 0.5s ease-in-out;
   cursor: pointer;
-  opacity: 0.5;
+  opacity: 1;
   font-size: 30px;
   color: var(--text-color);
 }
@@ -514,7 +553,11 @@ body {
 }
 
 .card-container:hover .shadow-scroll {
-  opacity: 1;
+  opacity: 0;
+}
+
+.recommended-text {
+  color: var(--spotify-green);
 }
 
 .card-container:hover {
@@ -612,7 +655,7 @@ body {
 }
 
 .sub-instance {
-  margin-top: 35px;
+  // margin-top: 35px;
 }
 
 
@@ -825,13 +868,13 @@ body {
   font-size: 14px;
   font-weight: bold;
   color: var(--text-color);
-  position: absolute;
+  // position: absolute;
   z-index: 5;
-  background-color: var(--dark-bg-color);
-  top: 0;
-  left: 0;
+  /* background-color: var(--dark2-bg-color); */
+  /* top: 0; */
+  /* left: 0; */
   width: calc(100% - 10px);
-  padding: 10px 0px 10px 10px;
+  /* padding: 10px 0px 10px 10px; */
   border-radius: 20px 20px 0 0;
 }
 
@@ -839,8 +882,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background-color: var(--main-bg-color);
-  padding: 20px;
+  /* background-color: var(--main-bg-color); */
+  /* padding: 20px; */
   border-radius: 20px;
   position: relative;
 }
@@ -867,8 +910,7 @@ body {
 }
 
 .sub-head-text {
-  margin-left: 10px;
-  opacity: 0.7;
+  opacity: 1;
 }
 
 .album-instance-artwork {

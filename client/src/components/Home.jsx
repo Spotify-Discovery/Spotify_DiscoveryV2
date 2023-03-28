@@ -21,7 +21,7 @@ const Home = ({handleSearch, handleViewChange}) => {
       return (
         {
           opacity: 1,
-          color: '#1DB954',
+          color: '#F96D00',
         }
       )
     }
@@ -71,13 +71,12 @@ const Home = ({handleSearch, handleViewChange}) => {
           </div>
         }
         <div className="header-container">
-          <div className="top-header"
+          <div className={`top-header ${currentList === 'ARTISTS' ? 'focused' : ''}`}
             onClick={() => {setCurrentList('ARTISTS')}}
-            style={getHeaderStyle('ARTISTS')}
             >Top Artists</div>
-          <div className="top-header"
+          <div className={`top-header ${currentList === 'TRACKS' ? 'focused' : ''}`}
             onClick={() => {setCurrentList('TRACKS')}}
-            style={getHeaderStyle('TRACKS')}>
+            >
             Top Tracks</div>
           </div>
 

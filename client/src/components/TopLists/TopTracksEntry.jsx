@@ -2,7 +2,7 @@ import React from "react";
 import spotify from "../../helpers/spotify.js";
 import { useSelector, useDispatch } from "react-redux";
 import { setSong } from "../../slices/songPreviewSlice.js";
-import { motion } from "framer-motion"
+import { motion, useAnimationControls } from "framer-motion"
 
 const { useRef, useEffect, useState } = React;
 
@@ -12,6 +12,7 @@ const TopTracksEntry = ({ track }) => {
   const recommendations = useSelector((state) => state.recommendations);
   const dispatch = useDispatch();
   const [isHovered, setIsHovered] = useState(false);
+  const animation = useAnimationControls();
 
   const elemRef = useRef();
 
@@ -32,14 +33,27 @@ const TopTracksEntry = ({ track }) => {
     dispatch(setSong({}));
   };
 
-
-  const getAnimation = () => {
+  async function getAnimation() {
     if (isHovered && elemRef.current.clientWidth >= 165) {
-      return { x: [0, -elemRef.current.clientWidth + 155, 0] }
+      // await animation.start({x: 0})
+      // await animation.start({
+      //   x: -elemRef.current.clientWidth + 155,
+      //   transition: {delay: 5, duration: (elemRef.current.clientWidth - 165) / 10}
+      // })
+      // await animation.start({x: 0, transition: {delay: 5, duration: (elemRef.current.clientWidth - 165) / 10}})
     } else {
       return {}
     }
   }
+
+
+  // const getAnimation = () => {
+  //   if (isHovered && elemRef.current.clientWidth >= 165) {
+  //     return { x: [0, -elemRef.current.clientWidth + 155, -elemRef.current.clientWidth + 155, 0] }
+  //   } else {
+  //     return {}
+  //   }
+  // }
 
   const getTransition = (width) => {
     return {
@@ -84,10 +98,11 @@ const TopTracksEntry = ({ track }) => {
               className="item-name"
               animate={getAnimation}
               transition={{
-                duration: elemRef.current && isHovered ?
-                (elemRef.current.clientWidth - 165) / 10 : 0,
-                ease: 'linear',
-                delay: 0.3
+                // duration: elemRef.current && isHovered ?
+                // (elemRef.current.clientWidth - 165) / 10 : 0,
+                // ease: 'linear',
+                repeat: Infinity,
+                // delay: 0.3
               }}
               >
                 {track.name}

@@ -5,13 +5,18 @@ const mediaPlayer = new Audio();
 mediaPlayer.volume = 0.5;
 
 const initialState = {
-  song: {}
+  song: {},
+  isLoading: false
 }
 
 export const songPreviewSlice = createSlice({
   name: 'songPreviewSlice',
   initialState,
   reducers: {
+    toggleLoading: (state, data) => {
+      state.isLoading = data.payload;
+    },
+
     setSong: (state, data) => {
       // console.log(data.payload)
       if (data.payload.type === 'FROM_ALBUM') {
@@ -44,6 +49,6 @@ export const songPreviewSlice = createSlice({
   }
 });
 
-export const { setSong, playSong, pauseSong } = songPreviewSlice.actions;
+export const { setSong, playSong, pauseSong, toggleLoading } = songPreviewSlice.actions;
 
 export default songPreviewSlice.reducer;
