@@ -13,6 +13,7 @@ const initialState = {
   product: '',
   topArtists: [],
   topTracks: [],
+  history: [],
   settings: localStorage.getItem('user_settings') ? JSON.parse(localStorage.getItem('user_settings')) : initialUserSettings
 }
 
@@ -22,7 +23,6 @@ export const userSlice = createSlice({
   reducers: {
     setToken: (state, data) => {
       // Store refresh token in localStorage and in state
-
       localStorage.setItem('refresh_token', data.payload);
       state.refresh_token = data.payload;
     },
@@ -51,10 +51,13 @@ export const userSlice = createSlice({
       let userSettings = JSON.stringify(state.settings);
       localStorage.setItem('user_settings', userSettings);
       state.settings.autoPlayPreviews = data.payload;
+    },
+    addToHistory: (state, data) => {
+      state.history.push(data.payload);
     }
   }
 });
 
-export const { setToken, setUserData, setTopTracks, setTopArtists, setUserSettings, setAutoPlayPreviews } = userSlice.actions;
+export const { setToken, setUserData, setTopTracks, setTopArtists, setUserSettings, setAutoPlayPreviews, addToHistory } = userSlice.actions;
 
 export default userSlice.reducer;

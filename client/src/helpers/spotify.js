@@ -1,6 +1,6 @@
 import talkToSpotify from "./talkToSpotify";
 
-import { setUserData, setTopTracks, setTopArtists } from "../slices/userSlice";
+import { setUserData, setTopTracks, setTopArtists, addToHistory } from "../slices/userSlice";
 
 import { addToFeed, setIsLoading } from "../slices/recommendationsSlice";
 
@@ -95,6 +95,7 @@ const spotify = {
    */
   getRelated: (user, dispatch, track, album) => {
     dispatch(setIsLoading(true));
+    dispatch(addToHistory(track));
     console.log("get related");
     talkToSpotify({
       method: "GET",

@@ -36,7 +36,8 @@ module.exports.getNullPreviews = (track, access_token) => {
     }
   ).then((response) => {
     // console.log('got res from searchById');
-    return response.data.tracks.items[0].preview_url;
+    console.log(response.data.tracks)
+    if (response.data.tracks.items[0]) return response.data.tracks.items[0].preview_url;
   })
 }
 

@@ -6,6 +6,7 @@ import ArtistDetailsInstance from './Feed/ArtistDetailsInstance.jsx';
 import AlbumInstance from './Feed/AlbumInstance.jsx';
 import { useSelector, useDispatch } from 'react-redux';
 import spotify from '../helpers/spotify';
+import HistoryContainer from './History/HistoryContainer.jsx';
 
 const {useRef, useState, useEffect} = React;
 
@@ -70,6 +71,7 @@ const Home = ({handleSearch, handleViewChange}) => {
             </div>
           </div>
         }
+        <HistoryContainer />
         <div className="header-container">
           <div className={`top-header ${currentList === 'ARTISTS' ? 'focused' : ''}`}
             onClick={() => {setCurrentList('ARTISTS')}}
