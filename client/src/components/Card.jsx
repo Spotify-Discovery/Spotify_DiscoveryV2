@@ -19,9 +19,10 @@ const Card = ({ type, datum }) => {
   const recommendations = useSelector((state) => state.recommendations);
   const dispatch = useDispatch();
 
-  const isArtists = type === "ARTISTS";
+  const isArtists = type === "topArtists";
 
   useEffect(() => {
+    console.log('datum', datum)
     if (isArtists) {
       setImage(datum.images[1]);
       setName(datum.name);
@@ -68,10 +69,7 @@ const Card = ({ type, datum }) => {
           console.log('is hovered', isHovered)
           dispatch(toggleLoading(false));
           dispatch(setSong({...datum, preview_url: data}));
-          
-
         });
-
       }
     }
   };

@@ -91,6 +91,6 @@ module.exports.searchByTrackName = (track, albumName, access_token) => {
     }
   ).then((response) => {
     // console.log('got res from searchById');
-    return response.data.tracks.items[0].preview_url;
+    if (response.data.tracks.items[0]) return response.data.tracks.items[0].preview_url;
   })
 }

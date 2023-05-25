@@ -11,8 +11,16 @@ const initialState = {
   market: '',
   user_id: '',
   product: '',
-  topArtists: [],
-  topTracks: [],
+  topArtists: {
+    short_term: [],
+    medium_term: [],
+    long_term: []
+  },
+  topTracks: {
+    short_term: [],
+    medium_term: [],
+    long_term: []
+  },
   history: [],
   settings: localStorage.getItem('user_settings') ? JSON.parse(localStorage.getItem('user_settings')) : initialUserSettings
 }
@@ -34,10 +42,10 @@ export const userSlice = createSlice({
       state.user_id = data.payload.user_id;
     },
     setTopTracks: (state, data) => {
-      state.topTracks = data.payload.topTracks;
+      state.topTracks[data.payload.timeRange] = data.payload.topTracks;
     },
     setTopArtists: (state, data) => {
-      state.topArtists = data.payload.topArtists;
+      state.topArtists[[data.payload.timeRange]] = data.payload.topArtists;
     },
     setUserSettings: (state, data) => {
       console.log(data.payload)

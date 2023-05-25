@@ -9,7 +9,7 @@ router.get(':q?:type?', (req, res) => {
   const access_token = req.cookies.access_token;
   const q = req.query.q;
   const type = req.query.type || 'track,artist';
-  axios.get(`${SPOTIFY_BASE}search?q=${q}&type=${type}&limit=5&market=US`, {
+  axios.get(`${SPOTIFY_BASE}search?q=${q}&type=${type}&limit=10&market=US`, {
     headers: {
       "Authorization": `Bearer ${access_token}`
     }

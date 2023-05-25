@@ -42,7 +42,7 @@ const spotify = {
    * @param {*} timeRange
    */
   getTopTracks: async (user, dispatch, timeRange = "short_term") => {
-    talkToSpotify({
+    return talkToSpotify({
       method: "GET",
       endpoint: `/user/topTracks`,
       user: user,
@@ -52,6 +52,7 @@ const spotify = {
       .then((data) => {
         dispatch(
           setTopTracks({
+            timeRange: timeRange,
             topTracks: data,
           })
         );
@@ -68,7 +69,7 @@ const spotify = {
    * @param {*} timeRange
    */
   getTopArtists: async (user, dispatch, timeRange = "short_term") => {
-    talkToSpotify({
+    return talkToSpotify({
       method: "GET",
       endpoint: `/user/topArtists`,
       user: user,
@@ -76,8 +77,10 @@ const spotify = {
       query: { time_range: timeRange },
     })
       .then((data) => {
-        dispatch(
+        console.log("top artists", data);
+        return dispatch(
           setTopArtists({
+            timeRange: timeRange,
             topArtists: data,
           })
         );
@@ -184,9 +187,23 @@ const spotify = {
       query: { 
         artistName: track.artists[0].name,
         trackName: track.name,
-        albumName: track.album.name, },
+        albumName: track.album.name, 
+      }
     })
   },
+
+  getPreviewForArtist: (user, dispatch, artist) => {
+    dispatch(toggleLoading(true));
+    return talkToSpotify({
+      method: "GET",
+      endpoint: "/preview/artist",
+      user: user,
+      dispatch: dispatch,
+      query: { 
+        artistID: artist.id,
+      }
+    })
+  }
 };
 export default spotify;
 

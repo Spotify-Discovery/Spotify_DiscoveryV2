@@ -4,7 +4,6 @@ import Home from './components/Home.jsx'
 import WebPlayer from './components/WebPlayer.jsx'
 import Navbar from './components/Navbar.jsx'
 import ContextMenu from "./components/ContextMenu.jsx";
-import SearchResults from './components/SearchResults.jsx'
 import "./styles.scss";
 
 import spotify from './helpers/spotify'
@@ -59,8 +58,6 @@ const App = () => {
         return <Login />;
       case 'Home':
         return <Home />
-      case 'SearchResults':
-        return <SearchResults />
       default:
         return <div>404</div>;
     }

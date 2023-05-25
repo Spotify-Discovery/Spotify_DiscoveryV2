@@ -783,32 +783,6 @@ body {
   opacity: 0.7;
 }
 
-.track-result {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: var(--background-secondary);
-  color: var(--text-color);
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-
-.track-result-img {
-  width: 32px;
-  height: 32px;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.track-result-text {
-  display: flex;
-  flex-direction: column;
-}
-
 .logout-button {
   top: 10px;
   right: 10px;
@@ -950,8 +924,10 @@ body {
 .album-track-container {
   background-color: var(--dark2-bg-color);
   padding: 10px;
-  border-bottom: solid 2px rgba(100, 100, 100, 0.5);
+  border-bottom: solid 2px var(--background-secondary);
   width: 90%;
+  cursor: pointer;
+  color: var(--text-color);
 }
 
 .artwork-name-container {
@@ -960,11 +936,16 @@ body {
   gap: 10px;
 }
 
-.album-track-entry {
-  color: var(--text-color);
-}
+// .album-track-entry {
+  
+// }
+
+// .album-track-entry:hover {
+  
+// }
 
 .album-track-container:hover {
+  color: var(--spotify-green);
   background-color: var(--dark-bg-color);
 }
 
@@ -992,4 +973,76 @@ body {
   align-items: flex-start;
   height: 105px;
   overflow-y: scroll;
+}
+
+.search-items-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: 100%;
+}
+
+.search-container {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.search-results-container {
+  margin-top: 5px;
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.track-result {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--background-secondary);
+  color: var(--text-color);
+  cursor: pointer;
+  width: fit-content;
+}
+
+.track-result-img {
+  width: 32px;
+  height: 32px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.track-result-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.track-result-name {
+  font-weight: bold;
+}
+
+.artist-result {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--background-secondary);
+  color: var(--text-color);
+  cursor: pointer;
+  width: fit-content;
+}
+
+.artist-result-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50px;
 }
