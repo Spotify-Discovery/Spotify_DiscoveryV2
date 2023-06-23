@@ -49,13 +49,19 @@ body {
 #search-bar {
   border-radius: 30px;
   border: none;
-  padding: 10px;
-  width: 66%;
+  padding: 12px;
+  width: 325px;
   height: 10px;
   font-size: 20px;
   color: var(--text-color);
-  background-color: var(--background-tertiary);
+  background-color: var(--dark2-bg-color);
   transition: 0.1s;
+  
+}
+
+#search-bar::placeholder {
+  color: var(--background-secondary);
+  opacity: 0.7;
 }
 
 #search-bar:focus {
@@ -64,8 +70,6 @@ body {
 }
 
 #settings-hamburger {
-  margin-left: 5px;
-  padding: 20px;
   color:var(--spotify-green);
   background-color: var(--main-bg-color);
   cursor: pointer;
@@ -118,14 +122,12 @@ body {
   font-weight: bold;
   font-size: 36px;
   color: var(--text-color);
-  flex: 1;
 }
 
 .nav-search-logout {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex: 1;
 }
 
 .head-container {
@@ -200,9 +202,9 @@ body {
 .nav-container {
   display: flex;
   justify-content: space-between;
-  width: 70%;
   margin: auto;
-  max-width: 1295px;;
+  max-width: 850px;
+  align-items: baseline;
 }
 
 .title {
@@ -263,7 +265,7 @@ body {
   margin-top: 10px;
   display: flex;
   gap: 20px;
-  align-items: baseline;
+  align-items: center;
 }
 
 .focused {
@@ -323,8 +325,9 @@ body {
   gap: 10px;
   display: flex;
   flex-direction: column;
-  transition: 0.3s;
+  transition: ease-out 0.5s;
   justify-content: space-between;
+  cursor: pointer;
 }
 
 .top-tracks {
@@ -688,6 +691,17 @@ body {
   font-size: 14px;
 }
 
+.rec-artistname:hover {
+  color: var(--spotify-green);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.rec-genre {
+  color: var(--text-color);
+  font-size: 14px;
+}
+
 .rec-head-container {
   display: flex;
   gap: 10px;
@@ -823,12 +837,10 @@ body {
 
 .context-menu {
   position: absolute;
-  background-color: rgba(0, 0, 0);
+  background-color: var(--background-tertiary);
   box-sizing: border-box;
-}
-
-.context-menu ul {
-  padding: 0px;
+  border-radius: 0 25px 25px 25px;
+  filter: drop-shadow(0px 1px 2px 2px rgba(0,0,0,0.2));
 }
 
 .context-menu li {
@@ -928,6 +940,7 @@ body {
   width: 90%;
   cursor: pointer;
   color: var(--text-color);
+  transition: ease-out 0.3s;
 }
 
 .artwork-name-container {
@@ -952,7 +965,7 @@ body {
 #history {
   position: fixed;
   z-index: 1200;
-  top: 625px;
+  top: 665px;
   margin-left: 930px;
 }
 
@@ -1009,6 +1022,11 @@ body {
   color: var(--text-color);
   cursor: pointer;
   width: fit-content;
+  transition: ease-out 1.5s;
+}
+
+.track-result:hover {
+  background-color: var(--dark2-bg-color);
 }
 
 .track-result-img {
@@ -1039,10 +1057,113 @@ body {
   color: var(--text-color);
   cursor: pointer;
   width: fit-content;
+  transition: ease-out 1.5s;
+}
+
+.artist-result:hover {
+  background-color: var(--dark2-bg-color);
 }
 
 .artist-result-img {
   width: 32px;
   height: 32px;
   border-radius: 50px;
+}
+
+.open-spotify-button {
+  position: relative;
+  background-color: var(--background-secondary);
+  height: 40px;
+  width: 45px;
+  border-radius: 20px 0px 0px 20px
+}
+
+.feed-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  top: 0;
+  left: -35px;
+}
+
+.spotify-icon {
+  width: 23px;
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  cursor: pointer;
+}
+
+.open-icon {
+  width: 20px;
+  position: absolute;
+  top: 11px;
+  left: 11px;
+}
+
+.create-playlist-icon {
+  width: 20px;
+  position: absolute;
+  top: 11px;
+  left: 12px;
+}
+
+.icon-svg:hover {
+  fill: var(--spotify-green)
+}
+
+.icon-svg {
+  fill: var(--text-color);
+  transition: ease-out 0.3s;
+  cursor: pointer;
+}
+
+.context-menu-list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-tertiary);
+  overflow: hidden;
+  border-radius: 0 15px 15px;
+}
+
+.context-menu-item {
+  // border-bottom: var(--background-tertiary) 1px solid;
+  padding: 10px;
+  font-size: 14px;
+  transition: ease-out 0.3s;
+  white-space: nowrap;
+  color: inherit;
+  text-decoration: none;
+}
+
+.context-menu-item:hover {
+  color: var(--spotify-green);
+  background-color: var(--background-secondary);
+}
+
+.history-create-playlist {
+  background-color: var(--background-secondary);
+  height: 40px;
+  width: 45px;
+  border-radius: 0px 0px 20px 20px;
+  position: absolute;
+  bottom: -34px;
+  left: 0;
+}
+
+.no-preview {
+  position: fixed;
+  z-index: 1010;
+  top: 120px;
+  color: var(--spotify-green);
+  font-weight: bold;
+  font-size: 20px;
+  margin-left: 930px;
+}
+
+#clear-history-button {
+  left: 55px;
 }

@@ -22,7 +22,7 @@ const ArtistDetailsInstance = ({ instance }) => {
             <div className="recommended-header">{instance.relatedTo.name}</div>
 
             <div>
-              <div className="rec-artistname">
+              <div className="rec-genre">
                 {instance.relatedTo.genres[0]}
               </div>
             </div>
@@ -36,8 +36,8 @@ const ArtistDetailsInstance = ({ instance }) => {
               <div className="sub-head-text">Top Tracks</div>
             </div>
             <div className="feed-instance sub-instance">
-              {instance.topTracks.map((element) => {
-                return <FeedInstanceEntry element={element} />;
+              {instance.topTracks.map((element, i) => {
+                return <FeedInstanceEntry element={element} key={i}/>;
               })}
             </div>
           </div>
@@ -48,9 +48,9 @@ const ArtistDetailsInstance = ({ instance }) => {
               <div className="sub-head-text">Albums</div>
             </div>
             <div className="feed-instance sub-instance">
-              {instance.albums.map((album) => {
+              {instance.albums.map((album, i) => {
                 if (album.album_group === "album") {
-                  return <AlbumEntry album={album} type={album.album_group} />;
+                  return <AlbumEntry album={album} key={i} type={album.album_group} />;
                 }
               })}
             </div>
@@ -63,9 +63,9 @@ const ArtistDetailsInstance = ({ instance }) => {
               <div className="sub-head-text">Singles</div>
             </div>
             <div className="feed-instance sub-instance">
-              {instance.singles.map((album) => {
+              {instance.singles.map((album, i) => {
                 if (album.album_group === "single") {
-                  return <AlbumEntry album={album} type={album.album_group} />;
+                  return <AlbumEntry album={album} key={i} type={album.album_group} />;
                 }
               })}
             </div>
@@ -78,9 +78,9 @@ const ArtistDetailsInstance = ({ instance }) => {
               <div className="sub-head-text">Appears On</div>
             </div>
             <div className="feed-instance sub-instance">
-              {instance.appearsOn.map((album) => {
+              {instance.appearsOn.map((album, i) => {
                 if (album.album_group === "appears_on") {
-                  return <AlbumEntry album={album} type={album.album_group} />;
+                  return <AlbumEntry album={album} key={i} type={album.album_group} />;
                 }
               })}
             </div>
@@ -94,8 +94,8 @@ const ArtistDetailsInstance = ({ instance }) => {
               <div className="sub-head-text">Related Artists</div>
             </div>
             <div className="feed-instance sub-instance">
-              {instance.relatedArtists.map((artist) => {
-                return <RelatedArtistsEntry artist={artist} />;
+              {instance.relatedArtists.map((artist, i) => {
+                return <RelatedArtistsEntry artist={artist} key={i}/>;
               })}
             </div>
           </div>

@@ -28,7 +28,7 @@ module.exports.searchById = (array, access_token) => {
 module.exports.getNullPreviews = (track, access_token) => {
   var artistName = encodeURIComponent(track.artists[0].name);
   var trackName = encodeURIComponent(track.name);
-  return axios.get(`${SPOTIFY_BASE}search?q=${trackName}%20artist:${artistName}&type=track&limit=1`,
+  return axios.get(`${SPOTIFY_BASE}search?q=${trackName}%20artist:${artistName}&type=track&limit=1&market=US`,
     {
       headers: {
         "Authorization": `Bearer ${access_token}`

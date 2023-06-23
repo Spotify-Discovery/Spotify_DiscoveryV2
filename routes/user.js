@@ -94,6 +94,7 @@ router.get('/topArtists:time_range?', (req, res) => {
             return getNullPreviews(artist.track, access_token)
               .then((updatedUrl) => {
                 artist.track.preview_url = updatedUrl;
+                console.log('updatedUrl', updatedUrl, i)
                 return artist;
               })
           }

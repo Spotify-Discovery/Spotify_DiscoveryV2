@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSong, toggleLoading } from "../slices/songPreviewSlice.js";
-import { setContextMenuClicked, setContextMenuPosition } from "../slices/contextMenuSlice.js";
+import { setContextMenuClicked, setContextMenuPosition, setContextMenuItem } from "../slices/contextMenuSlice.js";
 import spotify from "../helpers/spotify.js";
 import { motion } from "framer-motion"
 
@@ -22,7 +22,6 @@ const Card = ({ type, datum }) => {
   const isArtists = type === "topArtists";
 
   useEffect(() => {
-    console.log('datum', datum)
     if (isArtists) {
       setImage(datum.images[1]);
       setName(datum.name);
@@ -65,8 +64,6 @@ const Card = ({ type, datum }) => {
         console.log('no preview url', datum.preview_url)
         spotify.getPreview(user, dispatch, datum)
         .then((data) => {
-          console.log("preview data:", data);
-          console.log('is hovered', isHovered)
           dispatch(toggleLoading(false));
           dispatch(setSong({...datum, preview_url: data}));
         });
@@ -102,12 +99,13 @@ const Card = ({ type, datum }) => {
       <div
         className="card-container"
   
-        // onContextMenu={(e) => {
-        //   e.preventDefault();
-        //   dispatch(setContextMenuClicked(true));
-        //   dispatch(setContextMenuPosition({ x: e.pageX, y: e.pageY }));
-        //   console.log('right click', e.pageX, e.pageY);
-        // }}
+        onContextMenu={(e) => {
+          e.preventDefault();
+          dispatch(setContextMenuItem({item: datum, type: isArtists ? 'artist' : 'track'}));
+          dispatch(setContextMenuClicked(true));
+          dispatch(setContextMenuPosition({ x: e.pageX, y: e.pageY }));
+          console.log('right click', e.pageX, e.pageY);
+        }}
   
         onMouseEnter={() => {
           setIsHovered(true)

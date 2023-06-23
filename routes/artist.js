@@ -111,6 +111,19 @@ router.get('/', (req, res) => {
   })
 });
 
+router.put('/follow', (req, res) => {
+  const access_token = req.cookies.access_token;
+  const artist_id = req.query.artist_id;
+
+  axios.put(`${SPOTIFY_BASE}me/following?type=artist&ids=${artist_id}`, {}, {
+    headers: {
+      "Authorization": `Bearer ${access_token}`
+    }
+  }).then((result) => {
+    res.send();
+  })
+})
+
 
 module.exports = router;
 

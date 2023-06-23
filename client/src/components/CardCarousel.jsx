@@ -11,13 +11,9 @@ const CardCarousel = ({ type }) => {
   const user = useSelector((state) => state.user);
   const [timeRange, setTimeRange] = useState("short_term");
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [data, setData] = useState(user.topArtists["short_term"]);
+  const [data, setData] = useState(user[type]["short_term"]);
 
-  let maxIndex = Math.floor(user.topArtists.length / 3);
-  if (maxIndex === 1) {
-    maxIndex = 0;
-  }
-
+  const [maxIndex, setMaxIndex] = useState(Math.floor(20 / 3));
   /**
    * Dispatches the top artists to the store based on state's timeRange
    */
@@ -68,6 +64,7 @@ const CardCarousel = ({ type }) => {
   // }, [type])
 
   useEffect(() => {
+    console.log('maxIndex', maxIndex)
     if (type === "topArtists") {
       if (user.topArtists[timeRange].length === 0) {
         dispatchTopArtists();

@@ -62,10 +62,13 @@ export const userSlice = createSlice({
     },
     addToHistory: (state, data) => {
       state.history.push(data.payload);
+    },
+    clearHistory: (state) => {
+      state.history = [];
     }
   }
 });
 
-export const { setToken, setUserData, setTopTracks, setTopArtists, setUserSettings, setAutoPlayPreviews, addToHistory } = userSlice.actions;
+export const { setToken, setUserData, setTopTracks, setTopArtists, setUserSettings, setAutoPlayPreviews, addToHistory, clearHistory } = userSlice.actions;
 
 export default userSlice.reducer;

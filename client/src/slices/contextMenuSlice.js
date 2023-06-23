@@ -5,7 +5,9 @@ const initialState = {
   coords: {
     x: 0,
     y: 0
-  }
+  },
+  item: {},
+  type: ''
 }
 
 export const contextMenuSlice = createSlice({
@@ -17,10 +19,14 @@ export const contextMenuSlice = createSlice({
     },
     setContextMenuPosition: (state, data) => {
       state.coords = data.payload;
+    },
+    setContextMenuItem: (state, data) => {
+      state.item = data.payload.item;
+      state.type = data.payload.type;
     }
   }
 });
 
-export const { setContextMenuClicked, setContextMenuPosition } = contextMenuSlice.actions;
+export const { setContextMenuClicked, setContextMenuPosition, setContextMenuItem } = contextMenuSlice.actions;
 
 export default contextMenuSlice.reducer;

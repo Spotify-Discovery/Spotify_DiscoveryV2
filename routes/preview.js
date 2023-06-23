@@ -26,8 +26,10 @@ const searchForTrack = (trackName, artistName, albumName, access_token) => {
       }
     )
     .then((response) => {
-      console.log(response.data.tracks.items[0].preview_url);
-      return response.data.tracks.items[0].preview_url;
+      if (response.data.tracks.items.length !== 0) {
+        return response.data.tracks.items[0].preview_url;
+      }
+      return null;
     });
 };
 

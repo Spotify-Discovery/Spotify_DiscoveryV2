@@ -127,6 +127,7 @@ const spotify = {
   getArtistDetails: (user, dispatch, artist) => {
     console.log("spot", artist);
     dispatch(setIsLoading(true));
+    
     talkToSpotify({
       method: "GET",
       endpoint: `/artist`,
@@ -137,6 +138,7 @@ const spotify = {
       .then((data) => {
         data.artist = artist;
         console.log("Artist data:", data);
+        dispatch(addToHistory(data.topTracks[0]));
         dispatch(setIsLoading(false));
         dispatch(
           addToFeed({
@@ -201,6 +203,33 @@ const spotify = {
       dispatch: dispatch,
       query: { 
         artistID: artist.id,
+      }
+    })
+  },
+
+  createPlaylist: (user, dispatch, tracks, relatedToName) => {
+    let uris = tracks.map((track) => track.uri).join(",");
+    return talkToSpotify({
+      method: "POST",
+      endpoint: "/playlist/create",
+      user: user,
+      dispatch: dispatch,
+      query: {
+        user_id: user.user_id,
+        trackUris: uris,
+        relatedToName: relatedToName,
+      }
+    })
+  },
+
+  followArtist: (user, dispatch, artist) => {
+    return talkToSpotify({
+      method: "PUT",
+      endpoint: "/artist/follow",
+      user: user,
+      dispatch: dispatch,
+      query: {
+        artist_id: artist.id,
       }
     })
   }

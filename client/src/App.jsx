@@ -2,7 +2,6 @@ import React from 'react';
 import Login from './components/Login.jsx'
 import Home from './components/Home.jsx'
 import WebPlayer from './components/WebPlayer.jsx'
-import Navbar from './components/Navbar.jsx'
 import ContextMenu from "./components/ContextMenu.jsx";
 import "./styles.scss";
 
@@ -66,10 +65,9 @@ const App = () => {
   return !refresh_token ? <Login /> : (
     <main>
       <div className="">
-        <Navbar />
         {renderView()}
         {/* <WebPlayer /> */}
-        {/* <ContextMenu /> */}
+        <ContextMenu />
       </div>
     </main>
   );

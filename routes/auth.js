@@ -25,7 +25,9 @@ const SCOPES = [
   'playlist-modify-private',
   'user-read-email',
   'user-read-private',
-  'user-top-read'
+  'user-top-read',
+  'ugc-image-upload',
+  'user-follow-modify',
 ];
 
 /**
